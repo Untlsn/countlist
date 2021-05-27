@@ -1,0 +1,1 @@
+export { actions as mini } from './ducks/mini';
