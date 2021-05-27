@@ -1,18 +1,21 @@
 const aliases = require('./aliases');
 
 module.exports = {
-  stories: [
-    '../src/**/*.stories.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)',
-    '../src/**/stories.mdx',
-    '../src/**/stories.@(js|jsx|ts|tsx)',
+  webpackFinal(config) {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: aliases,
+      },
+    };
+  },
+  'stories': [
+    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/**/stories.@(js|jsx|ts|tsx|mdx)',
   ],
-  addons: [
+  'addons': [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
   ],
-  webpackFinal: async (config) => ({
-    ...config,
-    ...aliases,
-  })
 };

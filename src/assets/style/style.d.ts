@@ -3,8 +3,9 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      white: '#ffffff'|'#000000'
-      black: '#000000'|'#ffffff'
+      background: '#fcfcfc'|'#181818'
+      text: '#1f1c27'|'#ffffff'
+      secondBackground: '#cacaca'|'#282828'
     }
   }
 }
