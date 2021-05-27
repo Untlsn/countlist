@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: Roboto, sans-serif;
     margin: 0;
     min-height: 100vh;
-    color: ${({ theme }) => theme.colors.black};
-    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.background};
   }
   
   a {
