@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import DotMenu  from './index';
 
 export default {
@@ -7,4 +7,4 @@ export default {
 } as Meta;
 
 
-export const Default = () => <DotMenu />;
+export const Default = () => <DotMenu onClick={() => alert('Dot Menu Clicked')} />;

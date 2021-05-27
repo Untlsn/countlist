@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import {ListPointProps} from '@molecules/ListPoint/types';
+import type { ListPointProps } from './types';
 
 const ListPoint = ({ name, selected = false, onClick }: ListPointProps) => {
   return (

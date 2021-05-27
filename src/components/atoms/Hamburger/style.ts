@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   display: flex;
   gap: 7px;
   flex-direction: column;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Bar = styled.div`

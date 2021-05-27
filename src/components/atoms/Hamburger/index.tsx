@@ -1,9 +1,10 @@
 import React from 'react';
 import * as S from './style';
+import type { PureOnClick } from '@types';
 
-const Hamburger = () => {
+const Hamburger = (props: PureOnClick) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper { ...props }>
       <S.Bar />
       <S.Bar />
       <S.Bar />

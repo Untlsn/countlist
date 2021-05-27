@@ -10,8 +10,8 @@ module.exports = {
   },
   env: {
     browser: true,
-    node: true,
     es6: true,
+    node: true,
   },
   plugins: ['@typescript-eslint', 'react'],
   parserOptions: {
@@ -28,5 +28,6 @@ module.exports = {
     'array-element-newline': 'off',
     'react/prop-types': 'off',
     'comma-dangle': ['warn', 'always-multiline'],
+    'object-curly-spacing': ['warn', 'always'],
   },
 };

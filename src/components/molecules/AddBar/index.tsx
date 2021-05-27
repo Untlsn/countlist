@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
-import {AddBarProps} from './types';
+import type { AddBarProps } from './types';
 
 const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
   const [text, changeText] = useState('');
@@ -22,4 +22,4 @@ const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
 };
 
 export default AddBar;
-export { AddBarProps } from './types.d';
+export type { AddBarProps } from './types.d';

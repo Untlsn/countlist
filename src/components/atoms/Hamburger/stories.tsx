@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import Hamburger  from './index';
 
 export default {
@@ -7,4 +7,4 @@ export default {
 } as Meta;
 
 
-export const Default = () => <Hamburger />;
+export const Default = () => <Hamburger onClick={() => alert('Hamburger click')} />;
