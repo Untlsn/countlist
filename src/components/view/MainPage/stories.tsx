@@ -9,6 +9,6 @@ export default {
 
 export const Default: Story<MainPageProps> = (props) => <MainPage {...props} />;
 Default.args = {
-  rows: 5,
+  rows: 7,
   listName: 'List Name',
 };

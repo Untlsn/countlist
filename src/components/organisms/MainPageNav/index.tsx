@@ -5,15 +5,18 @@ import { Hamburger, DotMenu } from '@atoms';
 
 const MainPageNav = ({ listName }: MainPageNavProps) => {
   return (
-    <S.Wrapper>
-      <S.Layer>
-        <Hamburger onClick={() => {}} />
-      </S.Layer>
-      <S.Layer>
-        <S.BigText>{listName}</S.BigText>
-        <DotMenu onClick={() => {}} />
-      </S.Layer>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <S.Layer>
+          <Hamburger onClick={() => {}} />
+        </S.Layer>
+        <S.Layer>
+          <S.BigText>{listName}</S.BigText>
+          <DotMenu onClick={() => {}} />
+        </S.Layer>
+      </S.Wrapper>
+      <S.Shadow />
+    </>
   );
 };
 
