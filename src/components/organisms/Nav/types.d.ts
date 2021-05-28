@@ -1,3 +1,4 @@
 export interface MainPageNavProps {
-  listName: string
+  name: string
+  dotMenu?: boolean
 }

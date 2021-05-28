@@ -3,7 +3,7 @@ import * as S from './style';
 import type { MainPageNavProps } from './types';
 import { Hamburger, DotMenu } from '@atoms';
 
-const MainPageNav = ({ listName }: MainPageNavProps) => {
+const MainPageNav = ({ name, dotMenu = false }: MainPageNavProps) => {
   return (
     <>
       <S.Wrapper>
@@ -11,8 +11,8 @@ const MainPageNav = ({ listName }: MainPageNavProps) => {
           <Hamburger onClick={() => {}} />
         </S.Layer>
         <S.Layer>
-          <S.BigText>{listName}</S.BigText>
-          <DotMenu onClick={() => {}} />
+          <S.BigText>{name}</S.BigText>
+          {dotMenu && <DotMenu onClick={() => {}} />}
         </S.Layer>
       </S.Wrapper>
       <S.Shadow />
