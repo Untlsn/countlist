@@ -1,9 +1,17 @@
 import React from 'react';
 import Providers from '@providers';
-import { useDispatch } from 'react-redux';
-import { actions } from '@store';
+import MainPage from '@view/MainPage';
+import Options from '@view/Options';
+import styled from 'styled-components';
 
 const robotoUrl = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
+
+const StyledWrapper = styled.div`
+  display: grid;
+  @media (min-width: 640px) {
+    grid-template-columns: auto 1fr;
+  }
+`;
 
 const Wrapper = () => {
   return (
@@ -14,15 +22,11 @@ const Wrapper = () => {
 };
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const onClick = () => dispatch(actions.mini.switchTheme());
-
   return (
-    <>
-      <div>Hello World!</div>
-      <button onClick={onClick}>Change theme</button>
-    </>
+    <StyledWrapper>
+      <Options selected={0} changeSelected={() => {}} />
+      <MainPage listName='temp name' rows={5} />
+    </StyledWrapper>
   );
 };
 

@@ -11,10 +11,7 @@ const MainPage = ({ listName, rows }: MainPageProps) => {
     <S.Wrapper >
       <MainPageNav name={listName} dotMenu />
       <BarRow rows={rows} />
-      <S.BottomFixed>
-        <AddBar onCommit={() => {}} />
-      </S.BottomFixed>
-      <S.Shadow />
+      <AddBar onCommit={() => {}} />
     </S.Wrapper>
   );
 };

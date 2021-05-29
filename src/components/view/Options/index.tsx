@@ -21,10 +21,12 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
   return (
     <S.Wrapper>
       <Nav name={userName} />
-      <S.List>
-        {listPoints}
-      </S.List>
-      <AddBar onCommit={addList} placeholder='new list' clear />
+      <div>
+        <S.List>
+          {listPoints}
+        </S.List>
+        <AddBar onCommit={addList} placeholder='new list' clear />
+      </div>
     </S.Wrapper>
   );
 };
