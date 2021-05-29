@@ -27,12 +27,12 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
       <S.Shadow optionVisible={optionVisible} onClick={switchOptions} />
       <S.Wrapper optionVisible={optionVisible}>
         <Nav name={userName} />
-        <div>
+        <S.ListWrapper>
           <S.List>
             {listPoints}
           </S.List>
           <AddBar onCommit={addList} placeholder='new list' clear />
-        </div>
+        </S.ListWrapper>
       </S.Wrapper>
     </div>
   );

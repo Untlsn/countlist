@@ -7,7 +7,7 @@ const ListPoint = ({ name, selected = false, onClick }: ListPointProps) => {
     <S.Wrapper selected={selected} onClick={onClick}>
       {selected && <S.Line />}
       <S.Arrow />
-      <div>{name}</div>
+      <S.Capital>{name}</S.Capital>
     </S.Wrapper>
   );
 };

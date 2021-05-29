@@ -9,13 +9,12 @@ export const Wrapper = styled.div<{ clear: boolean }>`
   width: 100%;
   padding: 20px;
   border-radius: 10px;
-  background-color: ${({ clear, theme }) => clear ? 'transparent' : theme.colors.secondBackground};
+  background-color: rgba(0,0,0,
+  ${({ clear }) => clear ? 0 : .2}
+  );
 `;
 
 export const Plus = styled(BsPlusCircle)<{ clear: boolean }>`
-  height: 20px;
-  width: 20px;
-  font-size: 20px;
   color: ${({ clear, theme }) => clear ? theme.colors.text : '#fff'};
   
   &:hover {
@@ -24,6 +23,7 @@ export const Plus = styled(BsPlusCircle)<{ clear: boolean }>`
 `;
 
 export const Input = styled.input<{ clear: boolean }>`
+  width: 80%;
   border: none;
   outline: none;
   &::placeholder {

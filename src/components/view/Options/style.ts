@@ -14,7 +14,7 @@ export const Wrapper = styled.div<{ optionVisible: boolean }>`
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  background-color: ${({ theme }) => theme.colors.secondBackground};
+  background-color: ${({ theme }) => theme.colors.background};
   padding: 15px;
   
   @media (max-width: 640px) {
@@ -55,4 +55,8 @@ export const Shadow = styled.div<{ optionVisible: boolean }>`
       opacity: 0;      
     `
   };
+`;
+
+export const ListWrapper = styled.div`
+  width: 240px;
 `;

@@ -42,3 +42,7 @@ export const Line = styled.div`
   height: 25px;
   background-color: ${({ theme }) => theme.colors.text};
 `;
+
+export const Capital = styled.div`
+  text-transform: capitalize;
+`;

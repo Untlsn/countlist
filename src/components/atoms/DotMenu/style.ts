@@ -1,24 +1,28 @@
 import styled from 'styled-components';
+import { BsThreeDots } from 'react-icons/bs';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.button`
   position: relative;
   height: 25px;
   width: 25px;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.secondBackground};
+  background-color: rgba(0,0,0,.2);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  outline: none;
   
   &::after {
     content: '';
     position: absolute;
     display: block;
-    height: 100%;
-    width: 100%;
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
     top: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #000;
     opacity: 0;
   }
 
@@ -30,16 +34,6 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const DotWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-`;
-
-export const Dot = styled.div`
-  height: 3px;
-  width: 3px;
-  border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.background};
+export const Dots = styled(BsThreeDots)`
+  color: white;
 `;

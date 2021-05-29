@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import type { NavProps } from './types';
-import { Hamburger, DotMenu } from '@atoms';
+import { DotMenu, SwitchTheme } from '@atoms';
 import useSwitchOptions from '@hooks/useSwitchOptions';
 
 const Nav = ({ name, dotMenu = false }: NavProps) => {
@@ -11,11 +11,11 @@ const Nav = ({ name, dotMenu = false }: NavProps) => {
   return (
     <S.Wrapper>
       <S.Layer>
-        <Hamburger onClick={switchOptions} />
-        {!dotMenu && <S.SwitchTheme size={36} />}
+        <S.Hamburger size={25} onClick={switchOptions} dotMenu={dotMenu} />
+        {!dotMenu && <SwitchTheme size={36} />}
       </S.Layer>
       <S.Layer>
-        <S.BigText>{name}</S.BigText>
+        <S.BigText dotMenu={dotMenu}>{name}</S.BigText>
         {dotMenu && <DotMenu onClick={() => {}} />}
       </S.Layer>
     </S.Wrapper>

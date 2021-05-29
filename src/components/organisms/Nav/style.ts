@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SwitchThemeBase from '@atoms/SwitchTheme';
+import { FaBars } from 'react-icons/fa';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,12 +14,12 @@ export const Layer = styled.div`
   justify-content: space-between;
 `;
 
-export const BigText = styled.div`
+export const BigText = styled.div<{ dotMenu: boolean }>`
   font-size: ${({ theme }) => theme.fontSize.big};
+  text-transform: capitalize;
+  color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
 `;
 
-export const SwitchTheme = styled(SwitchThemeBase)`
-  position: absolute;
-  top: 20px;
-  right: 20px;
+export const Hamburger = styled(FaBars)<{ dotMenu: boolean }>`
+  color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
 `;
