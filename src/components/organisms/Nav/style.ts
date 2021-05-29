@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import SwitchThemeBase from '@atoms/SwitchTheme';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -15,4 +16,10 @@ export const Layer = styled.div`
 
 export const BigText = styled.div`
   font-size: ${({ theme }) => theme.fontSize.big};
+`;
+
+export const SwitchTheme = styled(SwitchThemeBase)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
 `;

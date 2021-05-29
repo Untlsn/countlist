@@ -6,10 +6,13 @@ import useSwitchOptions from '@hooks/useSwitchOptions';
 
 const Nav = ({ name, dotMenu = false }: NavProps) => {
   const switchOptions = useSwitchOptions();
+
+
   return (
     <S.Wrapper>
       <S.Layer>
         <Hamburger onClick={switchOptions} />
+        {!dotMenu && <S.SwitchTheme size={36} />}
       </S.Layer>
       <S.Layer>
         <S.BigText>{name}</S.BigText>
