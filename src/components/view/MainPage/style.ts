@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: 75px 1fr 75px;
+  grid-template-rows: 75px auto 75px;
   padding: 15px;
 `;
 

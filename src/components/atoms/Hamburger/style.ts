@@ -10,6 +10,10 @@ export const Wrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+  visibility: visible;
+  @media (min-width: 640px) {
+    visibility: hidden;
+  }
 `;
 
 export const Bar = styled.div`
