@@ -5,18 +5,19 @@ import type { AddBarProps } from './types';
 const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
   const [text, changeText] = useState('');
 
-  const onClick = () => changeText(old => {
+  const submit = () => changeText(old => {
     onCommit(old);
     return '';
   });
 
   return (
     <S.Wrapper clear={clear}>
-      <S.Plus onClick={onClick} clear={clear}>+</S.Plus>
+      <S.Plus onClick={submit} clear={clear}>+</S.Plus>
       <S.Input clear={clear}
         value={text}
         onChange={({ target }) => changeText(target.value)}
-        placeholder={placeholder} />
+        placeholder={placeholder}
+        onKeyDown={({ key }) => key == 'Enter' && submit()} />
     </S.Wrapper>
   );
 };

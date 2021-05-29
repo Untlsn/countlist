@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BsPlusCircle } from 'react-icons/bs';
 
 export const Wrapper = styled.div<{ clear: boolean }>`
   display: flex;
@@ -11,7 +12,7 @@ export const Wrapper = styled.div<{ clear: boolean }>`
   background-color: ${({ clear, theme }) => clear ? 'transparent' : theme.colors.secondBackground};
 `;
 
-export const Plus = styled.div<{ clear: boolean }>`
+export const Plus = styled(BsPlusCircle)<{ clear: boolean }>`
   height: 20px;
   width: 20px;
   font-size: 20px;
