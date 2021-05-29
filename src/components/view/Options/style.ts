@@ -45,16 +45,21 @@ export const Shadow = styled.div<{ optionVisible: boolean }>`
   z-index: 5;
   transition: opacity 1s;
   
-  ${({ optionVisible }) => optionVisible
-    ? css`
-      visibility: visible;
-      opacity: 1;
-    `
-    : css`
-      visibility: hidden;
-      opacity: 0;      
-    `
-  };
+  @media (max-width: 640px) {
+    ${({ optionVisible }) => optionVisible
+      ? css`
+        visibility: visible;
+        opacity: 1;
+      `
+      : css`
+        visibility: hidden;
+        opacity: 0;      
+      `
+    };
+  }
+  @media (min-width: 640px) {
+    visibility: hidden;
+  }
 `;
 
 export const ListWrapper = styled.div`
