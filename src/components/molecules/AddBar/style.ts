@@ -5,6 +5,7 @@ export const Wrapper = styled.div<{ clear: boolean }>`
   align-items: center;
   gap: 5px;
   height: 60px;
+  width: 100%;
   padding: 20px;
   border-radius: 10px;
   background-color: ${({ clear, theme }) => clear ? 'transparent' : theme.colors.secondBackground};

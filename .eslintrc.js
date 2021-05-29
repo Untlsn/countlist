@@ -29,5 +29,6 @@ module.exports = {
     'react/prop-types': 'off',
     'comma-dangle': ['warn', 'always-multiline'],
     'object-curly-spacing': ['warn', 'always'],
+    'keyword-spacing': 'warn',
   },
 };

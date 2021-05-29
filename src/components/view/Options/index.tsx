@@ -1,15 +1,16 @@
 import React from 'react';
 import * as S from './style';
 import type { OptionsProps } from './types';
-import { useArrayState } from './hooks';
 import { ListPoint, AddBar } from '@molecules';
 import Nav from '@organisms/Nav';
+import { useAddListFn, useDataSelector } from '@view/Options/hooks';
 
 
-const Options = ({ userName, listNames: initListNames, selected, changeSelected }: OptionsProps) => {
-  const [listNames, listNamesCommands] = useArrayState(initListNames);
+const Options = ({ selected, changeSelected }: OptionsProps) => {
+  const { listsNames, userName } = useDataSelector();
+  const addList = useAddListFn();
 
-  const listPoints = listNames.map((name, i) => (
+  const listPoints = listsNames.map((name, i) => (
     <ListPoint
       key={name}
       name={name}
@@ -17,15 +18,13 @@ const Options = ({ userName, listNames: initListNames, selected, changeSelected 
       selected={selected == i} />
   ));
 
-
-
   return (
     <S.Wrapper>
       <Nav name={userName} />
       <S.List>
         {listPoints}
       </S.List>
-      <AddBar onCommit={(name) => listNamesCommands.push(name)} />
+      <AddBar onCommit={addList} placeholder='new list' clear />
     </S.Wrapper>
   );
 };

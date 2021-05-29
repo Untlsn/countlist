@@ -10,6 +10,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.switchTheme, (state) => {
       state.isDark = !state.isDark;
+    })
+    .addCase(actions.changeUserName, (state, { payload }) => {
+      state.userName = payload;
     });
 });
 

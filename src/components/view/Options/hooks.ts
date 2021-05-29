@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '@store';
 
-type useArrayStateResult<T> = [
-  T[],
-  {
-    push(...items: T[]): void
-  }
-]
+export const useAddListFn = () => {
+  const dispatch = useDispatch();
 
-export const useArrayState = <T>(initArr: T[]): useArrayStateResult<T> => {
-  const [arr, changeListNames] = useState(initArr);
-
-  return [
-    arr,
-    {
-      push: (...items) => changeListNames(old => [...old, ...items]),
-    },
-  ];
+  return (name: string) => {
+    if (name != '') dispatch(actions.lists.addList({
+      name: name,
+      points: [],
+    }));
+  };
 };
 
+export const useDataSelector = () => {
+  const listsNames = useSelector(({ lists }) => lists)
+    .map(({ name }) => name);
+  const userName = useSelector(({ mini }) => mini.userName);
+  return { listsNames, userName };
+};
