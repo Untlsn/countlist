@@ -1,4 +1,4 @@
-export interface MainPageNavProps {
+export interface NavProps {
   name: string
   dotMenu?: boolean
 }

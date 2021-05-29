@@ -4,7 +4,6 @@ export const Wrapper = styled.div<{ selected: boolean }>`
   display: flex;
   align-items: center;
   gap: 5px;
-  width: 270px;
   height: 30px;
   padding-left: 25px;
   background-color: ${({ selected, theme }) => selected ? theme.colors.secondBackground : 'transparent'};

@@ -1,9 +1,9 @@
 import React from 'react';
 import * as S from './style';
-import type { MainPageNavProps } from './types';
+import type { NavProps } from './types';
 import { Hamburger, DotMenu } from '@atoms';
 
-const MainPageNav = ({ name, dotMenu = false }: MainPageNavProps) => {
+const Nav = ({ name, dotMenu = false }: NavProps) => {
   return (
     <>
       <S.Wrapper>
@@ -20,5 +20,5 @@ const MainPageNav = ({ name, dotMenu = false }: MainPageNavProps) => {
   );
 };
 
-export default MainPageNav;
-export type { MainPageNavProps } from './types.d';
+export default Nav;
+export type { NavProps } from './types.d';
