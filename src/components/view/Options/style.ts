@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{ optionVisible: boolean }>`
   width: 270px;
   height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
   background-color: ${({ theme }) => theme.colors.secondBackground};
   padding: 15px;
   

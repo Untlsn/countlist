@@ -10,7 +10,7 @@ import useSwitchOptions from '@hooks/useSwitchOptions';
 
 const Options = ({ selected, changeSelected }: OptionsProps) => {
   const { listsNames, userName } = useDataSelector();
-  const addList = useAddListFn();
+  const addList = useAddListFn(listsNames.length, changeSelected);
 
   const listPoints = listsNames.map((name, i) => (
     <ListPoint

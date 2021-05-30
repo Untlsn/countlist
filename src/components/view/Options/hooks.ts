@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '@store';
 
-export const useAddListFn = () => {
+export const useAddListFn = (listsNamesLength: number, changeSelected: (i: number) => void) => {
   const dispatch = useDispatch();
 
   return (name: string) => {
@@ -9,6 +9,7 @@ export const useAddListFn = () => {
       name: name,
       points: [],
     }));
+    changeSelected(listsNamesLength);
   };
 };
 
