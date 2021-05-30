@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div<{ isDark: boolean }>`
+export const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 75px auto 75px;
   padding: 15px;
   height: 100vh;
-  ${({ isDark, theme }) => {
+  ${({ theme }) => {
     const [b1, b2] = theme.colors.gradient.background;
-    return !isDark && css`
+    return css`
       background: linear-gradient(135deg, ${b1}, ${b2})
     `;
   }};

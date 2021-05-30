@@ -6,17 +6,15 @@ const fontSize: DefaultTheme['fontSize'] = {
   huge: '24px',
 };
 
-const gradient: DefaultTheme['colors']['gradient'] = {
-  background: ['#687681', '#8795a0'],
-};
-
 export const lightTheme: DefaultTheme = {
   fontSize,
   colors: {
     background: '#fcfcfc',
     text: '#1f1c27',
-    secondBackground: '#cacaca',
-    gradient,
+    secondBackground: '#fcfcfc',
+    gradient: {
+      background: ['#687681', '#8795a0'],
+    },
   },
 };
 
@@ -25,7 +23,9 @@ export const darkTheme: DefaultTheme = {
   colors: {
     background: '#1a1a1a',
     text: '#ffffff',
-    secondBackground: '#282828',
-    gradient,
+    secondBackground: '#2c2d2e',
+    gradient: {
+      background: ['#1a1a1a', '#2c2d2e'],
+    },
   },
 };

@@ -7,7 +7,7 @@ declare module 'styled-components' {
       text: '#1f1c27'|'#ffffff'
       secondBackground: '#fcfcfc'|'#2c2d2e'
       gradient: {
-        background: ['#687681', '#8795a0']
+        background: ['#687681', '#8795a0']|['#1a1a1a', '#2c2d2e']
       }
     }
     fontSize: {
