@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '@store';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import { IconBaseProps } from 'react-icons';
 
 const SwitchTheme = (props: Omit<IconBaseProps, 'onClick'> ) => {
@@ -10,8 +10,8 @@ const SwitchTheme = (props: Omit<IconBaseProps, 'onClick'> ) => {
   const isDark = useSelector(({ mini }) => mini.isDark);
   
   return isDark
-    ? <FaMoon {...props} onClick={switchTheme} />
-    : <FaSun {...props} onClick={switchTheme} />;
+    ? <FiMoon {...props} onClick={switchTheme} />
+    : <FiSun {...props} onClick={switchTheme} />;
 };
 
 export default SwitchTheme;
