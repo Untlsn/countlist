@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 
 const robotoUrl = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ rightColumn: boolean }>`
   display: grid;
   @media (min-width: 640px) {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto;
   }
 `;
 
@@ -27,7 +27,7 @@ const Home = () => {
   const lists = useSelector(({ lists }) => lists);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper rightColumn={true}>
       <Options selected={selected} changeSelected={changeSelected} />
       <MainPage listName={lists[selected]?.name || '(no-name)'} rows={5} />
     </StyledWrapper>
