@@ -1,9 +1,9 @@
 import { MiniState } from './types';
 
-const state: MiniState = {
+const initState: MiniState = {
   isDark: false,
-  userName: '',
+  userName: '(no-user)',
   optionVisible: true,
 };
 
-export default state;
+export default initState;
