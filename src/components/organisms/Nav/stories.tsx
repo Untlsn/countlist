@@ -1,14 +1,16 @@
 import React from 'react';
 import type { Meta, Story } from '@storybook/react';
-import MainPageNav, { MainPageNavProps }  from './index';
+import Nav, { NavProps }  from './index';
 
 export default {
   title: 'Organisms/Nav',
 } as Meta;
 
 
-const Template: Story<MainPageNavProps> = (props) => (
-  <MainPageNav {...props} />
+const Template: Story<NavProps> = (props) => (
+  <div style={{ backgroundColor: props.dotMenu ? '#687681' : undefined }}>
+    <Nav {...props} />
+  </div>
 );
 export const Default = Template.bind({});
 Default.args = {

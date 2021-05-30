@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 interface StoreProps {
   listNames: string[],
   userName: string,
+  optionShow: boolean,
 }
 
 export default {
@@ -20,11 +21,12 @@ const changeLists = (dispatch: Dispatch, listNames: string[]) => {
 };
 
 export const Default: Story<OptionsProps & StoreProps> = (props) => {
-  const { listNames, selected: initSelect, userName } = props;
+  const { listNames, selected: initSelect, userName, optionShow } = props;
   const [selected, changeSelected] = useState(initSelect);
   const dispatch = useDispatch();
   changeLists(dispatch, listNames);
   dispatch(actions.mini.changeUserName(userName));
+  dispatch(actions.mini.changeOptions(optionShow));
 
   return <Options selected={selected} changeSelected={changeSelected} />;
 };
@@ -35,4 +37,5 @@ Default.args = {
     'Another Point',
   ],
   selected: 1,
+  optionShow: true,
 };

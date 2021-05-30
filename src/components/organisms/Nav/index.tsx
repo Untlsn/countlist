@@ -7,7 +7,6 @@ import useSwitchOptions from '@hooks/useSwitchOptions';
 const Nav = ({ name, dotMenu = false }: NavProps) => {
   const switchOptions = useSwitchOptions();
 
-
   return (
     <S.Wrapper>
       <S.Layer>
