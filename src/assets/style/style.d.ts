@@ -1,20 +1,9 @@
 import 'styled-components';
+import { theme } from './theme';
+
+type Theme = typeof theme;
 
 declare module 'styled-components' {
-  export interface DefaultTheme {
-    colors: {
-      background: '#fcfcfc'
-      text: '#1f1c27'
-      secondBackground: '#fcfcfc'
-      gradient: {
-        background: ['#687681', '#8795a0']
-      }
-    }
-    fontSize: {
-      normal: '16px',
-      big: '18px',
-      huge: '24px'
-    }
-  }
+  export interface DefaultTheme extends Theme {}
 }
 

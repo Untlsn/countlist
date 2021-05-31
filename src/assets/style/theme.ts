@@ -1,6 +1,4 @@
-import type { DefaultTheme } from 'styled-components';
-
-export const theme: DefaultTheme = {
+export const theme = {
   fontSize: {
     normal: '16px',
     big: '18px',
@@ -11,7 +9,7 @@ export const theme: DefaultTheme = {
     text: '#1f1c27',
     secondBackground: '#fcfcfc',
     gradient: {
-      background: ['#687681', '#8795a0'],
+      background: ['#2C465A', '#8795A0'],
     },
   },
 };
