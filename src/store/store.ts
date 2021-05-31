@@ -1,8 +1,9 @@
 import { combineReducers, createStore } from 'redux';
-import mini from './ducks/mini';
+import { mini, lists } from './ducks';
 
 const reducers = combineReducers({
   mini,
+  lists,
 });
 
 const store = createStore(reducers);

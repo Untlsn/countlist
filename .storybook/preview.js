@@ -1,3 +1,4 @@
+import CombineProvider from '../src/providers/CombineProvider';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -8,3 +9,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+      <CombineProvider fonts={[]}>
+        <Story />
+      </CombineProvider>
+  )
+]

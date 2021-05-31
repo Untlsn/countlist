@@ -52,7 +52,7 @@ Aliases are added by special function createAlias
 - [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/)
 - Files in component directory named by role
 	- style.ts for styled components
-	- types.ts for types
+	- types.d.ts for types
 	- test.tsx for tests
 	- helpers.ts for helpers (functions)
 	- data.ts for data
