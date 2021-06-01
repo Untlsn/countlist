@@ -5,12 +5,6 @@ import initState from './state';
 
 const reducer = createReducer(initState, builder => {
   builder
-    .addCase(actions.changeTheme, (state , { payload }) => {
-      state.isDark = payload;
-    })
-    .addCase(actions.switchTheme, (state) => {
-      state.isDark = !state.isDark;
-    })
     .addCase(actions.changeUserName, (state, { payload }) => {
       state.userName = payload;
     })
