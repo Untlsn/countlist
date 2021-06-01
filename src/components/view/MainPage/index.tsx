@@ -8,30 +8,33 @@ import { useSelector } from 'react-redux';
 import Point from '@molecules/Point';
 
 
-const MainPage = ({ listName }: MainPageProps) => {
+const MainPage = ({ listID }: MainPageProps) => {
   const addPoint = useCleverDispatch()(
     ({ lists }) => lists.addPoint,
   );
+
   const points = useSelector(
-    ({ lists }) => lists.find(({ name }) => name == listName)?.points,
-  ) || [];
+    ({ lists }) => Object.entries(lists[listID] || {}),
+  );
 
 
   return (
     <S.Wrapper>
-      <MainPageNav name={listName} dotMenu />
+      <MainPageNav name={listID} dotMenu />
       <S.PointWrapper>
         {points.map(
-          ({ name, check }) => <Point key={name} text={name} onClick={() => {}} checked={check} />,
+          ([id, { check }]) => <Point
+            key={id}
+            text={id.split('@')[0]}
+            onClick={() => {}}
+            checked={check} />,
         )}
       </S.PointWrapper>
       <AddBar onCommit={(name) => {
         addPoint({
-          name: listName,
-          newPoint: {
-            name,
-            check: false,
-          },
+          listID,
+          name,
+          data: { check: false },
         });
       }} />
     </S.Wrapper>

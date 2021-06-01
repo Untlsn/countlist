@@ -1,20 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import * as actions from './actions';
+import { uid } from 'uid';
 
+const createID = (x: string) => `${x.trim()}@${uid(3)}`;
 
 const reducer = createReducer(initState, builder => {
   builder
     .addCase(actions.addList, (state, { payload }) => {
-      if (payload.name != '') state.push(payload);
+      const { name, data: list } = payload;
+
+      if (name.trim() != '') state[createID(name)] = list;
     })
     .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
-      const { name, newPoint } = payload;
-      const record = state.find((it) => it.name = name);
-      if (record) {
-        record.points.push(newPoint);
-      }
+      const { listID, data: point, name } = payload;
+
+      const list = state[listID];
+
+      if (list) list[createID(name)] = point;
     });
 });
 

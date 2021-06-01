@@ -1,3 +1,3 @@
 export interface MainPageProps {
-  listName: string
+  listID: string
 }

@@ -5,10 +5,10 @@ import type { AddBarProps } from './types';
 const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
   const [text, changeText] = useState('');
 
-  const submit = () => changeText(old => {
-    onCommit(old);
-    return '';
-  });
+  const submit = () => {
+    onCommit(text);
+    changeText('');
+  };
 
   return (
     <S.Wrapper clear={clear}>

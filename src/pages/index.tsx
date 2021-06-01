@@ -3,7 +3,6 @@ import Providers from '@providers';
 import MainPage from '@view/MainPage';
 import Options from '@view/Options';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 
 const robotoUrl = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
 
@@ -23,13 +22,12 @@ const Wrapper = () => {
 };
 
 const Home = () => {
-  const [selected, changeSelected] = useState(0);
-  const lists = useSelector(({ lists }) => lists);
+  const [selected, changeSelected] = useState('');
 
   return (
     <StyledWrapper rightColumn={true}>
       <Options selected={selected} changeSelected={changeSelected} />
-      <MainPage listName={lists[selected]?.name || '(no-name)'} rows={5} />
+      <MainPage listID={selected || '(no-name)'} />
     </StyledWrapper>
   );
 };
