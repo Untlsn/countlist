@@ -20,8 +20,8 @@ export const BigText = styled.div<{ dotMenu: boolean }>`
   color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
 `;
 
-export const Hamburger = styled(FaBars)<{ dotMenu: boolean }>`
-  color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
+export const Hamburger = styled(FaBars)<{ $dotMenu: boolean }>`
+  color: ${({ $dotMenu, theme }) => $dotMenu ? '#fff' : theme.colors.text };
   @media (min-width: 640px) {
     visibility: hidden;
   }

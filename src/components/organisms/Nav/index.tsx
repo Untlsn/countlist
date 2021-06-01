@@ -10,7 +10,7 @@ const Nav = ({ name, dotMenu = false }: NavProps) => {
   return (
     <S.Wrapper>
       <S.Layer>
-        <S.Hamburger size={25} onClick={switchOptions} dotMenu={dotMenu} />
+        <S.Hamburger size={25} onClick={switchOptions} $dotMenu={dotMenu} />
       </S.Layer>
       <S.Layer>
         <S.BigText dotMenu={dotMenu}>{name}</S.BigText>

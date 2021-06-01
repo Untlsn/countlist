@@ -12,7 +12,7 @@ const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
 
   return (
     <S.Wrapper clear={clear}>
-      <S.Plus size={20} onClick={submit} clear={clear} />
+      <S.Plus size={20} onClick={submit} $clear={clear} />
       <S.Input clear={clear}
         value={text}
         onChange={({ target }) => changeText(target.value)}
