@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './style';
 import type { MainPageProps } from './types';
 import AddBar from '@molecules/AddBar';
-import MainPageNav from '@organisms/Nav';
+import Nav from '@organisms/Nav';
 import useCleverDispatch from '@hooks/useCleverDispatch';
 import { useSelector } from 'react-redux';
 import Point from '@molecules/Point';
@@ -20,7 +20,7 @@ const MainPage = ({ listID }: MainPageProps) => {
 
   return (
     <S.Wrapper>
-      <MainPageNav name={listID} dotMenu />
+      <Nav id={listID} dotMenu />
       <S.PointWrapper>
         {points.map(
           ([id, { check }]) => <Point

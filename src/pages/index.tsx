@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <StyledWrapper rightColumn={true}>
       <Options selected={selected} changeSelected={changeSelected} />
-      <MainPage listID={selected || '(no-name)'} />
+      <MainPage listID={selected || '(no-name)@000'} />
     </StyledWrapper>
   );
 };

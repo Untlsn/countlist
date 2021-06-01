@@ -14,10 +14,17 @@ export const Layer = styled.div`
   justify-content: space-between;
 `;
 
-export const BigText = styled.div<{ dotMenu: boolean }>`
+export const BigText = styled.div<{ dotMenu: boolean, code: string }>`
   font-size: ${({ theme }) => theme.fontSize.big};
   text-transform: capitalize;
   color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
+  letter-spacing: 1px;
+  
+  &:after {
+    content: '@${({ code }) => code}';
+    color: inherit;
+    opacity: .5;
+  }
 `;
 
 export const Hamburger = styled(FaBars)<{ $dotMenu: boolean }>`

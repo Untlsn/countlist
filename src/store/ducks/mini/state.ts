@@ -1,7 +1,7 @@
 import { MiniState } from './types';
 
 const initState: MiniState = {
-  userName: '(no-user)',
+  userName: '(no-user)@000',
   optionVisible: true,
 };
 

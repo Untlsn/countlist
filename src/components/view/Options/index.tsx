@@ -17,7 +17,7 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
     return (
       <ListPoint
         key={id}
-        name={id.split('@')[0]}
+        id={id}
         onClick={() => changeSelected(id)}
         selected={selected == id} />
     );
@@ -34,7 +34,7 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
     <div>
       <S.Shadow optionVisible={optionVisible} onClick={switchOptions} />
       <S.Wrapper optionVisible={optionVisible}>
-        <Nav name={userName} />
+        <Nav id={userName} />
         <S.ListWrapper>
           <S.List>
             {listPoints}

@@ -8,7 +8,7 @@ export default {
 
 
 const defaultProps = {
-  name: 'List Name',
+  id: 'List Name',
   selected: false,
 };
 
