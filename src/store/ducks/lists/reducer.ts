@@ -8,7 +8,14 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.addList, (state, { payload }) => {
       if (payload.name != '') state.push(payload);
     })
-    .addCase(actions.changeLists, (state, { payload }) => payload);
+    .addCase(actions.changeLists, (state, { payload }) => payload)
+    .addCase(actions.addPoint, (state, { payload }) => {
+      const { name, newPoint } = payload;
+      const record = state.find((it) => it.name = name);
+      if (record) {
+        record.points.push(newPoint);
+      }
+    });
 });
 
 export default reducer;

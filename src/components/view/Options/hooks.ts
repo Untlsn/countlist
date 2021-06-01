@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '@store';
+import { useSelector } from 'react-redux';
+import useCleverDispatch from '@hooks/useCleverDispatch';
 
 export const useAddListFn = (listsNamesLength: number, changeSelected: (i: number) => void) => {
-  const dispatch = useDispatch();
+  const addList = useCleverDispatch()(({ lists }) => lists.addList);
 
   return (name: string) => {
-    if (name != '') dispatch(actions.lists.addList({
-      name: name,
+    if (name != '') addList({
+      name,
       points: [],
-    }));
+    });
     changeSelected(listsNamesLength);
   };
 };
