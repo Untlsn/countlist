@@ -10,6 +10,7 @@ const CountBox = ({ fill }: CountBoxProps) => {
     <S.Wrapper>
       <S.Empty size={empty} />
       <S.Fill size={fill} />
+      {fill == 1 && <S.Check size={25} />}
     </S.Wrapper>
   );
 };

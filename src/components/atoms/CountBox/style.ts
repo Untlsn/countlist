@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { GoCheck } from 'react-icons/go';
 
 export const Wrapper = styled.div`
-  
+  position: relative;
 `;
 
 const Round = styled.div<{ size: number }>`
@@ -11,10 +12,18 @@ const Round = styled.div<{ size: number }>`
 
 export const Fill = styled(Round)`
   background-color: #0000004C;
-  border-radius: 0 0 5px 5px;
 `;
 
 export const Empty = styled(Round)`
   border: solid #0000004C 2px;
-  border-radius: 5px 5px 0 0;
+`;
+
+export const Check = styled(GoCheck)`
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 `;
