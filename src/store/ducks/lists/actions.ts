@@ -1,6 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { State, AddPoint, AddList } from './types';
+import { State, ActionPayload } from './types';
 
-export const addList = createAction<AddList>('LISTS/ADD_LIST');
 export const changeLists = createAction<State>('LISTS/CHANGE_LISTS');
-export const addPoint = createAction<AddPoint>('LISTS/ADD_POINT');
+
+export const addList = createAction<ActionPayload.AddList>('LISTS/ADD_LIST');
+export const addPoint = createAction<ActionPayload.AddPoint>('LISTS/ADD_POINT');
+export const togglePointCheck = createAction<ActionPayload.TogglePointCheck>('LISTS/TOGGLE_POINT_CHECK');

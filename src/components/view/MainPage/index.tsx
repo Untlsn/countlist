@@ -9,12 +9,27 @@ import Point from '@molecules/Point';
 
 
 const MainPage = ({ listID }: MainPageProps) => {
-  const addPoint = useCleverDispatch()(
+  const cleverDispatch = useCleverDispatch();
+
+  const addPoint = cleverDispatch(
     ({ lists }) => lists.addPoint,
+  );
+  const togglePointCheck = cleverDispatch(
+    ({ lists }) => lists.togglePointCheck,
   );
 
   const points = useSelector(
     ({ lists }) => Object.entries(lists[listID] || {}),
+  ).map(
+    ([id, { check }]) => <Point
+      key={id}
+      text={id.split('@')[0]}
+      onClick={() => togglePointCheck({
+        listID,
+        pointID: id,
+        check: !check,
+      })}
+      checked={check} />,
   );
 
 
@@ -22,13 +37,7 @@ const MainPage = ({ listID }: MainPageProps) => {
     <S.Wrapper>
       <Nav id={listID} dotMenu />
       <S.PointWrapper>
-        {points.map(
-          ([id, { check }]) => <Point
-            key={id}
-            text={id.split('@')[0]}
-            onClick={() => {}}
-            checked={check} />,
-        )}
+        {points}
       </S.PointWrapper>
       <AddBar onCommit={(name) => {
         addPoint({

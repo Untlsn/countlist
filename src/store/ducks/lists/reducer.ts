@@ -15,10 +15,13 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
       const { listID, data: point, name } = payload;
-
       const list = state[listID];
 
       if (list) list[createID(name)] = point;
+    })
+    .addCase(actions.togglePointCheck, (state, { payload }) => {
+      const { listID, pointID, check } = payload;
+      state[listID][pointID].check = check;
     });
 });
 
