@@ -1,4 +1,4 @@
 export interface OptionsProps {
-  selected: number
-  changeSelected(i: number): void
+  selected: string
+  changeSelected(id: string): void
 }

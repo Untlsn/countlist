@@ -14,8 +14,8 @@ export const Wrapper = styled.div<{ clear: boolean }>`
   );
 `;
 
-export const Plus = styled(BsPlusCircle)<{ clear: boolean }>`
-  color: ${({ clear, theme }) => clear ? theme.colors.text : '#fff'};
+export const Plus = styled(BsPlusCircle)<{ $clear: boolean }>`
+  color: ${({ $clear, theme }) => $clear ? theme.colors.text : '#fff'};
   
   &:hover {
     cursor: pointer;

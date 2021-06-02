@@ -1,5 +1,5 @@
 export interface ListPointProps {
-  name: string,
+  id: string,
   selected?: boolean
   onClick(): void
 }

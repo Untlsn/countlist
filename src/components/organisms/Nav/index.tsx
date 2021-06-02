@@ -4,16 +4,18 @@ import type { NavProps } from './types';
 import DotMenu from '@atoms/DotMenu';
 import useSwitchOptions from '@hooks/useSwitchOptions';
 
-const Nav = ({ name, dotMenu = false }: NavProps) => {
+const Nav = ({ id, dotMenu = false }: NavProps) => {
   const switchOptions = useSwitchOptions();
+
+  const [name, code] = id.split('@');
 
   return (
     <S.Wrapper>
       <S.Layer>
-        <S.Hamburger size={25} onClick={switchOptions} dotMenu={dotMenu} />
+        <S.Hamburger size={25} onClick={switchOptions} $dotMenu={dotMenu} />
       </S.Layer>
       <S.Layer>
-        <S.BigText dotMenu={dotMenu}>{name}</S.BigText>
+        <S.BigText dotMenu={dotMenu} code={code} >{name}</S.BigText>
         {dotMenu && <DotMenu onClick={() => {}} />}
       </S.Layer>
     </S.Wrapper>

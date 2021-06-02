@@ -1,4 +1,4 @@
 export interface NavProps {
-  name: string
+  id: string
   dotMenu?: boolean
 }

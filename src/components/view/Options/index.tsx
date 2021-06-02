@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './style';
 import type { OptionsProps } from './types';
 import { ListPoint, AddBar } from '@molecules';
@@ -9,16 +9,24 @@ import useSwitchOptions from '@hooks/useSwitchOptions';
 
 
 const Options = ({ selected, changeSelected }: OptionsProps) => {
-  const { listsNames, userName } = useDataSelector();
-  const addList = useAddListFn(listsNames.length, changeSelected);
+  const { listsKeys, userName } = useDataSelector();
+  const addList = useAddListFn();
+  let lastID = '';
+  const listPoints = listsKeys.map((id) => {
+    lastID = id;
+    return (
+      <ListPoint
+        key={id}
+        id={id}
+        onClick={() => changeSelected(id)}
+        selected={selected == id} />
+    );
+  });
 
-  const listPoints = listsNames.map((name, i) => (
-    <ListPoint
-      key={name}
-      name={name}
-      onClick={() => changeSelected(i)}
-      selected={selected == i} />
-  ));
+
+  useEffect(() => {
+    changeSelected(lastID);
+  }, [listsKeys.length]);
 
   const optionVisible = useSelector(({ mini }) => mini.optionVisible);
   const switchOptions = useSwitchOptions();
@@ -26,7 +34,7 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
     <div>
       <S.Shadow optionVisible={optionVisible} onClick={switchOptions} />
       <S.Wrapper optionVisible={optionVisible}>
-        <Nav name={userName} />
+        <Nav id={userName} />
         <S.ListWrapper>
           <S.List>
             {listPoints}
