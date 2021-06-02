@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 const Round = styled.div<{ size: number }>`
   width: 30px;
   height: calc(30px * ${({ size }) => size});
+  display: ${({ size }) => size == 0 && 'none'};
 `;
 
 export const Fill = styled(Round)`
