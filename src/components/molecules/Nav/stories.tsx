@@ -3,7 +3,7 @@ import type { Meta, Story } from '@storybook/react';
 import Nav, { NavProps }  from './index';
 
 export default {
-  title: 'Organisms/Nav',
+  title: 'Molecules/Nav',
 } as Meta;
 
 
