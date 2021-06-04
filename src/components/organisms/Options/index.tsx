@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import * as S from './style';
 import type { OptionsProps } from './types';
-import { ListPoint, AddBar } from '@molecules';
-import Nav from '@organisms/Nav';
-import { useAddListFn, useDataSelector } from '@view/Options/hooks';
+import { ListPoint, AddBar, Nav } from '@molecules';
+import { useAddListFn, useDataSelector } from './hooks';
 import { useSelector } from 'react-redux';
 import useSwitchOptions from '@hooks/useSwitchOptions';
 
@@ -47,4 +46,4 @@ const Options = ({ selected, changeSelected }: OptionsProps) => {
 };
 
 export default Options;
-export type { OptionsProps } from './types.d';
+export type { OptionsProps } from './types';

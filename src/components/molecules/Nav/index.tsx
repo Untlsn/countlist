@@ -23,4 +23,4 @@ const Nav = ({ id, dotMenu = false }: NavProps) => {
 };
 
 export default Nav;
-export type { NavProps } from './types.d';
+export type { NavProps } from './types';

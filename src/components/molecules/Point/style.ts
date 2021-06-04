@@ -1,21 +1,7 @@
 import styled, { css } from 'styled-components';
 import type { CircleProps } from './types';
 import { GoCheck } from 'react-icons/go';
-
-export const Wrapper = styled.div`
-  height: 60px;
-  border-radius: 10px;
-  background-color: #00000033;
-  
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  gap: 15px;
-  
-  &:hover {
-    cursor: pointer;
-  }
-`;
+export * from '@atoms/PointStyles';
 
 const ifFill = css`
   background-color: #000;
@@ -36,10 +22,4 @@ export const Circle = styled.div<CircleProps>`
 
 export const Check = styled(GoCheck)`
   color: #fff;
-`;
-
-export const BigText = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.huge};
-  color: ${({ theme }) => theme.colors.background};
-  user-select: none;
 `;

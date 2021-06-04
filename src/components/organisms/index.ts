@@ -1,1 +1,1 @@
-export { default as MainPageNav } from './Nav';
+export { default as MainPageNav } from '../molecules/Nav';

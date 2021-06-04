@@ -54,7 +54,7 @@ Aliases are added by special function createAlias
 	- style.ts for styled components
 	- types.d.ts for types
 	- test.tsx for tests
-	- helpers.ts for helpers (functions)
+	- hooks.ts for helpers (functions)
 	- data.ts for data
 	- etc...
 - Minimal main component file (move to special files like above)

@@ -1,11 +1,9 @@
 import React from 'react';
 import * as S from './style';
 import type { MainPageProps } from './types';
-import AddBar from '@molecules/AddBar';
-import Nav from '@organisms/Nav';
+import { AddBar, Nav, Point } from '@molecules';
 import useCleverDispatch from '@hooks/useCleverDispatch';
 import { useSelector } from 'react-redux';
-import Point from '@molecules/Point';
 
 
 const MainPage = ({ listID }: MainPageProps) => {
@@ -51,4 +49,4 @@ const MainPage = ({ listID }: MainPageProps) => {
 };
 
 export default MainPage;
-export type { MainPageProps } from './types.d';
+export type { MainPageProps } from './types';
