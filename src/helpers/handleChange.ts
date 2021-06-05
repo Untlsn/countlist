@@ -1,9 +1,18 @@
-import type React from 'react';
+import type { ChangeEventHandler } from 'react';
 
-const handleChange = (callback: (x: string) => void): React.ChangeEventHandler<HTMLInputElement> => {
-  return ({ target }) => {
-    callback(target.value);
-  };
+interface HandleChange {
+  (callback: (x: string) => void, type?: 'string'): ChangeEventHandler<HTMLInputElement>
+  (callback: (x: number) => void, type: 'number'): ChangeEventHandler<HTMLInputElement>
+}
+
+const handleChange: HandleChange = (callback: Function, type?: string): ChangeEventHandler<HTMLInputElement> => {
+  if (type == 'number') {
+    return ({ target }) => callback(Number(target.value));
+  }
+  else {
+    return ({ target }) => callback(target.value);
+  }
 };
+
 
 export default handleChange;
