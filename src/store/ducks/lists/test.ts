@@ -131,4 +131,56 @@ describe('List', () => {
 
     });
   });
+  describe('ChangePointCount', () => {
+    const checkPointID = 'check';
+    const countPointID = 'count';
+    const listID = 'list';
+    const initState: State = {
+      [listID]: {
+        [checkPointID]: createPoint.check(),
+        [countPointID]: createPoint.count(5),
+      },
+    };
+
+    it('should change point count', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, count: 3,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 3,
+        max: 5,
+      });
+    });
+    it('should do nothing when point type is check', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: checkPointID, count: 1,
+      }));
+
+      expect(state[listID][checkPointID]).toEqual(initState[listID][checkPointID]);
+    });
+    it('should change count to max, if count payload is larger then max', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, count: 7,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 5,
+        max: 5,
+      });
+    });
+    it('should do nothing when count payload is less then zero', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, count: -2,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 0,
+        max: 5,
+      });
+    });
+  });
 });

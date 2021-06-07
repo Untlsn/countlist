@@ -20,6 +20,9 @@ export module ActionPayload {
   export interface AddCountPoint extends GetList, Create {
     max: number
   }
+  export interface ChangePointCount extends GetPoint {
+    count: number
+  }
 }
 
 

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import * as actions from './actions';
-import { createPoint, createID } from './helpers';
+import { createPoint, createID, clamp } from './helpers';
 
 
 
@@ -30,6 +30,12 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.addCountPoint, (state, { payload }) => {
       const { name, max, listID } = payload;
       state[listID][createID(name)] = createPoint.count(max);
+    })
+    .addCase(actions.changePointCount, (state, { payload }) => {
+      const { pointID, count, listID } = payload;
+      const point = state[listID][pointID];
+      if (point.type == 'check') return;
+      point.count = clamp(0, point.max, count);
     });
 });
 
