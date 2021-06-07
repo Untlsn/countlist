@@ -1,6 +1,6 @@
 const createAlias = (from, useArr) => useArr.reduce((acc, cur) => ({
   ...acc,
-  [`^@${cur}(.*)$`]: `<rootDir>${from}/${cur}$1`
+  [`^@${cur}(.*)$`]: `<rootDir>${from}/${cur}$1`,
 }), {});
 
 module.exports = {
@@ -12,6 +12,8 @@ module.exports = {
     'helpers',
     'assets',
     'providers',
+    'types',
+    'store',
   ]),
   ...createAlias('src/assets', ['style']),
   ...createAlias('src/components', [
@@ -19,7 +21,7 @@ module.exports = {
     'molecules',
     'organisms',
     'view',
-  ])
+  ]),
 };
 
 

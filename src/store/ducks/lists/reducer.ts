@@ -8,16 +8,16 @@ const createID = (x: string) => `${x.trim()}@${uid(3)}`;
 const reducer = createReducer(initState, builder => {
   builder
     .addCase(actions.addList, (state, { payload }) => {
-      const { name, data: list } = payload;
+      const { name } = payload;
 
-      if (name.trim() != '') state[createID(name)] = list;
+      if (name.trim() != '') state[createID(name)] = {};
     })
     .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
-      const { listID, data: point, name } = payload;
+      const { listID, name } = payload;
       const list = state[listID];
 
-      if (list) list[createID(name)] = point;
+      if (list) list[createID(name)] = { check: false };
     })
     .addCase(actions.togglePointCheck, (state, { payload }) => {
       const { listID, pointID, check } = payload;
