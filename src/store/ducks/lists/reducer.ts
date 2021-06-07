@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import * as actions from './actions';
-import { uid } from 'uid';
+import { createPoint, createID } from './helpers';
 
-const createID = (x: string) => `${x.trim()}@${uid(3)}`;
+
 
 const reducer = createReducer(initState, builder => {
   builder
@@ -17,11 +17,19 @@ const reducer = createReducer(initState, builder => {
       const { listID, name } = payload;
       const list = state[listID];
 
-      if (list) list[createID(name)] = { check: false };
+      if (list) list[createID(name)] = createPoint.check();
     })
     .addCase(actions.togglePointCheck, (state, { payload }) => {
       const { listID, pointID, check } = payload;
-      state[listID][pointID].check = check;
+      const point = state[listID][pointID];
+
+      if (point.type == 'check') {
+        point.count = check ? 1 : 0;
+      }
+    })
+    .addCase(actions.addCountPoint, (state, { payload }) => {
+      const { name, max, listID } = payload;
+      state[listID][createID(name)] = createPoint.count(max);
     });
 });
 
