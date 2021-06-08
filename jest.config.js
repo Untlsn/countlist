@@ -1,7 +1,6 @@
 module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.jsx?$': '<rootDir>/jest/preprocess.js',
     '^.+\\.svg$': '<rootDir>/jest/svg-transform.js',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.([tj]sx?)$',

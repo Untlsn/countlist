@@ -7,7 +7,6 @@ export const useAddListFn = () => {
   return (name: string) => {
     if (name != '') addList({
       name: name,
-      data: {},
     });
   };
 };

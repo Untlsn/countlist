@@ -1,6 +1,5 @@
 node_modules
 .cache
-public
 .idea
 yarn-error.log
-.idea/workspace.xml
+.env
