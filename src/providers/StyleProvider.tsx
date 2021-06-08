@@ -9,6 +9,7 @@ const StyleProvider = ({ children, fonts }: StyleProviderProps) => {
   return (
     <>
       <Helmet>
+        <title>Count List</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         {fonts.map(
           (font, key) => <link rel='stylesheet' href={font} key={key} />,

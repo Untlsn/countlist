@@ -4,6 +4,7 @@ module.exports = {
     '^.+\\.svg$': '<rootDir>/jest/svg-transform.js',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.([tj]sx?)$',
+  moduleNameMapper: require('./jest/alias'),
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testPathIgnorePatterns: ['node_modules', '.cache'],
   transformIgnorePatterns: ['node_modules/(?!(gatsby)/)'],
@@ -12,5 +13,3 @@ module.exports = {
   },
   setupFiles: ['<rootDir>/jest/loadershim.js'],
 };
-
-// moduleNameMapper: require('./jest/alias')
