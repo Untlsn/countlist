@@ -15,4 +15,4 @@ const NumberInput = ({ label, value, onChange }: NumberInputProps) => {
 };
 
 export default NumberInput;
-export { NumberInputProps } from './types';
+export type { NumberInputProps } from './types';

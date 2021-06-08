@@ -14,4 +14,4 @@ const ListPoint = ({ id, selected = false, onClick }: ListPointProps) => {
 };
 
 export default ListPoint;
-export { ListPointProps } from './types.d';
+export type { ListPointProps } from './types.d';

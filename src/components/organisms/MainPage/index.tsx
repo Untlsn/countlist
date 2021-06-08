@@ -19,15 +19,15 @@ const MainPage = ({ listID }: MainPageProps) => {
   const points = useSelector(
     ({ lists }) => Object.entries(lists[listID] || {}),
   ).map(
-    ([id, { check }]) => <Point
+    ([id, point]) => <Point
       key={id}
       text={id.split('@')[0]}
       onClick={() => togglePointCheck({
         listID,
         pointID: id,
-        check: !check,
+        check: !point.count,
       })}
-      checked={check} />,
+      checked={!!point.count} />,
   );
 
 
@@ -41,7 +41,6 @@ const MainPage = ({ listID }: MainPageProps) => {
         addPoint({
           listID,
           name,
-          data: { check: false },
         });
       }} />
     </S.Wrapper>
