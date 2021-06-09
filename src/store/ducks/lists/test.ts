@@ -153,6 +153,17 @@ describe('List', () => {
         max: 5,
       });
     });
+    it('should change point max', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: 10,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 0,
+        max: 10,
+      });
+    });
     it('should do nothing when point type is check', () => {
       const state = reducer(initState, actions.changePointCount({
         listID, pointID: checkPointID, count: 1,
@@ -160,7 +171,7 @@ describe('List', () => {
 
       expect(state[listID][checkPointID]).toEqual(initState[listID][checkPointID]);
     });
-    it('should change count to max, if count payload is larger then max', () => {
+    it('should change count to max if count payload is larger then max', () => {
       const state = reducer(initState, actions.changePointCount({
         listID, pointID: countPointID, count: 7,
       }));
@@ -171,7 +182,7 @@ describe('List', () => {
         max: 5,
       });
     });
-    it('should do nothing when count payload is less then zero', () => {
+    it('should change count to 0, if count payload is negative', () => {
       const state = reducer(initState, actions.changePointCount({
         listID, pointID: countPointID, count: -2,
       }));
@@ -180,6 +191,78 @@ describe('List', () => {
         type: 'count',
         count: 0,
         max: 5,
+      });
+    });
+    it('shouldn\'t change count or max, when in payload are undefined', () => {
+      let state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: 10, count: 5,
+      }));
+
+      state = reducer(state, actions.changePointCount({
+        listID, pointID: countPointID, count: 3,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 3,
+        max: 10,
+      });
+
+      state = reducer(state, actions.changePointCount({
+        listID, pointID: countPointID, max: 12,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 3,
+        max: 12,
+      });
+    });
+    it('should save new max first', () => {
+      const state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: 100, count: 90,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 90,
+        max: 100,
+      });
+    });
+    it('should change count when max is less then current count', () => {
+      let state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: 50, count: 30,
+      }));
+
+      state = reducer(state, actions.changePointCount({
+        listID, pointID: countPointID, max: 5,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 5,
+        max: 5,
+      });
+    });
+    it('should change max to 1 if max payload is smaller then 1', () => {
+      let state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: 0,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 0,
+        max: 1,
+      });
+
+      state = reducer(initState, actions.changePointCount({
+        listID, pointID: countPointID, max: -12,
+      }));
+
+      expect(state[listID][countPointID]).toEqual({
+        type: 'count',
+        count: 0,
+        max: 1,
       });
     });
   });

@@ -21,7 +21,8 @@ export module ActionPayload {
     max: number
   }
   export interface ChangePointCount extends GetPoint {
-    count: number
+    count?: number
+    max?: number
   }
 }
 
