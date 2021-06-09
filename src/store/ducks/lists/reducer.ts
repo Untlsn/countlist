@@ -22,6 +22,8 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.togglePointCheck, (state, { payload }) => {
       const { listID, pointID, check } = payload;
+      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+
       const point = state[listID][pointID];
 
       if (point.type == 'check') {
@@ -36,6 +38,8 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.changePointCount, (state, { payload }) => {
       const { pointID, count, max, listID } = payload;
+      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+
       const point = state[listID][pointID];
       if (point.type == 'check') return;
 
@@ -45,11 +49,15 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.changeType, (state, { payload }) => {
       const { listID, type, pointID } = payload;
+      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+
       if (type == 'count') state[listID][pointID].type = type;
       else state[listID][pointID] = createPoint.check();
     })
     .addCase(actions.changeName, (state, { payload }) => {
       const { listID, pointID, name } = payload;
+      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+
       const preparedName = prepareName(name);
 
       const pointData = state[listID][pointID];

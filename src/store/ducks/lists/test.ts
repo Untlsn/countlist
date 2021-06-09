@@ -99,6 +99,21 @@ describe('List', () => {
 
       expect(state[listID][checkPointID].count).toBe(0);
     });
+    it('should do nothing when list or point don\'t exist', () => {
+      let state = reducer(initState, actions.togglePointCheck({
+        pointID: checkPointID,
+        listID: 'fake',
+        check: true,
+      }));
+      expect(state).toEqual(state);
+
+      state = reducer(initState, actions.togglePointCheck({
+        pointID: 'fake',
+        listID,
+        check: true,
+      }));
+      expect(state).toEqual(state);
+    });
   });
   describe('AddCountPoint', () => {
     const listID = 'list';
@@ -289,6 +304,17 @@ describe('List', () => {
         max: 1,
       });
     });
+    it('should do nothing when list or point don\'t exist', () => {
+      let state = reducer(initState, actions.changePointCount({
+        listID: 'fake', pointID: countPointID, count: 3,
+      }));
+      expect(state).toEqual(state);
+
+      state = reducer(initState, actions.changePointCount({
+        listID, pointID: 'fake', count: 3,
+      }));
+      expect(state).toEqual(state);
+    });
   });
   describe('ChangeType', () => {
     const pointID = 'point';
@@ -328,6 +354,17 @@ describe('List', () => {
         count: 0,
         max: 1,
       });
+    });
+    it('should do nothing when list or point don\'t exist', () => {
+      let state = reducer(initState, actions.changeType({
+        listID: 'fake', pointID, type: 'count',
+      }));
+      expect(state).toEqual(state);
+
+      state = reducer(state, actions.changeType({
+        listID, pointID: 'fake', type: 'count',
+      }));
+      expect(state).toEqual(state);
     });
   });
   describe('ChangeName', () => {
@@ -380,6 +417,17 @@ describe('List', () => {
       const names = getOnlyNames(state[listID]);
 
       expect(names[0]).toBe(clearOfSpecials);
+    });
+    it('should do nothing when list or point don\'t exist', () => {
+      let state = reducer(initState, actions.changeName({
+        listID: 'fake', pointID, name: 'newName',
+      }));
+      expect(state).toEqual(state);
+
+      state = reducer(initState, actions.changeName({
+        listID, pointID: 'fake', name: 'newName',
+      }));
+      expect(state).toEqual(state);
     });
   });
 });
