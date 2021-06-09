@@ -9,3 +9,6 @@ export const createPoint = {
 export const createID = (x: string) => `${x.trim()}@${uid(3)}`;
 
 export const getBigger = R.max;
+
+const removeSpecials = R.replace(/[!@#$%^&*()=+\[\]{}\\|;':",<>.\/?]/g, '');
+export const prepareName = R.pipe(R.trim, removeSpecials);

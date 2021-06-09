@@ -8,6 +8,9 @@ const removeUid = (str: string) => str.split('@')[0];
 const getOnlyNames = (obj: object) => Object.keys(obj).map(removeUid);
 const fiveArr = R.repeat(undefined, 5);
 
+const lotOfSpecials = '__t!@#$%^&*()=+e[]{}\\|;\':"s,<>./?t__';
+const clearOfSpecials = '__test__';
+
 describe('List', () => {
   describe('AddList', () => {
     const name = 'testName';
@@ -28,6 +31,13 @@ describe('List', () => {
       listsNames.forEach(
         (listName) => expect(listName).toBe(name),
       );
+    });
+    it('should remove all special characters from name', () => {
+      const state = reducer({}, actions.addList({ name: lotOfSpecials }));
+
+      const listsNames = getOnlyNames(state);
+
+      expect(listsNames[0]).toBe(clearOfSpecials);
     });
   });
   describe('AddPoint', () => {
@@ -52,6 +62,13 @@ describe('List', () => {
       pointsNames.map(
         (pointName) => expect(pointName).toBe(name),
       );
+    });
+    it('should remove all special characters from name', () => {
+      const state = reducer(initState, actions.addPoint({ listID, name: lotOfSpecials }));
+
+      const pointsNames = getOnlyNames(state[listID]);
+
+      expect(pointsNames[0]).toBe(clearOfSpecials);
     });
   });
   describe('TogglePointCheck', () => {
@@ -129,6 +146,13 @@ describe('List', () => {
         }),
       );
 
+    });
+    it('should remove all special characters from name', () => {
+      const state = reducer(initState, actions.addCountPoint({ listID, max: 5, name: lotOfSpecials }));
+
+      const pointsNames = getOnlyNames(state[listID]);
+
+      expect(pointsNames[0]).toBe(clearOfSpecials);
     });
   });
   describe('ChangePointCount', () => {
@@ -347,6 +371,15 @@ describe('List', () => {
       }));
 
       expect(state[listID][`${name}@UID`]).toEqual(initPointData);
+    });
+    it('should remove all special characters from name', () => {
+      const state = reducer(initState, actions.changeName({
+        listID, pointID, name: lotOfSpecials,
+      }));
+
+      const names = getOnlyNames(state[listID]);
+
+      expect(names[0]).toBe(clearOfSpecials);
     });
   });
 });

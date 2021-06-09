@@ -1,21 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import * as actions from './actions';
-import { createPoint, createID, getBigger } from './helpers';
+import { createPoint, createID, getBigger, prepareName } from './helpers';
 
 const reducer = createReducer(initState, builder => {
   builder
     .addCase(actions.addList, (state, { payload }) => {
       const { name } = payload;
+      const preparedName = prepareName(name);
 
-      if (name.trim() != '') state[createID(name)] = {};
+      if (preparedName != '') state[createID(preparedName)] = {};
     })
     .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
       const { listID, name } = payload;
       const list = state[listID];
 
-      if (list) list[createID(name)] = createPoint.check();
+      const preparedName = prepareName(name);
+
+      if (list) list[createID(preparedName)] = createPoint.check();
     })
     .addCase(actions.togglePointCheck, (state, { payload }) => {
       const { listID, pointID, check } = payload;
@@ -27,7 +30,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.addCountPoint, (state, { payload }) => {
       const { name, max, listID } = payload;
-      state[listID][createID(name)] = createPoint.count(max);
+
+      const preparedName = prepareName(name);
+      state[listID][createID(preparedName)] = createPoint.count(max);
     })
     .addCase(actions.changePointCount, (state, { payload }) => {
       const { pointID, count, max, listID } = payload;
@@ -45,12 +50,16 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.changeName, (state, { payload }) => {
       const { listID, pointID, name } = payload;
+      const preparedName = prepareName(name);
+
       const pointData = state[listID][pointID];
       delete state[listID][pointID];
 
+
+
       const idOnly = pointID.split('@')[1];
 
-      state[listID][`${name}@${idOnly}`] = pointData;
+      state[listID][`${preparedName}@${idOnly}`] = pointData;
 
     });
 });
