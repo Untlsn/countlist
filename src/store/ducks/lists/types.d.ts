@@ -24,6 +24,12 @@ export module ActionPayload {
     count?: number
     max?: number
   }
+  export interface ChangeType extends GetPoint {
+    type: Point['type']
+  }
+  export interface ChangeName extends GetPoint {
+    name: string
+  }
 }
 
 

@@ -266,4 +266,87 @@ describe('List', () => {
       });
     });
   });
+  describe('ChangeType', () => {
+    const pointID = 'point';
+    const listID = 'list';
+    const initState: State = {
+      [listID]: {
+        [pointID]: createPoint.check(),
+      },
+    };
+    it('should change type get by payload', () => {
+      let state = reducer(initState, actions.changeType({
+        listID, pointID, type: 'count',
+      }));
+      expect(state[listID][pointID].type).toBe('count');
+
+      state = reducer(state, actions.changeType({
+        listID, pointID, type: 'check',
+      }));
+      expect(state[listID][pointID].type).toBe('check');
+    });
+    it('should reset max and count of point when change to check', () => {
+      let state: State = {
+        [listID]: {
+          [pointID]: {
+            ...createPoint.count(5),
+            count: 3,
+          },
+        },
+      };
+
+      state = reducer(state, actions.changeType({
+        listID, pointID, type: 'check',
+      }));
+
+      expect(state[listID][pointID]).toEqual({
+        type: 'check',
+        count: 0,
+        max: 1,
+      });
+    });
+  });
+  describe('ChangeName', () => {
+    const pointID = 'oldName@UID';
+    const listID = 'list';
+    const initPointData = {
+      ...createPoint.count(10),
+      count: 5,
+    };
+
+    const initState: State = {
+      [listID]: {
+        [pointID]: initPointData,
+      },
+    };
+
+    it('should change name', () => {
+      const state = reducer(initState, actions.changeName({
+        listID, pointID, name: 'newName',
+      }));
+
+      const names = getOnlyNames(state[listID]);
+
+      expect(names).toContain('newName');
+      expect(names).not.toContain('oldName');
+    });
+    it('should save old uid', () => {
+      const name = 'newName';
+
+      const state = reducer(initState, actions.changeName({
+        listID, pointID, name,
+      }));
+
+      expect(state[listID][`${name}@UID`]);
+    });
+    it('should save old data', () => {
+      const name = 'newName';
+
+      const state = reducer(initState, actions.changeName({
+        listID, pointID, name,
+      }));
+
+      expect(state[listID][`${name}@UID`]).toEqual(initPointData);
+    });
+  });
 });

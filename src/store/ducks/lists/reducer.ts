@@ -37,6 +37,21 @@ const reducer = createReducer(initState, builder => {
       if (max != undefined) point.max = getBigger(max, 1);
       if (count != undefined) point.count = getBigger(count, 0);
       if (point.count > point.max) point.count = point.max;
+    })
+    .addCase(actions.changeType, (state, { payload }) => {
+      const { listID, type, pointID } = payload;
+      if (type == 'count') state[listID][pointID].type = type;
+      else state[listID][pointID] = createPoint.check();
+    })
+    .addCase(actions.changeName, (state, { payload }) => {
+      const { listID, pointID, name } = payload;
+      const pointData = state[listID][pointID];
+      delete state[listID][pointID];
+
+      const idOnly = pointID.split('@')[1];
+
+      state[listID][`${name}@${idOnly}`] = pointData;
+
     });
 });
 
