@@ -1,27 +1,28 @@
-const createAlias = (from, useArr) => useArr.reduce((acc, cur) => ({
-  ...acc,
-  [`^@${cur}(.*)$`]: `<rootDir>${from}/${cur}$1`,
-}), {});
+const fs = require('fs');
+const path = require('path');
 
-module.exports = {
-  '^~(.*)$': '<rootDir>/src$1',
-  ...createAlias('src', [
-    'pages',
-    'components',
-    'hooks',
-    'helpers',
-    'assets',
-    'providers',
-    'types',
-    'store',
-  ]),
-  ...createAlias('src/assets', ['style']),
-  ...createAlias('src/components', [
-    'atoms',
-    'molecules',
-    'organisms',
-    'view',
-  ]),
+const removeStart = (str) => str.replace('/*', '');
+
+const getCompilerOptions = (fileName) => {
+  const rawData = fs.readFileSync(
+    path.resolve(__dirname, fileName), 'utf-8',
+  );
+
+  return JSON.parse(rawData).compilerOptions;
 };
 
+const bootstrap = (fileName) => {
+  const { baseUrl, paths } = getCompilerOptions(fileName);
 
+  const entries = Object.entries(paths).map(
+    ([key, [values]]) => [
+      removeStart(`^${key}(.*)$`),
+      removeStart(`<rootDir>${baseUrl}/${values}$1`),
+    ],
+  );
+
+  return Object.fromEntries(entries);
+};
+
+/** @type {function(fileName: string): object} */
+module.exports = bootstrap;
