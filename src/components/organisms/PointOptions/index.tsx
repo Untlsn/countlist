@@ -2,13 +2,16 @@ import React from 'react';
 import * as S from './style';
 import { CheckBox, NumberInput } from '@atoms';
 import { BsFillTrashFill } from 'react-icons/bs';
-import EditPoint from '@molecules/EditPoint';
+import { PointOptionsProps } from './types';
+import { useNameInput } from './hooks';
 
-const PointOptions = () => {
+const PointOptions = (props: PointOptionsProps) => {
+  const inputProps = useNameInput(props);
+
   return (
     <S.Wrapper>
       <S.Frame>
-        <EditPoint checked={false} changeCheck={() => {}} value={'point'} changeValue={() => {}} />
+        <S.Input {...inputProps} />
       </S.Frame>
       <S.MFrame>
         <CheckBox checked={false} changeChecked={() => {}} value='Check' />

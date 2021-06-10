@@ -1,7 +1,7 @@
 import reducer from './reducer';
 import * as actions from './actions';
 import * as R from 'ramda';
-import { State } from '@store/ducks/lists/types';
+import { ListState } from '@store/ducks/lists/types';
 import { createPoint } from '@store/ducks/lists/helpers';
 
 const removeUid = (str: string) => str.split('@')[0];
@@ -14,7 +14,7 @@ const clearOfSpecials = '__test__';
 describe('List', () => {
   describe('AddList', () => {
     const name = 'testName';
-    const reduce = (state: State) => reducer(state, actions.addList({ name }));
+    const reduce = (state: ListState) => reducer(state, actions.addList({ name }));
     it('should add new list to state', () => {
       const state = reduce({});
 
@@ -41,7 +41,7 @@ describe('List', () => {
     });
   });
   describe('AddPoint', () => {
-    const reduce = (state: State) => reducer(state, actions.addPoint({ listID, name }));
+    const reduce = (state: ListState) => reducer(state, actions.addPoint({ listID, name }));
     const name = 'point';
     const listID = 'list';
     const initState = {
@@ -75,7 +75,7 @@ describe('List', () => {
     const checkPointID = 'check';
     const countPointID = 'count';
     const listID = 'list';
-    const initState: State = {
+    const initState: ListState = {
       [listID]: {
         [checkPointID]: createPoint.check(),
         [countPointID]: createPoint.count(5),
@@ -118,11 +118,11 @@ describe('List', () => {
   describe('AddCountPoint', () => {
     const listID = 'list';
     const name = 'point';
-    const initState: State = {
+    const initState: ListState = {
       [listID]: {},
     };
 
-    const reduce = (state: State) => reducer(
+    const reduce = (state: ListState) => reducer(
       state, actions.addCountPoint({ listID, max: 5, name }),
     );
 
@@ -174,7 +174,7 @@ describe('List', () => {
     const checkPointID = 'check';
     const countPointID = 'count';
     const listID = 'list';
-    const initState: State = {
+    const initState: ListState = {
       [listID]: {
         [checkPointID]: createPoint.check(),
         [countPointID]: createPoint.count(5),
@@ -319,7 +319,7 @@ describe('List', () => {
   describe('ChangeType', () => {
     const pointID = 'point';
     const listID = 'list';
-    const initState: State = {
+    const initState: ListState = {
       [listID]: {
         [pointID]: createPoint.check(),
       },
@@ -336,7 +336,7 @@ describe('List', () => {
       expect(state[listID][pointID].type).toBe('check');
     });
     it('should reset max and count of point when change to check', () => {
-      let state: State = {
+      let state: ListState = {
         [listID]: {
           [pointID]: {
             ...createPoint.count(5),
@@ -375,7 +375,7 @@ describe('List', () => {
       count: 5,
     };
 
-    const initState: State = {
+    const initState: ListState = {
       [listID]: {
         [pointID]: initPointData,
       },

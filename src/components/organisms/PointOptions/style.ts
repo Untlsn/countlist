@@ -27,3 +27,11 @@ export const MFrame = styled(Frame)`
 export const RFrame = styled(Frame)`
   align-items: flex-end;
 `;
+
+export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: ${({ theme }) => theme.fontSize.huge};
+`;

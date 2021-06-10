@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { actions } from '@store';
+import { Actions, actions } from '@store';
 
-type Actions = typeof actions;
 interface Action<T=any> {
   type: string,
   payload?: T

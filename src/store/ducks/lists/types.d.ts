@@ -50,4 +50,4 @@ export interface CountPoint extends Point {
 }
 
 export type List = Record<string, CheckPoint|CountPoint>
-export type State = Record<string, List>
+export type ListState = Record<string, List>

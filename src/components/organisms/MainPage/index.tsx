@@ -15,19 +15,23 @@ const MainPage = ({ listID }: MainPageProps) => {
   const togglePointCheck = cleverDispatch(
     ({ lists }) => lists.togglePointCheck,
   );
+  const usePoint = cleverDispatch(
+    ({ mini }) => mini.usePoint,
+  );
 
   const points = useSelector(
     ({ lists }) => Object.entries(lists[listID] || {}),
   ).map(
-    ([id, point]) => <Point
-      key={id}
-      text={id.split('@')[0]}
+    ([pointID, point]) => <Point
+      key={pointID}
+      text={pointID.split('@')[0]}
       onClick={() => togglePointCheck({
         listID,
-        pointID: id,
+        pointID,
         check: !point.count,
       })}
-      checked={!!point.count} />,
+      checked={!!point.count}
+      onEllipsisClick={() => usePoint({ listID, pointID })} />,
   );
 
 

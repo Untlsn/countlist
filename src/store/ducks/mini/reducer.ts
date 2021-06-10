@@ -13,6 +13,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.changeOptions, (state, { payload }) => {
       state.optionVisible = payload;
+    })
+    .addCase(actions.usePoint, (state, { payload }) => {
+      state.usedPoint = payload;
     });
 });
 
