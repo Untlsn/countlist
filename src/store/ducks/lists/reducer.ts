@@ -1,74 +1,64 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
-import * as actions from './actions';
-import { createPoint, createID, getBigger, prepareName } from './helpers';
+import actions from './actions';
+import { createID } from './helpers';
+import * as R from 'ramda';
 
 const reducer = createReducer(initState, builder => {
   builder
     .addCase(actions.addList, (state, { payload }) => {
       const { name } = payload;
-      const preparedName = prepareName(name);
+      const id = createID();
 
-      if (preparedName != '') state[createID(preparedName)] = {};
+      state.lists[id] = { composition: [], name };
     })
-    .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
-      const { listID, name } = payload;
-      const list = state[listID];
+      const { name, listID } = payload;
+      const id = createID();
 
-      const preparedName = prepareName(name);
+      state.points[id] = {
+        name: name,
+        count: 0,
+        max: 1,
+        type: 'check',
+      };
 
-      if (list) list[createID(preparedName)] = createPoint.check();
-    })
-    .addCase(actions.togglePointCheck, (state, { payload }) => {
-      const { listID, pointID, check } = payload;
-      if ( !(state && state[listID] && state[listID][pointID]) ) return;
-
-      const point = state[listID][pointID];
-
-      if (point.type == 'check') {
-        point.count = check ? 1 : 0;
-      }
-    })
-    .addCase(actions.addCountPoint, (state, { payload }) => {
-      const { name, max, listID } = payload;
-
-      const preparedName = prepareName(name);
-      state[listID][createID(preparedName)] = createPoint.count(max);
+      state.lists[listID].composition.push(id);
     })
     .addCase(actions.changePointCount, (state, { payload }) => {
-      const { pointID, count, max, listID } = payload;
-      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+      const { pointID, count } = payload;
 
-      const point = state[listID][pointID];
-      if (point.type == 'check') return;
+      const point = state.points[pointID];
+      if (!point) return;
 
-      if (max != undefined) point.max = getBigger(max, 1);
-      if (count != undefined) point.count = getBigger(count, 0);
-      if (point.count > point.max) point.count = point.max;
+      if (count) {
+        point.count = R.clamp(0, point.max, count);
+      }
+      else {
+        point.count = point.count == 0 ? point.max : 0;
+      }
     })
     .addCase(actions.changeType, (state, { payload }) => {
-      const { listID, type, pointID } = payload;
-      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+      const { pointID, type } = payload;
 
-      if (type == 'count') state[listID][pointID].type = type;
-      else state[listID][pointID] = createPoint.check();
+      if (!state.points[pointID]) return;
+
+      state.points[pointID] = {
+        name: state.points[pointID].name,
+        count: 0,
+        max: 1,
+        type,
+      };
     })
     .addCase(actions.changeName, (state, { payload }) => {
-      const { listID, pointID, name } = payload;
-      if ( !(state && state[listID] && state[listID][pointID]) ) return;
+      const { id, name } = payload;
 
-      const preparedName = prepareName(name);
-
-      const pointData = state[listID][pointID];
-      delete state[listID][pointID];
-
-
-
-      const idOnly = pointID.split('@')[1];
-
-      state[listID][`${preparedName}@${idOnly}`] = pointData;
-
+      if (state.points[id]) {
+        state.points[id].name = name;
+      }
+      else if (state.lists[id]) {
+        state.lists[id].name = name;
+      }
     });
 });
 

@@ -1,8 +1,20 @@
-import { ListState } from './types';
+import { ListsState } from './state.d';
 
-const initState: ListState = {
-  'test-list@000': {
-    'test-point@000': {
+const testList = '0000000000';
+const testPoint = '0000000001';
+
+const initState: ListsState = {
+  lists: {
+    [testList]: {
+      name: 'test-list',
+      composition: [
+        testPoint,
+      ],
+    },
+  },
+  points: {
+    [testPoint]: {
+      name: 'test-point',
       type: 'check',
       max: 1,
       count: 0,
@@ -12,3 +24,4 @@ const initState: ListState = {
 
 
 export default initState;
+export * from './state.d';
