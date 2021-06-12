@@ -8,7 +8,7 @@ export const theme = {
   colors: {
     background: '#fcfcfc',
     text: '#1f1c27',
-    secondBackground: '#fcfcfc',
+    secondBackground: '#efefef',
     gradient: {
       background: ['#2C465A', '#8795A0'],
     },

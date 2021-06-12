@@ -1,30 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './style';
 import type { CountPointProps } from './types';
+import { useFill } from './hooks';
 import CountBox from '@atoms/CountBox';
+import { prevDef } from './helpers';
 
 const CountPoint = ({ text, initFill, maxFill, onClick }: CountPointProps) => {
-  const [fill, changeFill] = useState(initFill);
-  const fillFn = (callback: (old: number) => number) => () => {
-    changeFill(callback);
-    onClick(fill);
-  };
-
-  const inFill = fillFn(
-    (old) => old < maxFill ? old + 1 : old,
-  );
-  const decFill = fillFn(
-    (old) => old > 0 ? old - 1 : old,
-  );
-
+  const { fill, inFill, decFill } = useFill({ maxFill, onClick, initFill });
 
   return (
-    <S.Wrapper onClick={inFill} onContextMenu={(ev) => {
-      decFill();
-      ev.preventDefault();
-    }}>
-      <CountBox fill={fill / maxFill} />
-      <S.BigText>{text}</S.BigText>
+    <S.Wrapper>
+      <S.Flex onClick={inFill} onContextMenu={prevDef(decFill)}>
+        <CountBox fill={fill / maxFill} />
+        <S.BigText>{text}</S.BigText>
+      </S.Flex>
+      <S.Ellipsis />
     </S.Wrapper>
   );
 };

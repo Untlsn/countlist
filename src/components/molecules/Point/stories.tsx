@@ -10,7 +10,7 @@ export default {
 
 const Template: Story<PointProps> = ({ checked: initCheck, text }) => {
   const [checked, changeCheck] = useBoolState(initCheck);
-  return <Point checked={checked} text={text} onClick={() => changeCheck()} />;
+  return <Point checked={checked} text={text} onClick={() => changeCheck()} onEllipsisClick={() => {}} />;
 };
 
 export const Default = Template.bind({});

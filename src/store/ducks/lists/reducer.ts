@@ -1,27 +1,64 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
-import * as actions from './actions';
-import { uid } from 'uid';
-
-const createID = (x: string) => `${x.trim()}@${uid(3)}`;
+import actions from './actions';
+import { createID } from './helpers';
+import * as R from 'ramda';
 
 const reducer = createReducer(initState, builder => {
   builder
     .addCase(actions.addList, (state, { payload }) => {
-      const { name, data: list } = payload;
+      const { name } = payload;
+      const id = createID();
 
-      if (name.trim() != '') state[createID(name)] = list;
+      state.lists[id] = { composition: [], name };
     })
-    .addCase(actions.changeLists, (state, { payload }) => payload)
     .addCase(actions.addPoint, (state, { payload }) => {
-      const { listID, data: point, name } = payload;
-      const list = state[listID];
+      const { name, listID } = payload;
+      const id = createID();
 
-      if (list) list[createID(name)] = point;
+      state.points[id] = {
+        name: name,
+        count: 0,
+        max: 1,
+        type: 'check',
+      };
+
+      state.lists[listID].composition.push(id);
     })
-    .addCase(actions.togglePointCheck, (state, { payload }) => {
-      const { listID, pointID, check } = payload;
-      state[listID][pointID].check = check;
+    .addCase(actions.changePointCount, (state, { payload }) => {
+      const { pointID, count } = payload;
+
+      const point = state.points[pointID];
+      if (!point) return;
+
+      if (count) {
+        point.count = R.clamp(0, point.max, count);
+      }
+      else {
+        point.count = point.count == 0 ? point.max : 0;
+      }
+    })
+    .addCase(actions.changeType, (state, { payload }) => {
+      const { pointID, type } = payload;
+
+      if (!state.points[pointID]) return;
+
+      state.points[pointID] = {
+        name: state.points[pointID].name,
+        count: 0,
+        max: 1,
+        type,
+      };
+    })
+    .addCase(actions.changeName, (state, { payload }) => {
+      const { id, name } = payload;
+
+      if (state.points[id]) {
+        state.points[id].name = name;
+      }
+      else if (state.lists[id]) {
+        state.lists[id].name = name;
+      }
     });
 });
 
