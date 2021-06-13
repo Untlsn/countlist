@@ -17,7 +17,7 @@ export interface ChangeName {
   id: string
   name: string
 }
-interface self {
+interface ListsActions {
   addList: ActionCreatorWithPayload<string>
   addPoint: ActionCreatorWithPayload<AddPoint>
   changePointCount: ActionCreatorWithPayload<ChangePointCount>
@@ -26,4 +26,4 @@ interface self {
   remove:ActionCreatorWithPayload<string>
 }
 
-export default self;
+export default ListsActions;
