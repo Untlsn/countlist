@@ -1,15 +1,15 @@
 import reducer from '../reducer';
-import actions, { ChangePointCount } from '../actions';
+import actions from '../actions';
 import { randListsIDs, randPointsIDs, randState } from './fakeData';
 import * as faker from 'faker';
-import type { ListsState } from '../state';
+import type { ListsState } from '../state.types';
 import * as R from 'ramda';
 import { haveName } from './helpers';
 
 describe('List', () => {
   describe('AddList', () => {
     const reduce = (name: string, state = randState) => {
-      return reducer(state, actions.addList({ name }));
+      return reducer(state, actions.addList(name));
     };
     it('should add new list to state', () => {
       const newRandName = faker.random.word();
@@ -204,6 +204,30 @@ describe('List', () => {
         id: 'fake', name: faker.random.word(),
       }));
 
+      expect(state).toEqual(randState);
+    });
+  });
+  describe('Remove', () => {
+    const defPoint = randPointsIDs[0];
+    const defList = randListsIDs[0];
+    const reduce = (id: string) => reducer(randState, actions.remove(id));
+    it('should remove list or point by id', () => {
+      let state = reduce(defPoint);
+      expect(state.points[defPoint]).toBeUndefined();
+
+      state = reduce(defList);
+      expect(state.lists[defList]).toBeUndefined();
+    });
+    it('should remove point from list composition', () => {
+      const defPoint = randState.lists[defList].composition[0];
+
+      const state = reduce(defPoint);
+      expect(state.points[defPoint]).toBeUndefined();
+
+      expect(state.lists[defList]).not.toContain(defPoint);
+    });
+    it('should do nothing when point or list don\'t exist', () => {
+      const state = reduce('fake');
       expect(state).toEqual(randState);
     });
   });

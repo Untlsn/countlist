@@ -1,4 +1,4 @@
-import { ListsState } from './state.d';
+import { ListsState } from './state.types';
 
 const testList = '0000000000';
 const testPoint = '0000000001';
@@ -24,4 +24,3 @@ const initState: ListsState = {
 
 
 export default initState;
-export * from './state.d';

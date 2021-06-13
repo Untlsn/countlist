@@ -6,8 +6,7 @@ import * as R from 'ramda';
 
 const reducer = createReducer(initState, builder => {
   builder
-    .addCase(actions.addList, (state, { payload }) => {
-      const { name } = payload;
+    .addCase(actions.addList, (state, { payload: name }) => {
       const id = createID();
 
       state.lists[id] = { composition: [], name };
@@ -59,6 +58,10 @@ const reducer = createReducer(initState, builder => {
       else if (state.lists[id]) {
         state.lists[id].name = name;
       }
+    })
+    .addCase(actions.remove, (state, { payload: id }) => {
+      delete state.points[id];
+      delete state.lists[id];
     });
 });
 

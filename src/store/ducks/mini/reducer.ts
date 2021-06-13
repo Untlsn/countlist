@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import * as actions from './actions';
+import actions from './actions';
 import initState from './state';
 
 
