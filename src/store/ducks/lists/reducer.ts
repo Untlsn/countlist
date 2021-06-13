@@ -62,6 +62,23 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.remove, (state, { payload: id }) => {
       delete state.points[id];
       delete state.lists[id];
+    })
+    .addCase(actions.changeMax, (state, { payload }) => {
+      const { id, max } = payload;
+
+      const point = state.points[id];
+      if (!point) return;
+
+      point.max = R.max(1, max);
+      point.count = R.min(point.count, max);
+    })
+    .addCase(actions.changeCount,(state, { payload }) => {
+      const { id, count } = payload;
+
+      const point = state.points[id];
+      if (!point) return;
+
+      point.count = R.clamp(0, point.max, count);
     });
 });
 

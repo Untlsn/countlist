@@ -20,12 +20,20 @@ export const useNameInput = () => {
   };
 };
 
+const useAllPointData = (pointID: string) => {
+  const type = useSelector(({ lists }) => lists.points[pointID].type);
+  const max = useSelector(({ lists }) => lists.points[pointID].max);
+  const count = useSelector(({ lists }) => lists.points[pointID].count);
+
+  return { type, max, count };
+};
+
 export const usePointData = () => {
   const cleverDispatch = useCleverDispatch();
   const pointID = useSelector(({ mini }) => mini.usedPoint)!;
+  const { type } = useAllPointData(pointID);
 
   const changeType = cleverDispatch(({ lists }) => lists.changeType);
-  const type = useSelector(({ lists }) => lists.points[pointID].type);
 
   return {
     changeType: {
@@ -33,5 +41,6 @@ export const usePointData = () => {
       count: () => changeType({ pointID, type: 'count' }),
     },
     type,
+
   };
 };

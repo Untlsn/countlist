@@ -17,13 +17,24 @@ export interface ChangeName {
   id: string
   name: string
 }
+export interface ChangeMax {
+ id: string,
+ max: number
+}
+export interface ChangeCount {
+  id: string
+  count: number
+}
+
 interface ListsActions {
   addList: ActionCreatorWithPayload<string>
   addPoint: ActionCreatorWithPayload<AddPoint>
   changePointCount: ActionCreatorWithPayload<ChangePointCount>
   changeType: ActionCreatorWithPayload<ChangeType>
   changeName: ActionCreatorWithPayload<ChangeName>
-  remove:ActionCreatorWithPayload<string>
+  remove: ActionCreatorWithPayload<string>
+  changeMax: ActionCreatorWithPayload<ChangeMax>
+  changeCount: ActionCreatorWithPayload<ChangeCount>
 }
 
 export default ListsActions;

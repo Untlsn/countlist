@@ -231,4 +231,74 @@ describe('List', () => {
       expect(state).toEqual(randState);
     });
   });
+  describe('ChangeMax', () => {
+    const defPoint = randPointsIDs[0];
+    const reduce = (max: number, id = defPoint) => reducer(
+      randState,
+      actions.changeMax({ id, max }),
+    );
+
+    it('should change max of point', () => {
+      const randMax = faker.datatype.number();
+      const state = reduce(randMax);
+
+      expect(state.points[defPoint].max).toBe(randMax);
+    });
+    it('should change max to 1 when is not positive', () => {
+      const randMax = -faker.datatype.number();
+      const state = reduce(randMax);
+
+      expect(state.points[defPoint].max).toBe(1);
+    });
+    it('should change count when new max is lesser', () => {
+      const { count } = randState.points[defPoint];
+      const randMax = faker.datatype.number(count-1);
+
+      const state = reduce(randMax);
+
+      expect(state.points[defPoint].count).toBeLessThan(count);
+    });
+    it('should do nothing when point don\'t exist', () => {
+      const state = reduce(15, 'fake');
+
+      expect(state).toEqual(randState);
+    });
+  });
+  describe('ChangeCount', () => {
+    const defPoint = randPointsIDs[0];
+
+    const reduce = (count: number, id = defPoint) => reducer(randState, actions.changeCount({
+      id,
+      count,
+    }));
+
+    it('should change point count', () => {
+      const { max } = randState.points[defPoint];
+      const randCount = faker.datatype.number({ max });
+
+      const state = reduce(randCount);
+
+      expect(state.points[defPoint].count).toBe(randCount);
+    });
+    it('should do nothing when point don\'t exist', () => {
+      const state = reduce(12, 'fake');
+
+      expect(state).toEqual(randState);
+    });
+    it('should change point to 0 when is negative', () => {
+      const randCount = -faker.datatype.number();
+
+      const state = reduce(randCount);
+
+      expect(state.points[defPoint].count).toBe(0);
+    });
+    it('should change point to max when is bigger', () => {
+      const { max } = randState.points[defPoint];
+      const randCount = faker.datatype.number({ min: max });
+
+      const state = reduce(randCount);
+
+      expect(state.points[defPoint].count).toBe(max);
+    });
+  });
 });
