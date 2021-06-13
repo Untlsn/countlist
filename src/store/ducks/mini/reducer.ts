@@ -16,6 +16,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.usePoint, (state, { payload }) => {
       state.usedPoint = payload;
+    })
+    .addCase(actions.useList, (state, { payload }) => {
+      state.usedList = payload;
     });
 });
 

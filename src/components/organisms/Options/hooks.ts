@@ -1,18 +1,22 @@
 import { useSelector } from 'react-redux';
 import useCleverDispatch from '@hooks/useCleverDispatch';
 
-export const useAddListFn = () => {
-  const addList = useCleverDispatch()(({ lists }) => lists.addList);
+export const useDataSelector = () => {
+  const listsKeys = useSelector(({ lists }) => Object.keys(lists.lists));
+  const userName = useSelector(({ mini }) => mini.userName);
+  const optionVisible = useSelector(({ mini }) => mini.optionVisible);
 
-  return (name: string) => {
-    if (name != '') addList({
-      name: name,
-    });
-  };
+  return { listsKeys, userName, optionVisible };
 };
 
-export const useDataSelector = () => {
-  const listsKeys = useSelector(({ lists }) => Object.keys(lists) || []);
-  const userName = useSelector(({ mini }) => mini.userName);
-  return { listsKeys, userName };
+export const useDataDispatch = () => {
+  const cleverDispatch = useCleverDispatch();
+
+  const switchOptions = cleverDispatch.no(({ mini }) => mini.switchOptions);
+  const addList = cleverDispatch(({ lists }) => lists.addList);
+
+  return {
+    addList,
+    switchOptions,
+  };
 };

@@ -11,7 +11,10 @@ export const useData = (listID: string) => {
     ({ mini }) => mini.usePoint,
   );
   const composition = useSelector(
-    ({ lists }) => lists.lists[listID].composition,
+    ({ lists }) => {
+      const list = lists.lists[listID] || {};
+      return list?.composition || [];
+    },
   );
 
   return {

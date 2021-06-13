@@ -8,6 +8,7 @@ const actions: MiniActions = {
   changeOptions: createAction('MINI/CHANGE_OPTIONS'),
   changeUserName: createAction('MINI/CHANGE_USER_NAME'),
   usePoint: createAction('MINI/USE_POINT'),
+  useList: createAction('MINI/USE_LIST'),
 };
 
 export default actions;
