@@ -6,7 +6,7 @@ import { useNameInput, usePointData } from './hooks';
 
 const PointOptions = () => {
   const inputProps = useNameInput();
-  const { changeType, type } = usePointData();
+  const { type, max, count, changeType, changeMax, changeCount } = usePointData();
   
   const checkBox = (ownType: 'check'|'count') => (
     <CheckBox checked={type == ownType} changeChecked={changeType[ownType]} value={ownType} />
@@ -20,8 +20,8 @@ const PointOptions = () => {
       <S.MFrame>
         {checkBox('check')}
         {checkBox('count')}
-        <NumberInput label='Max' value={0} onChange={() => {}} />
-        <NumberInput label='Current' value={0} onChange={() => {}} />
+        <NumberInput label='Max' value={max} onChange={changeMax} />
+        <NumberInput label='Current' value={count} onChange={changeCount} />
       </S.MFrame>
       <S.RFrame>
         <BsFillTrashFill size={35} color='#0000007F' />

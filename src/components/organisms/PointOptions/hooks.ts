@@ -1,22 +1,15 @@
-import { useState } from 'react';
 import useCleverDispatch from '@hooks/useCleverDispatch';
-import { handleKey, handleChange } from '@helpers';
+import { handleChange } from '@helpers';
 import { useSelector } from 'react-redux';
 
 export const useNameInput = () => {
   const usedPoint = useSelector(({ mini }) => mini.usedPoint)!;
-  const initName = useSelector(({ lists }) => lists.points[usedPoint].name);
+  const name = useSelector(({ lists }) => lists.points[usedPoint].name);
   const changeName = useCleverDispatch()(({ lists }) => lists.changeName);
 
-  const [pointName, changePointName] = useState(initName);
-
   return {
-    value: pointName,
-    onChange: handleChange(changePointName),
-    onKeyDown: handleKey(
-      'Enter',
-      () => changeName({ id: usedPoint, name: pointName }),
-    ),
+    value: name,
+    onChange: handleChange((newName) => changeName({ id: usedPoint, name: newName })),
   };
 };
 
@@ -31,16 +24,19 @@ const useAllPointData = (pointID: string) => {
 export const usePointData = () => {
   const cleverDispatch = useCleverDispatch();
   const pointID = useSelector(({ mini }) => mini.usedPoint)!;
-  const { type } = useAllPointData(pointID);
 
   const changeType = cleverDispatch(({ lists }) => lists.changeType);
+  const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
+  const changeMax = cleverDispatch(({ lists }) => lists.changeMax);
+
 
   return {
+    ...useAllPointData(pointID),
     changeType: {
       check: () => changeType({ pointID, type: 'check' }),
       count: () => changeType({ pointID, type: 'count' }),
     },
-    type,
-
+    changeCount: (count: number) => changeCount({ id: pointID, count }),
+    changeMax: (max: number) => changeMax({ id: pointID, max }),
   };
 };
