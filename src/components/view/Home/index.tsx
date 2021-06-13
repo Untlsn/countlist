@@ -1,8 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import Options from '@organisms/Options';
-import MainPage from '@organisms/MainPage';
-import PointOptions from '@organisms/PointOptions';
+import { MainPage, Options, PointOptions } from '@organisms';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
@@ -14,7 +12,7 @@ const Home = () => {
     <S.Wrapper rightColumn={true}>
       <Options />
       <MainPage />
-      {point && <PointOptions {...point} />}
+      {point && <PointOptions />}
     </S.Wrapper>
   );
 };

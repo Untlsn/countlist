@@ -1,12 +1,13 @@
 import React from 'react';
 import * as S from './style';
 import { ListPoint, AddBar, Nav } from '@molecules';
-import { useDataDispatch, useDataSelector } from './hooks';
+import { useDataDispatch, useDataSelector, useListEffect } from './hooks';
 
 
 const Options = () => {
   const { listsKeys, userName, optionVisible } = useDataSelector();
   const { addList, switchOptions } = useDataDispatch();
+  useListEffect(listsKeys);
 
   return (
     <div>

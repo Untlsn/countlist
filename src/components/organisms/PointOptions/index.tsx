@@ -2,11 +2,10 @@ import React from 'react';
 import * as S from './style';
 import { CheckBox, NumberInput } from '@atoms';
 import { BsFillTrashFill } from 'react-icons/bs';
-import { PointOptionsProps } from './types';
 import { useNameInput } from './hooks';
 
-const PointOptions = (props: PointOptionsProps) => {
-  const inputProps = useNameInput(props);
+const PointOptions = () => {
+  const inputProps = useNameInput();
 
   return (
     <S.Wrapper>

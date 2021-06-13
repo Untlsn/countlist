@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import useCleverDispatch from '@hooks/useCleverDispatch';
+import * as R from 'ramda';
+import { useEffect } from 'react';
 
 export const useDataSelector = () => {
   const listsKeys = useSelector(({ lists }) => Object.keys(lists.lists));
@@ -19,4 +21,12 @@ export const useDataDispatch = () => {
     addList,
     switchOptions,
   };
+};
+
+export const useListEffect = (listsKeys: string[]) => {
+  const useList = useCleverDispatch()(({ mini }) => mini.useList);
+
+  useEffect(() => {
+    useList(R.last(listsKeys)!);
+  }, [listsKeys.length]);
 };

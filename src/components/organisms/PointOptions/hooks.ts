@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import useCleverDispatch from '@hooks/useCleverDispatch';
-import type { UsedPoint } from '@store/ducks/mini/types';
-import { getParts } from './helpers';
 import { handleKey, handleChange } from '@helpers';
+import { useSelector } from 'react-redux';
 
-export const useNameInput = ({ pointID, listID }: UsedPoint) => {
+export const useNameInput = () => {
+  const usedPoint = useSelector(({ mini }) => mini.usedPoint)!;
+  const initName = useSelector(({ lists }) => lists.points[usedPoint].name);
   const changeName = useCleverDispatch()(
     ({ lists }) => lists.changeName,
   );
-
-  const [initName] = getParts(pointID);
 
   const [pointName, changePointName] = useState(initName);
 
@@ -18,7 +17,7 @@ export const useNameInput = ({ pointID, listID }: UsedPoint) => {
     onChange: handleChange(changePointName),
     onKeyDown: handleKey(
       'Enter',
-      () => changeName({ listID, pointID, name: pointName }),
+      () => changeName({ id: usedPoint, name: pointName }),
     ),
   };
 };
