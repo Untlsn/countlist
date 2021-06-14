@@ -67,10 +67,10 @@ const reducer = createReducer(initState, builder => {
       const { id, max } = payload;
 
       const point = state.points[id];
-      if (!point) return;
-
-      point.max = R.max(1, max);
-      point.count = R.min(point.count, max);
+      if (point?.type == 'count') {
+        point.max = R.max(1, max);
+        point.count = R.min(point.count, max);
+      }
     })
     .addCase(actions.changeCount,(state, { payload }) => {
       const { id, count } = payload;

@@ -263,6 +263,17 @@ describe('List', () => {
 
       expect(state).toEqual(randState);
     });
+    it('should do nothing when point type is check', () => {
+      const randMax = faker.datatype.number({ min: 2 });
+      let state = reducer(randState, actions.changeType({ pointID: defPoint, type: 'check' }));
+
+      state = reducer(
+        state,
+        actions.changeMax({ id: defPoint, max: randMax }),
+      );
+
+      expect(state.points[defPoint].max).toBe(1);
+    });
   });
   describe('ChangeCount', () => {
     const defPoint = randPointsIDs[0];
