@@ -51,7 +51,7 @@ describe('List', () => {
       expect(haveName.many(newRandNames)(state.lists));
     });
   });
-  describe('ChangePointCount', () => {
+  describe('ChangeCount', () => {
 
     const defPoint = randPointsIDs[0];
 
@@ -60,8 +60,8 @@ describe('List', () => {
         randState.points[defPoint].max,
       );
 
-      const state = reducer(randState, actions.changePointCount({
-        pointID: defPoint, count: randCount,
+      const state = reducer(randState, actions.changeCount({
+        id: defPoint, count: randCount,
       }));
 
       expect(
@@ -71,8 +71,8 @@ describe('List', () => {
     it('should change count to max if count payload is larger then max', () => {
       const randCount = faker.datatype.number()+50;
 
-      const state = reducer(randState, actions.changePointCount({
-        pointID: defPoint, count: randCount,
+      const state = reducer(randState, actions.changeCount({
+        id: defPoint, count: randCount,
       }));
 
       const { count, max } = state.points[defPoint];
@@ -82,20 +82,20 @@ describe('List', () => {
     it('should change count to 0, if count payload is negative', () => {
       const randCount = -faker.datatype.number();
 
-      const state = reducer(randState, actions.changePointCount({
-        pointID: defPoint, count: randCount,
+      const state = reducer(randState, actions.changeCount({
+        id: defPoint, count: randCount,
       }));
 
       expect(state.points[defPoint].count).toBe(0);
     });
     it('should change count to 0 or max when count is undefined', () => {
-      let state = reducer(randState, actions.changePointCount({
-        pointID: defPoint, count: 0,
+      let state = reducer(randState, actions.changeCount({
+        id: defPoint, count: 0,
       }));
 
       const run = (state: ListsState) => {
-        return reducer(state, actions.changePointCount({
-          pointID: defPoint,
+        return reducer(state, actions.changeCount({
+          id: defPoint,
         }));
       };
 
@@ -107,11 +107,24 @@ describe('List', () => {
       count = state.points[defPoint].count;
       expect(count).toBe(0);
     });
+    it('should don\'t treat 0 as undefined', () => {
+      const run = (state = randState) => {
+        return reducer(state, actions.changeCount({
+          id: defPoint, count: 0,
+        }));
+      };
+
+      let state = run();
+      expect(state.points[defPoint].count).toBe(0);
+
+      state = run(state);
+      expect(state.points[defPoint].count).toBe(0);
+    });
     it('should do nothing when point don\'t exist', () => {
       const randCount = -faker.datatype.number();
 
-      const state = reducer(randState, actions.changePointCount({
-        pointID: 'fake', count: randCount,
+      const state = reducer(randState, actions.changeCount({
+        id: 'fake', count: randCount,
       }));
 
       expect(state).toEqual(randState);
@@ -123,7 +136,7 @@ describe('List', () => {
       const randType = faker.random.arrayElement<'count'|'check'>(['count', 'check']);
 
       const state = reducer(randState, actions.changeType({
-        pointID: defPoint, type: randType,
+        id: defPoint, type: randType,
       }));
 
       expect(
@@ -135,7 +148,7 @@ describe('List', () => {
         (state, id) => {
 
           return reducer(state, actions.changeType({
-            pointID: id, type: faker.random.arrayElement(['count', 'check']),
+            id: id, type: faker.random.arrayElement(['count', 'check']),
           }));
         },
         randState,
@@ -150,7 +163,7 @@ describe('List', () => {
     });
     it('should do nothing when point don\'t exist', () => {
       const state = reducer(randState, actions.changeType({
-        pointID: 'fake', type: faker.random.arrayElement(['count', 'check']),
+        id: 'fake', type: faker.random.arrayElement(['count', 'check']),
       }));
 
       expect(state).toEqual(randState);
@@ -265,7 +278,7 @@ describe('List', () => {
     });
     it('should do nothing when point type is check', () => {
       const randMax = faker.datatype.number({ min: 2 });
-      let state = reducer(randState, actions.changeType({ pointID: defPoint, type: 'check' }));
+      let state = reducer(randState, actions.changeType({ id: defPoint, type: 'check' }));
 
       state = reducer(
         state,
@@ -273,43 +286,6 @@ describe('List', () => {
       );
 
       expect(state.points[defPoint].max).toBe(1);
-    });
-  });
-  describe('ChangeCount', () => {
-    const defPoint = randPointsIDs[0];
-
-    const reduce = (count: number, id = defPoint) => reducer(randState, actions.changeCount({
-      id,
-      count,
-    }));
-
-    it('should change point count', () => {
-      const { max } = randState.points[defPoint];
-      const randCount = faker.datatype.number({ max });
-
-      const state = reduce(randCount);
-
-      expect(state.points[defPoint].count).toBe(randCount);
-    });
-    it('should do nothing when point don\'t exist', () => {
-      const state = reduce(12, 'fake');
-
-      expect(state).toEqual(randState);
-    });
-    it('should change point to 0 when is negative', () => {
-      const randCount = -faker.datatype.number();
-
-      const state = reduce(randCount);
-
-      expect(state.points[defPoint].count).toBe(0);
-    });
-    it('should change point to max when is bigger', () => {
-      const { max } = randState.points[defPoint];
-      const randCount = faker.datatype.number({ min: max });
-
-      const state = reduce(randCount);
-
-      expect(state.points[defPoint].count).toBe(max);
     });
   });
 });

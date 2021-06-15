@@ -24,26 +24,26 @@ const reducer = createReducer(initState, builder => {
 
       state.lists[listID].composition.push(id);
     })
-    .addCase(actions.changePointCount, (state, { payload }) => {
-      const { pointID, count } = payload;
+    .addCase(actions.changeCount, (state, { payload }) => {
+      const { id, count } = payload;
 
-      const point = state.points[pointID];
+      const point = state.points[id];
       if (!point) return;
 
-      if (count) {
-        point.count = R.clamp(0, point.max, count);
+      if (R.isNil(count)) {
+        point.count = point.count == 0 ? point.max : 0;
       }
       else {
-        point.count = point.count == 0 ? point.max : 0;
+        point.count = R.clamp(0, point.max, count);
       }
     })
     .addCase(actions.changeType, (state, { payload }) => {
-      const { pointID, type } = payload;
+      const { id, type } = payload;
 
-      if (!state.points[pointID]) return;
+      if (!state.points[id]) return;
 
-      state.points[pointID] = {
-        name: state.points[pointID].name,
+      state.points[id] = {
+        name: state.points[id].name,
         count: 0,
         max: 1,
         type,
@@ -71,14 +71,6 @@ const reducer = createReducer(initState, builder => {
         point.max = R.max(1, max);
         point.count = R.min(point.count, max);
       }
-    })
-    .addCase(actions.changeCount,(state, { payload }) => {
-      const { id, count } = payload;
-
-      const point = state.points[id];
-      if (!point) return;
-
-      point.count = R.clamp(0, point.max, count);
     });
 });
 

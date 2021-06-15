@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './style';
-import type { ListPointProps } from './types';
 import useCleverDispatch from '@hooks/useCleverDispatch';
 import { useSelector } from 'react-redux';
+import { OnlyID } from '@types';
 
-const ListPoint = ({ id }: ListPointProps) => {
+const ListPoint = ({ id }: OnlyID) => {
 
   const useList = useCleverDispatch()(
     ({ mini }) => mini.useList,
@@ -26,4 +26,3 @@ const ListPoint = ({ id }: ListPointProps) => {
 };
 
 export default ListPoint;
-export type { ListPointProps } from './types.d';

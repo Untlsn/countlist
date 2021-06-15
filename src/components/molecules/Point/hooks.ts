@@ -11,11 +11,11 @@ export const usePointData = (id: string) => ({
 export const useDataDispatch = (id: string) => {
   const cleverDispatch = useCleverDispatch();
 
-  const changeCount = cleverDispatch(({ lists }) => lists.changePointCount);
+  const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
   const usePoint = cleverDispatch(({ mini }) => mini.usePoint);
 
   return {
-    changeCount: (count?: number) => changeCount({ pointID: id, count }),
+    changeCount: (count?: number) => changeCount({ id, count }),
     usePoint: () => usePoint(id),
   };
 };

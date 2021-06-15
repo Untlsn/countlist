@@ -7,6 +7,7 @@ export default {
 } as Meta;
 
 const Template: Story<CheckBoxProps> = ({ checked: initChecked, value }) => {
+
   const [checked, changeChecked] = useState(initChecked);
   return <CheckBox {...{ checked, changeChecked, value }} />;
 };

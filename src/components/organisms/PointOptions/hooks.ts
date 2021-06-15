@@ -23,7 +23,7 @@ const useAllPointData = (pointID: string) => {
 
 export const usePointData = () => {
   const cleverDispatch = useCleverDispatch();
-  const pointID = useSelector(({ mini }) => mini.usedPoint)!;
+  const id = useSelector(({ mini }) => mini.usedPoint)!;
 
   const changeType = cleverDispatch(({ lists }) => lists.changeType);
   const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
@@ -31,12 +31,12 @@ export const usePointData = () => {
 
 
   return {
-    ...useAllPointData(pointID),
+    ...useAllPointData(id),
     changeType: {
-      check: () => changeType({ pointID, type: 'check' }),
-      count: () => changeType({ pointID, type: 'count' }),
+      check: () => changeType({ id, type: 'check' }),
+      count: () => changeType({ id, type: 'count' }),
     },
-    changeCount: (count: number) => changeCount({ id: pointID, count }),
-    changeMax: (max: number) => changeMax({ id: pointID, max }),
+    changeCount: (count: number) => changeCount({ id, count }),
+    changeMax: (max: number) => changeMax({ id, max }),
   };
 };

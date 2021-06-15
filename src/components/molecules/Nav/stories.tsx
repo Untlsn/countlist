@@ -14,11 +14,12 @@ const Template: Story<NavProps> = (props) => (
 );
 export const Default = Template.bind({});
 Default.args = {
-  id: 'Name@000',
+  name: 'Name',
+  dotMenu: false,
 };
 
 export const WithDotMenu = Template.bind({});
 WithDotMenu.args = {
-  id: 'Name@000',
+  name: 'Name',
   dotMenu: true,
 };
