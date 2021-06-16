@@ -60,8 +60,16 @@ const reducer = createReducer(initState, builder => {
       }
     })
     .addCase(actions.remove, (state, { payload: id }) => {
-      delete state.points[id];
-      delete state.lists[id];
+      if (state.points[id]) {
+        delete state.points[id];
+         R.forEachObjIndexed(
+          (list) => list.composition = R.reject(R.equals(id), list.composition),
+          state.lists,
+        );
+      }
+      else {
+        delete state.lists[id];
+      }
     })
     .addCase(actions.changeMax, (state, { payload }) => {
       const { id, max } = payload;
