@@ -28,6 +28,8 @@ export const usePointData = () => {
   const changeType = cleverDispatch(({ lists }) => lists.changeType);
   const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
   const changeMax = cleverDispatch(({ lists }) => lists.changeMax);
+  const remove = cleverDispatch(({ lists }) => lists.remove);
+  const usePoint = cleverDispatch(({ mini }) => mini.usePoint);
 
 
   return {
@@ -38,5 +40,10 @@ export const usePointData = () => {
     },
     changeCount: (count: number) => changeCount({ id, count }),
     changeMax: (max: number) => changeMax({ id, max }),
+    hide: () => usePoint(undefined),
+    remove: () => {
+      usePoint(undefined);
+      remove(id);
+    },
   };
 };

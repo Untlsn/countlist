@@ -1,12 +1,14 @@
 import React from 'react';
 import * as S from './style';
 import { CheckBox, NumberInput } from '@atoms';
-import { BsFillTrashFill } from 'react-icons/bs';
 import { useNameInput, usePointData } from './hooks';
+import ConfirmationPortal from '@molecules/ConfirmationPortal';
+import { useBoolState } from '@hooks';
 
 const PointOptions = () => {
   const inputProps = useNameInput();
-  const { type, max, count, changeType, changeMax, changeCount } = usePointData();
+  const { type, max, count, changeType, changeMax, changeCount, remove, hide } = usePointData();
+  const [confirmation, changeConfirmation] = useBoolState();
   
   const checkBox = (ownType: 'check'|'count') => (
     <CheckBox checked={type == ownType} changeChecked={changeType[ownType]} value={ownType} />
@@ -24,7 +26,11 @@ const PointOptions = () => {
         <NumberInput label='Current' value={count} onChange={changeCount} />
       </S.MFrame>
       <S.RFrame>
-        <BsFillTrashFill size={35} color='#0000007F' />
+        <S.Arrow onClick={hide} />
+        <S.Trash onClick={changeConfirmation} />
+        {confirmation &&
+          <ConfirmationPortal pointName={inputProps.value} onYes={remove} onNo={changeConfirmation} />
+        }
       </S.RFrame>
     </S.Wrapper>
   );

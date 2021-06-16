@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { BsFillTrashFill } from 'react-icons/bs';
+import { RiArrowLeftSFill } from 'react-icons/all';
 
 export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.secondBackground};
@@ -25,7 +27,8 @@ export const MFrame = styled(Frame)`
 `;
 
 export const RFrame = styled(Frame)`
-  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: row;
 `;
 
 export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
@@ -35,4 +38,16 @@ export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
   text-align: center;
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.huge};
+`;
+
+export const Trash = styled(BsFillTrashFill)`
+  font-size: 35px;
+  color: #0000007F;
+  &:hover { cursor: pointer }
+`;
+
+export const Arrow = styled(RiArrowLeftSFill)`
+  font-size: 40px;
+  color: #0000007F;
+  &:hover { cursor: pointer }
 `;

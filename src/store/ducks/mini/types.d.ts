@@ -4,7 +4,7 @@ export interface MiniActions {
   switchOptions: ActionCreatorWithoutPayload
   changeOptions: ActionCreatorWithPayload<boolean>
   changeUserName: ActionCreatorWithPayload<string>
-  usePoint: ActionCreatorWithPayload<string>
+  usePoint: ActionCreatorWithPayload<string|undefined>
   useList: ActionCreatorWithPayload<string>
 }
 
