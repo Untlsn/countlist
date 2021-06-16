@@ -1,23 +1,11 @@
 import React from 'react';
 import * as S from './style';
 import { AddBar, Nav, Point } from '@molecules';
-import { useData } from '@organisms/MainPage/hooks';
-import { useSelector } from 'react-redux';
+import { useRedux } from '@organisms/MainPage/hooks';
 
 
 const MainPage = () => {
-  const listID = useSelector(
-    ({ mini }) => mini.usedList,
-  ) || '0';
-
-  const name = useSelector(
-    ({ lists }) => {
-      const list = lists.lists[listID];
-      return list?.name ?? '(no-name)';
-    },
-  );
-
-  const { addPoint, composition } = useData(listID);
+  const { name, composition, addPoint } = useRedux();
 
   return (
     <S.Wrapper>

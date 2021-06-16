@@ -1,25 +1,23 @@
 import useCleverDispatch from '@hooks/useCleverDispatch';
 import { useSelector } from 'react-redux';
 
-export const useData = (listID: string) => {
+export const useRedux = () => {
   const cleverDispatch = useCleverDispatch();
 
-  const addPoint = cleverDispatch(
-    ({ lists }) => lists.addPoint,
-  );
-  const usePoint = cleverDispatch(
-    ({ mini }) => mini.usePoint,
-  );
+  const listID = useSelector(({ mini }) => mini.usedList  || '0');
+
   const composition = useSelector(
-    ({ lists }) => {
-      const list = lists.lists[listID] || {};
-      return list?.composition || [];
-    },
+  ({ lists }) => (lists.lists[listID])?.composition ?? [],
   );
+  const name = useSelector(
+    ({ lists }) => (lists.lists[listID])?.name ?? '(no-name)',
+  );
+
+  const addPoint = cleverDispatch(({ lists }) => lists.addPoint);
 
   return {
     addPoint: (name: string) => addPoint({ listID, name }),
-    usePoint,
     composition,
+    name,
   };
 };

@@ -13,6 +13,7 @@ export const Frame = styled.div`
   border: solid 1px #0000004C;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 10px
 `;
@@ -20,7 +21,6 @@ export const Frame = styled.div`
 export const MFrame = styled(Frame)`
   padding-right: 100px;
   height: 200px;
-  justify-content: center;
   gap: 10px;
 `;
 
@@ -32,6 +32,7 @@ export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
   background-color: transparent;
   outline: none;
   border: none;
+  text-align: center;
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.huge};
 `;
