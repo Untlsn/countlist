@@ -1,7 +1,15 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UsedPoint } from './types';
+import { MiniActions } from './types';
 
-export const switchOptions = createAction('MINI/SWITCH_OPTIONS');
-export const changeOptions = createAction<boolean>('MINI/CHANGE_OPTIONS');
-export const changeUserName = createAction<string>('MINI/CHANGE_USER_NAME');
-export const usePoint = createAction<UsedPoint>('MINI/USE_POINT');
+
+
+const actions: MiniActions = {
+  switchOptions: createAction('MINI/SWITCH_OPTIONS'),
+  changeOptions: createAction('MINI/CHANGE_OPTIONS'),
+  changeUserName: createAction('MINI/CHANGE_USER_NAME'),
+  usePoint: createAction('MINI/USE_POINT'),
+  useList: createAction('MINI/USE_LIST'),
+};
+
+export default actions;
+

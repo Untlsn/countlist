@@ -10,12 +10,15 @@ module.exports = {
       },
     };
   },
-  'stories': [
+  stories: [
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../src/**/stories.@(js|jsx|ts|tsx|mdx)',
   ],
-  'addons': [
+  addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
   ],
+  core: {
+    builder: 'webpack5'
+  }
 };

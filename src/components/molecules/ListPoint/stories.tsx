@@ -1,28 +1,36 @@
 import React from 'react';
 import type { Meta, Story } from '@storybook/react';
-import ListPoint, { ListPointProps }  from './index';
+import ListPoint  from './index';
+import { useSelector } from 'react-redux';
+import useCleverDispatch from '@hooks/useCleverDispatch';
 
 export default {
   title: 'Molecules/ListPoint',
 } as Meta;
 
+interface Props {
+  name: string
+  selected: boolean
+}
 
-const defaultProps = {
-  id: 'List Name',
-  selected: false,
+const Template: Story<Props> = ({ name, selected }) => {
+  const id = useSelector(({ lists }) => Object.keys(lists.lists)[0]);
+
+  const cleverDispatch = useCleverDispatch();
+  cleverDispatch(({ lists }) => lists.changeName)({ id, name });
+  cleverDispatch(({ mini }) => mini.useList)(selected ? id : '');
+
+  return <ListPoint id={id} />;
 };
-
-const Template: Story<ListPointProps> = (props) => <ListPoint
-  {...props}
-  onClick={() => alert('List Point clicked')} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  ...defaultProps,
+  name: 'default',
+  selected: false,
 };
 
 export const Selected = Template.bind({});
 Selected.args = {
-  ...defaultProps,
+  name: 'selected',
   selected: true,
 };

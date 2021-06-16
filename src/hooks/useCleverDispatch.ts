@@ -1,20 +1,23 @@
 import { useDispatch } from 'react-redux';
 import { Actions, actions } from '@store';
-
-interface Action<T=any> {
-  type: string,
-  payload?: T
-}
-type ActionFn<T> = (payload: T) => Action<T>
+import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 const useCleverDispatch = () => {
   const dispatch = useDispatch();
 
-  return <Payload>(callback: (actions: Actions) => ActionFn<Payload>) => {
+  const self = <Payload>(callback: (actions: Actions) => ActionCreatorWithPayload<Payload>) => {
     const action = callback(actions);
 
     return (payload: Payload) => dispatch(action(payload));
   };
+
+  self.no = (callback: (actions: Actions) => ActionCreatorWithoutPayload) => {
+    const action = callback(actions);
+
+    return () => dispatch(action());
+  };
+
+  return self;
 };
 
 export default useCleverDispatch;

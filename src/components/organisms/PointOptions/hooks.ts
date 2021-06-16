@@ -1,24 +1,47 @@
-import { useState } from 'react';
 import useCleverDispatch from '@hooks/useCleverDispatch';
-import type { UsedPoint } from '@store/ducks/mini/types';
-import { getParts } from './helpers';
-import { handleKey, handleChange } from '@helpers';
+import { handleChange } from '@helpers';
+import { useSelector } from 'react-redux';
 
-export const useNameInput = ({ pointID, listID }: UsedPoint) => {
-  const changeName = useCleverDispatch()(
-    ({ lists }) => lists.changeName,
-  );
-
-  const [initName] = getParts(pointID);
-
-  const [pointName, changePointName] = useState(initName);
+export const useNameInput = (usedPoint: string) => {
+  const name = useSelector(({ lists }) => lists.points[usedPoint]?.name);
+  const changeName = useCleverDispatch()(({ lists }) => lists.changeName);
 
   return {
-    value: pointName,
-    onChange: handleChange(changePointName),
-    onKeyDown: handleKey(
-      'Enter',
-      () => changeName({ listID, pointID, name: pointName }),
-    ),
+    value: name,
+    onChange: handleChange((newName) => changeName({ id: usedPoint, name: newName })),
+  };
+};
+
+const useAllPointData = (pointID: string) => {
+  const type = useSelector(({ lists }) => lists.points[pointID]?.type);
+  const max = useSelector(({ lists }) => lists.points[pointID]?.max);
+  const count = useSelector(({ lists }) => lists.points[pointID]?.count);
+
+  return { type, max, count };
+};
+
+export const usePointData = (id: string) => {
+  const cleverDispatch = useCleverDispatch();
+
+  const changeType = cleverDispatch(({ lists }) => lists.changeType);
+  const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
+  const changeMax = cleverDispatch(({ lists }) => lists.changeMax);
+  const remove = cleverDispatch(({ lists }) => lists.remove);
+  const usePoint = cleverDispatch(({ mini }) => mini.usePoint);
+
+
+  return {
+    ...useAllPointData(id),
+    changeType: {
+      check: () => changeType({ id, type: 'check' }),
+      count: () => changeType({ id, type: 'count' }),
+    },
+    changeCount: (count: number) => changeCount({ id, count }),
+    changeMax: (max: number) => changeMax({ id, max }),
+    hide: () => usePoint(undefined),
+    remove: () => {
+      usePoint(undefined);
+      remove(id);
+    },
   };
 };

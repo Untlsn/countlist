@@ -6,8 +6,7 @@ import * as R from 'ramda';
 
 const reducer = createReducer(initState, builder => {
   builder
-    .addCase(actions.addList, (state, { payload }) => {
-      const { name } = payload;
+    .addCase(actions.addList, (state, { payload: name }) => {
       const id = createID();
 
       state.lists[id] = { composition: [], name };
@@ -25,26 +24,26 @@ const reducer = createReducer(initState, builder => {
 
       state.lists[listID].composition.push(id);
     })
-    .addCase(actions.changePointCount, (state, { payload }) => {
-      const { pointID, count } = payload;
+    .addCase(actions.changeCount, (state, { payload }) => {
+      const { id, count } = payload;
 
-      const point = state.points[pointID];
+      const point = state.points[id];
       if (!point) return;
 
-      if (count) {
-        point.count = R.clamp(0, point.max, count);
+      if (R.isNil(count)) {
+        point.count = point.count == 0 ? point.max : 0;
       }
       else {
-        point.count = point.count == 0 ? point.max : 0;
+        point.count = R.clamp(0, point.max, count);
       }
     })
     .addCase(actions.changeType, (state, { payload }) => {
-      const { pointID, type } = payload;
+      const { id, type } = payload;
 
-      if (!state.points[pointID]) return;
+      if (!state.points[id]) return;
 
-      state.points[pointID] = {
-        name: state.points[pointID].name,
+      state.points[id] = {
+        name: state.points[id].name,
         count: 0,
         max: 1,
         type,
@@ -58,6 +57,27 @@ const reducer = createReducer(initState, builder => {
       }
       else if (state.lists[id]) {
         state.lists[id].name = name;
+      }
+    })
+    .addCase(actions.remove, (state, { payload: id }) => {
+      if (state.points[id]) {
+        delete state.points[id];
+         R.forEachObjIndexed(
+          (list) => list.composition = R.reject(R.equals(id), list.composition),
+          state.lists,
+        );
+      }
+      else {
+        delete state.lists[id];
+      }
+    })
+    .addCase(actions.changeMax, (state, { payload }) => {
+      const { id, max } = payload;
+
+      const point = state.points[id];
+      if (point?.type == 'count') {
+        point.max = R.max(1, max);
+        point.count = R.min(point.count, max);
       }
     });
 });

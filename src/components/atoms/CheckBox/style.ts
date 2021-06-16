@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 
 export const Label = styled.div`
   font-size: ${({ theme }) => theme.fontSize.big};
+  text-transform: capitalize;
 `;
 
 export const Ring = styled.div`

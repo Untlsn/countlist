@@ -6,7 +6,10 @@ const reducers = combineReducers({
   lists,
 });
 
-const store = createStore(reducers);
+const store = createStore(
+  reducers,
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 export default store;
 

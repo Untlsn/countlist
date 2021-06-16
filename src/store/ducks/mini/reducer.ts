@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import * as actions from './actions';
+import actions from './actions';
 import initState from './state';
 
 
@@ -16,6 +16,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.usePoint, (state, { payload }) => {
       state.usedPoint = payload;
+    })
+    .addCase(actions.useList, (state, { payload }) => {
+      state.usedList = payload;
     });
 });
 

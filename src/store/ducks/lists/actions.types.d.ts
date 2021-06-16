@@ -1,31 +1,35 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Point } from './state';
 
-export interface AddList {
-  name: string
-}
 export interface AddPoint {
   listID: string
   name: string
 }
-export interface ChangePointCount {
-  pointID: string
+export interface ChangeCount {
+  id: string
   count?: number
 }
 export interface ChangeType {
-  pointID: string
+  id: string
   type: Point['type']
 }
 export interface ChangeName {
   id: string
   name: string
 }
-interface self {
-  addList: ActionCreatorWithPayload<AddList>
-  addPoint: ActionCreatorWithPayload<AddPoint>
-  changePointCount: ActionCreatorWithPayload<ChangePointCount>
-  changeType: ActionCreatorWithPayload<ChangeType>
-  changeName: ActionCreatorWithPayload<ChangeName>
+export interface ChangeMax {
+ id: string,
+ max: number
 }
 
-export default self;
+interface ListsActions {
+  addList: ActionCreatorWithPayload<string>
+  addPoint: ActionCreatorWithPayload<AddPoint>
+  changeType: ActionCreatorWithPayload<ChangeType>
+  changeName: ActionCreatorWithPayload<ChangeName>
+  remove: ActionCreatorWithPayload<string>
+  changeMax: ActionCreatorWithPayload<ChangeMax>
+  changeCount: ActionCreatorWithPayload<ChangeCount>
+}
+
+export default ListsActions;

@@ -2,15 +2,35 @@ import React from 'react';
 import * as S from './style';
 import type { PointProps } from './types';
 import PointCircle from '@atoms/PointCircle';
+import { useDataDispatch, usePointData } from '@molecules/Point/hooks';
+import { OnlyID } from '@types';
+import CountBox from '@atoms/CountBox';
+import prevDef from '@helpers/prevDef';
+import { useSelector } from 'react-redux';
 
-const Point = ({ checked, text, onClick, onEllipsisClick }: PointProps) => {
+const Point = ({ id }: OnlyID) => {
+  const usedPoint = useSelector(({ mini }) => mini.usedPoint);
+  const { count, name, max, type } = usePointData(id);
+  const { changeCount, usePoint } = useDataDispatch(id);
+
+  const clicker = {
+    onClick: type == 'check'
+      ? () => changeCount()
+      : () => changeCount(count+1),
+    onContextMenu: type == 'check' ? undefined : prevDef(() => changeCount(count-1)),
+  };
+
+
   return (
     <S.Wrapper>
-      <S.Flex onClick={onClick}>
-        <PointCircle checked={checked} />
-        <S.BigText>{text}</S.BigText>
+      <S.Flex {...clicker}>
+        {type == 'check'
+          ? <PointCircle checked={!!count}/>
+          : <CountBox fill={count / max}/>
+        }
+        <S.BigText>{name}</S.BigText>
       </S.Flex>
-      <S.Ellipsis onClick={onEllipsisClick} />
+      <S.Ellipsis onClick={() => usedPoint == id ? usePoint(undefined) : usePoint(id)} />
     </S.Wrapper>
   );
 };

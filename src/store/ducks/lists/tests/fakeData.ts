@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 import { createID } from '../helpers';
 import * as R from 'ramda';
-import { ListsState, Point } from '../state';
+import type { ListsState, Point } from '../state.types';
 
 export const randIDs = R.times(createID, 10);
 export const randListsIDs = randIDs.slice(0, 3);

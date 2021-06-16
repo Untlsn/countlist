@@ -1,3 +1,4 @@
 export { default } from './reducer';
-export * as actions from './actions';
+export { default as actions } from './actions';
+export type { MiniActions } from './types';
 

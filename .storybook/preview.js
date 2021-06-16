@@ -12,7 +12,7 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-      <CombineProvider fonts={[]}>
+      <CombineProvider>
         <Story />
       </CombineProvider>
   )

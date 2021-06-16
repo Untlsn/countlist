@@ -10,13 +10,13 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+
+  &:hover { cursor: pointer }
 `;
 
 export const Flex = styled.div`
   display: flex;
   gap: 15px;
-
-  &:hover { cursor: pointer }
 `;
 
 export const BigText = styled.div`

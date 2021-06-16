@@ -1,11 +1,12 @@
 import React from 'react';
 import StoreProvider from './StoreProvider';
-import StyleProvider, { StyleProviderProps } from './StyleProvider';
+import StyleProvider from './StyleProvider';
+import { OnlyChildren } from '@types';
 
-const CombineProvider = ({ children, fonts }: StyleProviderProps) => {
+const CombineProvider = ({ children }: OnlyChildren) => {
   return (
     <StoreProvider>
-      <StyleProvider fonts={fonts}>
+      <StyleProvider>
         {children}
       </StyleProvider>
     </StoreProvider>
