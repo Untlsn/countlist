@@ -2,9 +2,8 @@ import useCleverDispatch from '@hooks/useCleverDispatch';
 import { handleChange } from '@helpers';
 import { useSelector } from 'react-redux';
 
-export const useNameInput = () => {
-  const usedPoint = useSelector(({ mini }) => mini.usedPoint)!;
-  const name = useSelector(({ lists }) => lists.points[usedPoint].name);
+export const useNameInput = (usedPoint: string) => {
+  const name = useSelector(({ lists }) => lists.points[usedPoint]?.name);
   const changeName = useCleverDispatch()(({ lists }) => lists.changeName);
 
   return {
@@ -14,16 +13,15 @@ export const useNameInput = () => {
 };
 
 const useAllPointData = (pointID: string) => {
-  const type = useSelector(({ lists }) => lists.points[pointID].type);
-  const max = useSelector(({ lists }) => lists.points[pointID].max);
-  const count = useSelector(({ lists }) => lists.points[pointID].count);
+  const type = useSelector(({ lists }) => lists.points[pointID]?.type);
+  const max = useSelector(({ lists }) => lists.points[pointID]?.max);
+  const count = useSelector(({ lists }) => lists.points[pointID]?.count);
 
   return { type, max, count };
 };
 
-export const usePointData = () => {
+export const usePointData = (id: string) => {
   const cleverDispatch = useCleverDispatch();
-  const id = useSelector(({ mini }) => mini.usedPoint)!;
 
   const changeType = cleverDispatch(({ lists }) => lists.changeType);
   const changeCount = cleverDispatch(({ lists }) => lists.changeCount);

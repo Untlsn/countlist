@@ -4,15 +4,13 @@ import { MainPage, Options, PointOptions } from '@organisms';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const point = useSelector(
-    ({ mini }) => mini.usedPoint,
-  );
+  const point = useSelector(({ mini }) => mini.usedPoint);
 
   return (
-    <S.Wrapper rightColumn={true}>
+    <S.Wrapper>
       <Options />
       <MainPage />
-      {point && <PointOptions />}
+      { point && <PointOptions /> }
     </S.Wrapper>
   );
 };
