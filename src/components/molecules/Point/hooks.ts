@@ -16,6 +16,6 @@ export const useDataDispatch = (id: string) => {
 
   return {
     changeCount: (count?: number) => changeCount({ id, count }),
-    usePoint: () => usePoint(id),
+    usePoint,
   };
 };

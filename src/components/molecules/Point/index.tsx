@@ -6,8 +6,10 @@ import { useDataDispatch, usePointData } from '@molecules/Point/hooks';
 import { OnlyID } from '@types';
 import CountBox from '@atoms/CountBox';
 import prevDef from '@helpers/prevDef';
+import { useSelector } from 'react-redux';
 
 const Point = ({ id }: OnlyID) => {
+  const usedPoint = useSelector(({ mini }) => mini.usedPoint);
   const { count, name, max, type } = usePointData(id);
   const { changeCount, usePoint } = useDataDispatch(id);
 
@@ -28,7 +30,7 @@ const Point = ({ id }: OnlyID) => {
         }
         <S.BigText>{name}</S.BigText>
       </S.Flex>
-      <S.Ellipsis onClick={usePoint} />
+      <S.Ellipsis onClick={() => usedPoint == id ? usePoint(undefined) : usePoint(id)} />
     </S.Wrapper>
   );
 };
