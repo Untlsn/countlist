@@ -3,6 +3,7 @@ import type { Meta, Story } from '@storybook/react';
 import ListPoint  from './index';
 import { useSelector } from 'react-redux';
 import useCleverDispatch from '@hooks/useCleverDispatch';
+import data from './stories.data';
 
 export default {
   title: 'Molecules/ListPoint',
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const Template: Story<Props> = ({ name, selected }) => {
+  useCleverDispatch()(({ lists }) => lists.init)(data);
   const id = useSelector(({ lists }) => Object.keys(lists.lists)[0]);
 
   const cleverDispatch = useCleverDispatch();

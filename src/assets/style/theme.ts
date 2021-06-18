@@ -4,6 +4,7 @@ export const theme = {
     normal: '16px',
     big: '18px',
     huge: '24px',
+    title: '36px',
   },
   colors: {
     background: '#fcfcfc',
