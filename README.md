@@ -24,7 +24,6 @@ State manager is Redux write with Redux Toolkit
 * Default language is TypeScript
 * For style site use styled-components
 * Storybook is write with TS
-* Netlify Functions is write in GoLang
 # Used technology:
 * [Typescript](https://github.com/microsoft/TypeScript) - superset of JS with types
 * [React](https://github.com/facebook/react) - main technology for write whole app
