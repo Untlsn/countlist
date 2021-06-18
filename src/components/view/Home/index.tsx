@@ -10,12 +10,23 @@ import LoadingScreen from '@view/LoadingScreen';
 
 const Home = () => {
   const point = useSelector(({ mini }) => mini.usedPoint);
-  const initLists = useCleverDispatch()(({ lists }) => lists.init);
+
+  const cleverDispatch = useCleverDispatch();
+  const initLists = cleverDispatch(({ lists }) => lists.init);
+  const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
+
   const [initialized, changeInitialized] = useBoolState();
+
+
   useEffect(() => {
+    const id = prompt('Log you id'); // login placeholder
+
     axios
-      .get('/api/get-lists')
-      .then(({ data }) => data as ListsState)
+      .get(`/api/get-lists?id=${id}`)
+      .then(({ data }) => {
+        changeUserName(data.userName);
+        return data.lists as ListsState;
+      })
       .then(initLists)
       .then(changeInitialized);
   }, []);

@@ -1,11 +1,14 @@
 import { Handler } from '@netlify/functions';
-import { initState } from '../mockData';
+import { states } from '../mockData';
 
-const handler: Handler = async () => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(initState),
-  };
+export const handler: Handler = async (ev) => {
+  const id = String(ev.queryStringParameters?.id);
+  const data = states[id];
+
+  return data
+    ? {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    }
+    : { statusCode: 404 };
 };
-
-export { handler };
