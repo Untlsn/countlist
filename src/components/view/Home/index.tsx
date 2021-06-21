@@ -5,6 +5,7 @@ import { useBoolState, useCleverDispatch } from '@hooks';
 import { ListsState } from '@store/ducks/lists/state.types';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
 const Home = () => {
@@ -15,7 +16,7 @@ const Home = () => {
   const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
 
   const [initialized, changeInitialized] = useBoolState();
-
+  const history = useHistory();
 
   useEffect(() => {
     const id = prompt('Log you id'); // login placeholder
@@ -27,7 +28,8 @@ const Home = () => {
         return data.lists as ListsState;
       })
       .then(initLists)
-      .then(changeInitialized);
+      .then(changeInitialized)
+      .catch(() => history.push('/login'));
   }, []);
 
 
