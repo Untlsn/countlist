@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import Logo from '@assets/images/favicon.svg';
+import Logo  from '@assets/images/favicon.svg';
 
 const LoadingScreen = () => {
   return (

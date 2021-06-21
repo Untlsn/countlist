@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import * as S from './style';
-import { MainPage, Options, PointOptions } from '@organisms';
+import { MainPage, Options, PointOptions, LoadingScreen } from '@organisms';
+import { useBoolState, useCleverDispatch } from '@hooks';
+import { ListsState } from '@store/ducks/lists/state.types';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { ListsState } from '@store/ducks/lists/state.types';
-import useCleverDispatch from '@hooks/useCleverDispatch';
-import { useBoolState } from '@hooks';
-import LoadingScreen from '@view/LoadingScreen';
+
 
 const Home = () => {
   const point = useSelector(({ mini }) => mini.usedPoint);
