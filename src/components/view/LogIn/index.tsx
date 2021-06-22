@@ -1,17 +1,12 @@
 import React from 'react';
 import * as S from './style';
 import Serpentine from '@atoms/Serpentine';
-import { useBoolState } from '@hooks';
 import { LoginForm, SingUpForm } from '@molecules/Forms';
-import { formChanger } from '@view/LogIn/data';
+import { useLogState } from '@view/LogIn/hooks';
 
 const LogIn = () => {
-  const [isLogin, switchType] = useBoolState();
-  const text = isLogin ? 'Log in' : 'Sing Up';
-
+  const { isLogin, clicker, beforeClicker, text, switchType } = useLogState();
   const onSubmit = (data: any) => console.log(data);
-
-  const [beforeClicker, clicker] = formChanger[text];
 
   return (
     <>
