@@ -15,7 +15,7 @@ const LoginForm = ({ onSubmit }: FormProps<LoginTemplate>) => {
     <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
         <S.Input
-          placeholder='username'
+          placeholder='Username'
           {...register('username', {
             required: { value: true, message: 'Username cannot be empty' },
             minLength: { value: 5, message: 'Username is too short' },
@@ -24,7 +24,7 @@ const LoginForm = ({ onSubmit }: FormProps<LoginTemplate>) => {
       </div>
       <div>
         <S.Input
-          placeholder='password'
+          placeholder='Password'
           type='password'
           {...register('password', {
             required: { value: true, message: 'Password cannot be empty' },

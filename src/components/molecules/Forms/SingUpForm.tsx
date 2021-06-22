@@ -20,7 +20,7 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
     <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
         <S.Input
-          placeholder='email'
+          placeholder='e-mail'
           {...register('email', {
             required: { value: true, message: 'Email cannot be empty' },
             pattern: { value: emailPattern, message: 'Email is invalid' },
@@ -29,7 +29,7 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
       </div>
       <div>
         <S.Input
-          placeholder='username'
+          placeholder='Username'
           {...register('username', {
             required: { value: true, message: 'Username cannot be empty' },
             minLength: { value: 5, message: 'Username is too short' },
@@ -38,7 +38,7 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
       </div>
       <div>
         <S.Input
-          placeholder='password'
+          placeholder='Password'
           type='password'
           {...register('password', {
             required: { value: true, message: 'Password cannot be empty' },
@@ -48,7 +48,7 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
       </div>
       <div>
         <S.Input
-          placeholder='confirm password'
+          placeholder='Confirm Password'
           type='password'
           {...register('confirmPassword', {
             validate: R.ifElse(R.equals(watch('password')), R.always(true), R.always('Passwords is not same')),
