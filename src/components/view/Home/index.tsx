@@ -14,15 +14,14 @@ const Home = () => {
   const cleverDispatch = useCleverDispatch();
   const initLists = cleverDispatch(({ lists }) => lists.init);
   const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
+  const userID = useSelector(({ mini }) => mini.userID);
 
   const [initialized, changeInitialized] = useBoolState();
   const history = useHistory();
 
   useEffect(() => {
-    const id = prompt('Log you id'); // login placeholder
-
     axios
-      .get(`/api/get-lists?id=${id}`)
+      .get(`/api/get-lists?id=${userID}`)
       .then(({ data }) => {
         changeUserName(data.userName);
         return data.lists as ListsState;

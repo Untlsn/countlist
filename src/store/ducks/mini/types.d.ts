@@ -6,6 +6,7 @@ export interface MiniActions {
   changeUserName: ActionCreatorWithPayload<string>
   usePoint: ActionCreatorWithPayload<string|undefined>
   useList: ActionCreatorWithPayload<string>
+  changeUserID: ActionCreatorWithPayload<string>
 }
 
 export interface MiniState {
@@ -13,4 +14,5 @@ export interface MiniState {
   optionVisible: boolean
   usedPoint?: string
   usedList?: string
+  userID?: string
 }

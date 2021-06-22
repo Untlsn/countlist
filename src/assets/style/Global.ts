@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     color: ${({ theme }) => theme.colors.text};
     background-color: ${({ theme }) => theme.colors.background};
+    overflow: hidden;
 
     &::-webkit-scrollbar {
       width: 5px;

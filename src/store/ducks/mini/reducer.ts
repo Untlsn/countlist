@@ -19,6 +19,9 @@ const reducer = createReducer(initState, builder => {
     })
     .addCase(actions.useList, (state, { payload }) => {
       state.usedList = payload;
+    })
+    .addCase(actions.changeUserID, (state, { payload }) => {
+      state.userID = payload;
     });
 });
 

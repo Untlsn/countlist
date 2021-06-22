@@ -4,7 +4,7 @@ const testList = uid(10);
 const testPoint = uid(10);
 const testUser = '0000000001';
 
-const testUsername = 'Random_Guy';
+const testUsername = 'random_guy';
 const testPassword = 'admin123';
 
 

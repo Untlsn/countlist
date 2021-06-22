@@ -12,6 +12,7 @@ export const theme = {
     text: '#1f1c27',
     secondBackground: '#efefef',
     linkBlue: '#065FD4',
+    error: '#E97474',
     gradient: {
       background: ['#2C465A', '#8795A0'],
     },
