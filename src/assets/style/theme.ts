@@ -11,6 +11,7 @@ export const theme = {
     background: '#fcfcfc',
     text: '#1f1c27',
     secondBackground: '#efefef',
+    linkBlue: '#065FD4',
     gradient: {
       background: ['#2C465A', '#8795A0'],
     },

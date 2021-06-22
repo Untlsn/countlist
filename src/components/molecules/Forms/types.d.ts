@@ -1,3 +1,3 @@
-export interface FormProps<T extends string> {
-  onSubmit(data: Record<T, string>): void
+export interface FormProps<T> {
+  onSubmit(data: T): void
 }
