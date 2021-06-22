@@ -6,7 +6,7 @@ export const Wrapper = styled.button`
   height: 25px;
   width: 25px;
   border-radius: 5px;
-  background-color: rgba(0,0,0,.2);
+  background-color: ${({ theme }) => theme.colors.transparently.gray};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@ export const Wrapper = styled.button`
     border-radius: inherit;
     top: 0;
     left: 0;
-    background-color: #000;
+    background-color: black;
     opacity: 0;
   }
 

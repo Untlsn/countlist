@@ -14,5 +14,10 @@ export const theme = {
     gradient: {
       background: ['#2C465A', '#8795A0'],
     },
+    transparently: {
+      gray: '#0000004C',
+      shadow: '#000000CC',
+      black: '#0000007F',
+    },
   },
 };

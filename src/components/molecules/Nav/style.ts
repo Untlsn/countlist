@@ -17,12 +17,12 @@ export const Layer = styled.div`
 export const BigText = styled.div<{ dotMenu: boolean }>`
   font-size: ${({ theme }) => theme.fontSize.l};
   text-transform: capitalize;
-  color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
+  color: ${({ dotMenu, theme }) => dotMenu ? 'white' : theme.colors.text };
   letter-spacing: 1px;
 `;
 
 export const Hamburger = styled(FaBars)<{ $dotMenu: boolean }>`
-  color: ${({ $dotMenu, theme }) => $dotMenu ? '#fff' : theme.colors.text };
+  color: ${({ $dotMenu, theme }) => $dotMenu ? 'white' : theme.colors.text };
   @media (min-width: 640px) {
     visibility: hidden;
   }

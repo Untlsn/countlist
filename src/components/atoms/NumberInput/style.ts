@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Label = styled.label`
-  color: #0000004C;
+  color: ${({ theme }) => theme.colors.transparently.gray};
 `;
 
 export const Input = styled.input.attrs({ type: 'number' })`
@@ -16,5 +16,5 @@ export const Input = styled.input.attrs({ type: 'number' })`
   padding: 5px 0 0 5px;
   font-size: ${({ theme }) => theme.fontSize.l};
   border: none;
-  border-bottom: solid #0000004C 2px;
+  border-bottom: solid 2px ${({ theme }) => theme.colors.transparently.gray};
 `;

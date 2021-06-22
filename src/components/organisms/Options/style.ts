@@ -36,7 +36,7 @@ export const List = styled.ul`
 `;
 
 export const Shadow = styled.div<{ optionVisible: boolean }>`
-  background-color: #000000CC;
+  background-color: ${({ theme }) => theme.colors.transparently.shadow};
   height: 100vh;
   width: 100vw;
   position: absolute;

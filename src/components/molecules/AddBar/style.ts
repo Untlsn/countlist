@@ -15,7 +15,7 @@ export const Wrapper = styled.div<{ clear: boolean }>`
 `;
 
 export const Plus = styled(BsPlusCircle)<{ $clear: boolean }>`
-  color: ${({ $clear, theme }) => $clear ? theme.colors.text : '#fff'};
+  color: ${({ $clear, theme }) => $clear ? theme.colors.text : 'white'};
   
   &:hover {
     cursor: pointer;
@@ -27,10 +27,10 @@ export const Input = styled.input<{ clear: boolean }>`
   border: none;
   outline: none;
   &::placeholder {
-    color: ${({ clear, theme }) => clear ? theme.colors.text : '#fff'};
+    color: ${({ clear, theme }) => clear ? theme.colors.text : 'white'};
     letter-spacing: 1px;
   }
-  color: ${({ clear, theme }) => clear ? theme.colors.text : '#fff'};
+  color: ${({ clear, theme }) => clear ? theme.colors.text : 'white'};
   font-size: ${({ theme }) => theme.fontSize.l};
   background-color: transparent;
 `;

@@ -9,5 +9,5 @@ export const Text = styled.div`
   top: 10px;
   left: 30px;
   font-size: ${({ theme }) => theme.fontSize.xxl};
-  color: #fff;
+  color: white
 `;

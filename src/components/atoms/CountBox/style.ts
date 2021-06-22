@@ -12,11 +12,11 @@ const Round = styled.div<{ size: number }>`
 `;
 
 export const Fill = styled(Round)`
-  background-color: #0000004C;
+  background-color: ${({ theme }) => theme.colors.transparently.gray};
 `;
 
 export const Empty = styled(Round)`
-  border: solid #0000004C 2px;
+  border: solid 2px ${({ theme }) => theme.colors.transparently.gray};
 `;
 
 export const Check = styled(GoCheck)`

@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
 
 export const Frame = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
-  border: solid 1px #0000004C;
+  border: solid 1px ${({ theme }) => theme.colors.transparently.gray};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,18 +61,18 @@ export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
 
 export const Trash = styled(BsFillTrashFill)`
   font-size: 35px;
-  color: #0000007F;
+  color: ${({ theme }) => theme.colors.transparently.black};
   &:hover { cursor: pointer }
 `;
 
 export const Arrow = styled(RiArrowLeftSFill)`
   font-size: 40px;
-  color: #0000007F;
+  color: ${({ theme }) => theme.colors.transparently.black};
   &:hover { cursor: pointer }
 `;
 
 export const Shadow = styled.div`
-  background-color: #000000CC;
+  background-color: ${({ theme }) => theme.colors.transparently.shadow};
   height: 100vh;
   width: 100vw;
   position: absolute;

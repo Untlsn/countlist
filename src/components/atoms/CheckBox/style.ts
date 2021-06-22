@@ -15,7 +15,7 @@ export const Ring = styled.div`
   width: 25px;
   height: 25px;
   border-radius: 25px;
-  border: 2px #0000004C solid;
+  border: 2px solid ${({ theme }) => theme.colors.transparently.gray};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +27,6 @@ export const Circle = styled.div`
   width: 80%;
   height: 80%;
   border-radius: 25px;
-  background-color: #0000004C;
+  background-color: ${({ theme }) => theme.colors.transparently.gray};
 `;
 
