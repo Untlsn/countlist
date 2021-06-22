@@ -1,10 +1,11 @@
 export const theme = {
   fontSize: {
-    small: '12px',
-    normal: '16px',
-    big: '18px',
-    huge: '24px',
-    title: '36px',
+    xs: '8px',
+    s: '12px',
+    m: '16px',
+    l: '18px',
+    xl: '24px',
+    xxl: '36px',
   },
   colors: {
     background: '#fcfcfc',

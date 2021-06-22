@@ -15,7 +15,7 @@ export const Layer = styled.div`
 `;
 
 export const BigText = styled.div<{ dotMenu: boolean }>`
-  font-size: ${({ theme }) => theme.fontSize.big};
+  font-size: ${({ theme }) => theme.fontSize.l};
   text-transform: capitalize;
   color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
   letter-spacing: 1px;

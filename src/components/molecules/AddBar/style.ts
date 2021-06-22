@@ -31,6 +31,6 @@ export const Input = styled.input<{ clear: boolean }>`
     letter-spacing: 1px;
   }
   color: ${({ clear, theme }) => clear ? theme.colors.text : '#fff'};
-  font-size: ${({ theme }) => theme.fontSize.big};
+  font-size: ${({ theme }) => theme.fontSize.l};
   background-color: transparent;
 `;

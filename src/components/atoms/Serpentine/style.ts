@@ -8,6 +8,6 @@ export const Text = styled.div`
   position: absolute;
   top: 10px;
   left: 30px;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
   color: #fff;
 `;

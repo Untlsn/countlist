@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Label = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.big};
+  font-size: ${({ theme }) => theme.fontSize.l};
   text-transform: capitalize;
 `;
 

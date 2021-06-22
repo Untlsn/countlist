@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.huge};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   text-align: center;
 `;
 
@@ -31,7 +31,7 @@ export const Button = styled.button<{ $color: string }>`
   outline: none;
   border: none;
   border-radius: 10px;
-  font-size: ${({ theme }) => theme.fontSize.huge};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   width: 75px;
   height: 35px;
   background-color: ${({ $color }) => $color};

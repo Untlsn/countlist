@@ -56,7 +56,7 @@ export const Input = styled.input.attrs({ placeholder: 'Point Name' })`
   border: none;
   text-align: center;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.huge};
+  font-size: ${({ theme }) => theme.fontSize.xl};
 `;
 
 export const Trash = styled(BsFillTrashFill)`
