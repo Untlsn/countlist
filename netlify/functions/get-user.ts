@@ -1,17 +1,30 @@
 import { Handler } from '@netlify/functions';
-import { userPipe } from '../mockData';
-import * as R from 'ramda';
+import { client } from '../fauna/initFauna';
+import { User } from '../fauna/types';
+import { getUserIDByData } from '../fauna/getters';
 
 export const handler: Handler = async (ev) => {
-  if (!ev.body) return { statusCode: 404 };
-  const { username, password } = JSON.parse(ev.body) as Record<string, string>;
+  try {
+    if (!ev.body) return { statusCode: 400 };
+    const { username, password } = JSON.parse(ev.body) as Record<string, string>;
+    if (!username || !password) return { statusCode: 400 };
 
-  let id = userPipe[R.toLower(username)]?.[password];
+    const id = await client.query<User>(
+      getUserIDByData(username, password),
+    ).then(({ ref }) => ref.id);
 
-  return id
-    ? {
-      statusCode: 200,
-      body: id,
+    return { statusCode: 200, body: id };
+  } catch (e) {
+    switch (e.name) {
+      case 'SyntaxError': return {
+        statusCode: 400,
+        body: 'Error: Invalid body, username or password are corrupted',
+      };
+      case 'NotFound': return {
+        statusCode: 404,
+        body: 'Error: username don\'t exist or password is wrong',
+      };
     }
-    : { statusCode: 404 };
+  }
+  return { statusCode: 500 };
 };
