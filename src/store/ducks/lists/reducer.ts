@@ -11,6 +11,7 @@ const reducer = createReducer(initState, builder => {
       const id = createID();
 
       state.lists[id] = { composition: [], name };
+      state.created.push(id);
     })
     .addCase(actions.addPoint, (state, { payload }) => {
       const { name, listID } = payload;
@@ -24,6 +25,7 @@ const reducer = createReducer(initState, builder => {
       };
 
       state.lists[listID].composition.push(id);
+      state.created.push(id);
     })
     .addCase(actions.changeCount, (state, { payload }) => {
       const { id, count } = payload;
@@ -63,13 +65,22 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.remove, (state, { payload: id }) => {
       if (state.points[id]) {
         delete state.points[id];
-         R.forEachObjIndexed(
+        R.forEachObjIndexed(
           (list) => list.composition = R.reject(R.equals(id), list.composition),
           state.lists,
         );
       }
       else {
         delete state.lists[id];
+      }
+
+      const index = state.created.indexOf(id);
+
+      if (index == -1) {
+        state.deleted.push(id);
+      }
+      else {
+        state.created.splice(index, 1);
       }
     })
     .addCase(actions.changeMax, (state, { payload }) => {

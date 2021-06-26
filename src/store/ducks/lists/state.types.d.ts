@@ -20,6 +20,8 @@ export type List = {
   composition: string[]
 }
 export type ListsState = {
+  deleted: string[]
+  created: string[]
   lists: Record<string, List>
   points: Record<string, Point>
 }

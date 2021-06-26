@@ -28,6 +28,14 @@ describe('List', () => {
 
       expect(haveName.many(newRandNames)(state.points));
     });
+    it('should add id to created', () => {
+      const newRandName = faker.random.word();
+      const state = reduce(newRandName);
+
+      expect(
+        state.created.length,
+      ).toBe(1);
+    });
   });
   describe('AddPoint', () => {
     const defList = randListsIDs[0];
@@ -49,6 +57,14 @@ describe('List', () => {
       );
 
       expect(haveName.many(newRandNames)(state.lists));
+    });
+    it('should add id to created', () => {
+      const newRandName = faker.random.word();
+      const state = reduce(newRandName);
+
+      expect(
+        state.created.length,
+      ).toBe(1);
     });
   });
   describe('ChangeCount', () => {
@@ -223,7 +239,7 @@ describe('List', () => {
   describe('Remove', () => {
     const defPoint = randPointsIDs[0];
     const defList = randListsIDs[0];
-    const reduce = (id: string) => reducer(randState, actions.remove(id));
+    const reduce = (id: string, state = randState) => reducer(state, actions.remove(id));
     it('should remove list or point by id', () => {
       let state = reduce(defPoint);
       expect(state.points[defPoint]).toBeUndefined();
@@ -242,6 +258,14 @@ describe('List', () => {
     it('should do nothing when point or list don\'t exist', () => {
       const state = reduce('fake');
       expect(state).toEqual(randState);
+    });
+    it('should add id to deleted', () => {
+      let state = reduce(defPoint);
+      state = reduce(defList, state);
+
+      expect(
+        state.deleted.length,
+      ).toBe(2);
     });
   });
   describe('ChangeMax', () => {

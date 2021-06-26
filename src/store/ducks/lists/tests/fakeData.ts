@@ -28,6 +28,8 @@ const randPointData = R.times(
 );
 
 export const randState: ListsState = {
+  deleted: [],
+  created: [],
   lists: {
     [randListsIDs[0]]: {
       name: faker.random.word(),
