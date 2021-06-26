@@ -2,17 +2,19 @@ import React, { useEffect } from 'react';
 import * as S from './style';
 import { MainPage, Options, PointOptions, LoadingScreen } from '@organisms';
 import { useBoolState, useCleverDispatch } from '@hooks';
-import { ListsState } from '@store/ducks/lists/state.types';
+import { List, Point } from '@store/ducks/lists/state.types';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import * as R from 'ramda';
 
 
 const Home = () => {
   const point = useSelector(({ mini }) => mini.usedPoint);
 
   const cleverDispatch = useCleverDispatch();
-  const initLists = cleverDispatch(({ lists }) => lists.init);
+  const initLists = cleverDispatch(({ lists }) => lists.initLists);
+  const initPoints = cleverDispatch(({ lists }) => lists.initPoints);
   const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
   const userID = useSelector(({ mini }) => mini.userID);
 
@@ -21,13 +23,25 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/get-lists?id=${userID}`)
+      .post('/api/get-lists', userID)
       .then(({ data }) => {
         changeUserName(data.userName);
-        return data.lists as ListsState;
+        return JSON.parse(data.lists) as Record<string, List>;
       })
-      .then(initLists)
-      .then(changeInitialized)
+      .then((lists) => {
+        initLists(lists);
+        changeInitialized();
+        const allPoints: string[] = [];
+        R.forEachObjIndexed(({ composition }) => allPoints.push(...composition), lists);
+        return allPoints;
+      })
+      .then((points) => {
+        axios
+          .post('/api/get-points', points)
+          .then(({ data }) => data as Record<string, Point>)
+          .then(initPoints)
+          .catch(console.log);
+      })
       .catch(() => history.push('/login'));
   }, []);
 

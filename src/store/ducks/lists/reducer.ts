@@ -6,7 +6,12 @@ import * as R from 'ramda';
 
 const reducer = createReducer(initState, builder => {
   builder
-    .addCase(actions.init, (state, { payload }) => payload)
+    .addCase(actions.initLists, (state, { payload }) => {
+      state.lists = payload;
+    })
+    .addCase(actions.initPoints, (state, { payload }) => {
+      state.points = R.merge(state.points, payload);
+    })
     .addCase(actions.addList, (state, { payload: name }) => {
       const id = createID();
 

@@ -15,13 +15,15 @@ export interface CountPoint extends Point {
   type: 'count'
 }
 
-export type List = {
+export interface List {
   name: string
   composition: string[]
 }
-export type ListsState = {
-  deleted: string[]
-  created: string[]
+export interface RawListsState {
   lists: Record<string, List>
   points: Record<string, Point>
+}
+export interface ListsState extends RawListsState {
+  deleted: string[]
+  created: string[]
 }

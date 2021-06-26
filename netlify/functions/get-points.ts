@@ -1,32 +1,30 @@
 import { Handler } from '@netlify/functions';
 import { client } from '../fauna/initFauna';
-import { List, Point } from '../fauna/types';
-import { getList, getPoint } from '../fauna/getters';
+import { Point } from '../fauna/types';
+import { getPoints } from '../fauna/getters';
+import * as R from 'ramda';
+
+const notExist = {
+  statusCode: 404,
+  body: 'List don\'t exist',
+};
 
 export const handler: Handler = async (ev) => {
   try {
-    const id = String(ev.queryStringParameters?.id);
+    if (!ev.body) return notExist;
+    const ids = JSON.parse(ev.body) as string[];
 
-    const pointsIDs = await client.query<List>(
-      getList(id),
-    ).then(({ data }) => data.points);
+    const points = await client.query<Point[]>(getPoints(ids));
 
-    const points = await client.query<Point[]>(
-      pointsIDs.map(getPoint),
-    );
-
+    const orderedIDs = points.map(({ ref }) => ref.id);
     const data = points.map(({ data }) => data);
-
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(R.zipObj(orderedIDs, data)),
     };
   } catch (e) {
-    return {
-      statusCode: 404,
-      body: 'List don\'t exist',
-    };
+    return notExist;
   }
 
 };

@@ -1,6 +1,5 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { Point } from './state';
-import { ListsState } from './state.types';
+import { Point, List } from './state.types';
 
 export interface AddPoint {
   listID: string
@@ -24,7 +23,8 @@ export interface ChangeMax {
 }
 
 interface ListsActions {
-  init: ActionCreatorWithPayload<ListsState>
+  initLists: ActionCreatorWithPayload<Record<string, List>>
+  initPoints: ActionCreatorWithPayload<Record<string, Point>>
   addList: ActionCreatorWithPayload<string>
   addPoint: ActionCreatorWithPayload<AddPoint>
   changeType: ActionCreatorWithPayload<ChangeType>

@@ -29,3 +29,5 @@ export const getPoint = (pointID: string) => Q.Get(
     pointID,
   ),
 );
+
+export const getPoints = (pointsIDs: string[]) => pointsIDs.map(getPoint);

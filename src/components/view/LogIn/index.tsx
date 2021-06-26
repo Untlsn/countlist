@@ -26,14 +26,17 @@ const LogIn = () => {
           {isLogin
             ? <LoginForm onSubmit={(data) => axios
               .post('/api/get-user', data)
-              .then(({ data }) => changeUserID(data))
+              .then(({ data }) => {
+                const id = data.replace('$', '');
+                changeUserID(id);
+              })
               .then(() => history.push('/home'))
               .catch(() => toggleShowError.force(true))
             } />
             : <SingUpForm onSubmit={() => {}} />
           }
           <S.RightText>
-            <S.ShadowText>{beforeClicker} </S.ShadowText>
+            <S.ShadowText>{beforeClicker}</S.ShadowText>
             <S.FakeLink onClick={switchType}>{clicker}</S.FakeLink>
           </S.RightText>
         </S.Wrapper>
