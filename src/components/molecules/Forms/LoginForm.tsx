@@ -2,8 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as S from './style';
 import { FormProps } from '@molecules/Forms/types';
+import { createRule } from '@molecules/Forms/helpers';
 
-interface LoginTemplate {
+export interface LoginTemplate {
   username: string
   password: string
 }
@@ -11,26 +12,32 @@ interface LoginTemplate {
 const LoginForm = ({ onSubmit }: FormProps<LoginTemplate>) => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginTemplate>();
 
+  const messages = {
+    username: errors.username?.message,
+    password: errors.password?.message,
+  };
+
+
   return (
     <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
         <S.Input
           placeholder='Username'
           {...register('username', {
-            required: { value: true, message: 'Username cannot be empty' },
-            minLength: { value: 5, message: 'Username is too short' },
+            required: createRule(true, 'Username cannot be empty'),
+            minLength: createRule(5, 'Username is too short'),
           })} />
-        <S.ErrorPop>{errors.username?.message}</S.ErrorPop>
+        <S.ErrorPop>{messages.username}</S.ErrorPop>
       </div>
       <div>
         <S.Input
           placeholder='Password'
           type='password'
           {...register('password', {
-            required: { value: true, message: 'Password cannot be empty' },
-            minLength: { value: 8, message: 'Password is too short' },
+            required: createRule(true, 'Password cannot be empty'),
+            minLength: createRule(8, 'Password is too short'),
           })}/>
-        <S.ErrorPop>{errors.password?.message}</S.ErrorPop>
+        <S.ErrorPop>{messages.password}</S.ErrorPop>
       </div>
       <S.Button value='Log In' />
     </S.Wrapper>

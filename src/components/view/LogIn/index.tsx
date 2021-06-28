@@ -2,20 +2,16 @@ import React, { useEffect } from 'react';
 import * as S from './style';
 import Serpentine from '@atoms/Serpentine';
 import { LoginForm, SingUpForm } from '@molecules/Forms';
-import { useLogState } from '@view/LogIn/hooks';
-import axios from 'axios';
-import { useCleverDispatch } from '@hooks';
+import { useLogin, useLogState } from '@view/LogIn/hooks';
 import ErrorPortal from '@atoms/ErrorPortal';
-import { useHistory } from 'react-router-dom';
-
 const LogIn = () => {
   const { isLogin, clicker, beforeClicker, text, switchType, showError, toggleShowError } = useLogState();
-  const changeUserID = useCleverDispatch()(({ mini }) => mini.changeUserID);
-  const history = useHistory();
 
   useEffect(() => {
     if (showError) setTimeout(() => toggleShowError.force(false), 6000);
   }, [showError]);
+
+  const login = useLogin(() => toggleShowError.force(true));
 
   return (
     <>
@@ -24,15 +20,7 @@ const LogIn = () => {
         <S.Wrapper>
           <Serpentine>{text}</Serpentine>
           {isLogin
-            ? <LoginForm onSubmit={(data) => axios
-              .post('/api/get-user', data)
-              .then(({ data }) => {
-                const id = data.replace('$', '');
-                changeUserID(id);
-              })
-              .then(() => history.push('/home'))
-              .catch(() => toggleShowError.force(true))
-            } />
+            ? <LoginForm onSubmit={login} />
             : <SingUpForm onSubmit={() => {}} />
           }
           <S.RightText>
