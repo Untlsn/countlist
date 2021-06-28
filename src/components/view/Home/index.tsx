@@ -30,7 +30,6 @@ const Home = () => {
       })
       .then((lists) => {
         initLists(lists);
-        changeInitialized();
         const allPoints: string[] = [];
         R.forEachObjIndexed(({ composition }) => allPoints.push(...composition), lists);
         return allPoints;
@@ -40,6 +39,7 @@ const Home = () => {
           .post('/api/get-points', points)
           .then(({ data }) => data as Record<string, Point>)
           .then(initPoints)
+          .then(changeInitialized)
           .catch(console.log);
       })
       .catch(() => history.push('/login'));
