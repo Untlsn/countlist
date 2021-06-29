@@ -21,6 +21,10 @@ export const RightText = styled.div`
   text-align: right;
   margin-right: 60px;
 `;
+export const RightTextHovered = styled(RightText)`
+  user-select: none;
+  &:hover { cursor: pointer }
+`;
 
 export const ShadowText = styled.span`
   color: ${({ theme }) => theme.colors.transparently.shadow};
@@ -28,9 +32,7 @@ export const ShadowText = styled.span`
 
 export const FakeLink = styled.span`
   color: ${({ theme }) => theme.colors.linkBlue};
-  &:hover {
-    cursor: pointer;
-  }
+  &:hover { cursor: pointer }
 `;
 
 export const Logo = styled.img.attrs({ src: LogoImg, alt: '' })`
@@ -44,4 +46,13 @@ export const Background = styled.img.attrs({ src: BackgroundImg, alt: '' })`
   bottom: 0;
   width: 100vw;
   height: 40vh;
+`;
+
+export const SquareButton = styled.button<{ selected: boolean }>`
+  height: 15px;
+  width: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  
+  background-color: ${({ selected, theme }) => selected && theme.colors.transparently.shadow};
 `;

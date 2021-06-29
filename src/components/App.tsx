@@ -8,7 +8,7 @@ const LogIn = React.lazy(() => import('@view/LogIn'));
 
 
 const App = () => {
-  const token = localStorage.getItem('user-token')!;
+  const token = localStorage.getItem('user_id')!!;
 
   return (
     <BrowserRouter>

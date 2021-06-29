@@ -9,11 +9,22 @@ export const useLogState = () => {
   const text = isLogin ? 'Log in' : 'Sing Up';
   const [beforeClicker, clicker] = formChanger[text];
   const [showError, toggleShowError] = useBoolState();
+  const [remember, toggleRemember] = useBoolState();
 
-  return { isLogin, switchType, beforeClicker, clicker, text, showError, toggleShowError };
+  return {
+    isLogin,
+    switchType,
+    beforeClicker,
+    clicker,
+    text,
+    showError,
+    toggleShowError,
+    remember,
+    toggleRemember,
+  };
 };
 
-export const useLogin = (onFail: () => void) => {
+export const useLogin = (save: boolean, onFail: () => void) => {
   const changeUserID = useCleverDispatch()(({ mini }) => mini.changeUserID);
   const history = useHistory();
 
@@ -23,6 +34,7 @@ export const useLogin = (onFail: () => void) => {
       .then(({ data }) => {
         const id = data.replace('$', '');
         changeUserID(id);
+        if (save) localStorage.setItem('user_id', id);
       })
       .then(() => history.push('/home'))
       .catch(onFail);

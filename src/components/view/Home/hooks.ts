@@ -4,13 +4,22 @@ import * as R from 'ramda';
 import { useHistory } from 'react-router-dom';
 import { useCleverDispatch } from '@hooks';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+export const useLocalData = () => {
+  const changeUserID = useCleverDispatch()(({ mini }) => mini.changeUserID);
+  useEffect(() => {
+    const token = localStorage.getItem('user_id');
+    if (token) changeUserID(token);
+  }, []);
+};
 
 export const useConnect = (onOk: () => void) => {
   const cleverDispatch = useCleverDispatch();
   const initLists = cleverDispatch(({ lists }) => lists.initLists);
   const initPoints = cleverDispatch(({ lists }) => lists.initPoints);
   const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
-  const userID = useSelector(({ mini }) => mini.userID);
+  const userID = useSelector(({ mini }) => mini.userID) || localStorage.getItem('user_id');
   const history = useHistory();
 
   return () => {
