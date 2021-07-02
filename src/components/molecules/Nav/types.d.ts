@@ -1,4 +1,7 @@
+import { MouseEventHandler } from 'react';
+
 export interface NavProps {
   name: string
-  dotMenu?: boolean
+  onDotClick: MouseEventHandler
+  white?: boolean
 }

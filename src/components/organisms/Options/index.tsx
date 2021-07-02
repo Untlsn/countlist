@@ -13,7 +13,7 @@ const Options = () => {
     <div>
       <S.Shadow optionVisible={optionVisible} onClick={switchOptions} />
       <S.Wrapper optionVisible={optionVisible}>
-        <Nav name={userName} />
+        <Nav name={userName} onDotClick={() => {}} />
         <S.ListWrapper>
           <S.List>
             {listsKeys.map(id => <ListPoint key={id} id={id} />)}

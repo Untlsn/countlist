@@ -9,7 +9,7 @@ const MainPage = () => {
 
   return (
     <S.Wrapper>
-      <Nav name={name} dotMenu />
+      <Nav name={name} onDotClick={() => {}} white />
       <S.PointWrapper>
         {composition.map((id) => <Point key={id} id={id} />)}
       </S.PointWrapper>

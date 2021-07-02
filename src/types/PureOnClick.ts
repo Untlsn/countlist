@@ -1,5 +1,7 @@
+import { MouseEventHandler } from 'react';
+
 interface PureOnClick {
-  onClick(): void
+  onClick: MouseEventHandler
 }
 
 export default PureOnClick;

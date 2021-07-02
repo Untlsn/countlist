@@ -14,15 +14,15 @@ export const Layer = styled.div`
   justify-content: space-between;
 `;
 
-export const BigText = styled.div<{ dotMenu: boolean }>`
+export const BigText = styled.div<{ white: boolean }>`
   font-size: ${({ theme }) => theme.fontSize.l};
   text-transform: capitalize;
-  color: ${({ dotMenu, theme }) => dotMenu ? 'white' : theme.colors.text };
+  color: ${({ white, theme }) => white ? 'white' : theme.colors.text };
   letter-spacing: 1px;
 `;
 
-export const Hamburger = styled(FaBars)<{ $dotMenu: boolean }>`
-  color: ${({ $dotMenu, theme }) => $dotMenu ? 'white' : theme.colors.text };
+export const Hamburger = styled(FaBars)<{ $white: boolean }>`
+  color: ${({ $white, theme }) => $white ? 'white' : theme.colors.text };
   @media (min-width: 640px) {
     visibility: hidden;
   }
