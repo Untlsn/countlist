@@ -1,30 +1,30 @@
 import * as faker from 'faker';
-import { createID } from '../helpers';
-import * as R from 'ramda';
+import { v4 as createID } from 'uuid';
+import * as _ from 'lodash';
 import type { ListsState, Point } from '../state.types';
 
-export const randIDs = R.times(createID, 10);
+export const randIDs = _.times(10, () => createID());
 export const randListsIDs = randIDs.slice(0, 3);
 export const randPointsIDs = randIDs.slice(3);
 
-const randNames = R.times(() => faker.random.word(), 7);
-const randMax = R.concat(
-  R.times(() => faker.datatype.number(50), 4),
-  R.repeat(1, 3),
+const randNames = _.times(7, () => faker.random.word());
+const randMax = _.concat(
+  _.times(4, () => faker.datatype.number(50)),
+  _.times(3, _.constant(1)),
 );
-const randCount = R.concat(
+const randCount = _.concat(
   randMax.map(faker.datatype.number),
-  R.times(() => faker.datatype.number(1), 3),
+  _.times(3, () => faker.datatype.number(1)),
 );
 
-const randPointData = R.times(
+const randPointData = _.times(
+  10,
   (i): Point => ({
     name: randNames[i],
     type: randMax[i] == 1 ? 'check' : 'count',
     max: randMax[i],
     count: randCount[i],
   }),
-  10,
 );
 
 export const randState: ListsState = {
@@ -44,5 +44,5 @@ export const randState: ListsState = {
       composition: randPointsIDs.slice(6),
     },
   },
-  points: R.zipObj(randPointsIDs, randPointData),
+  points: _.zipObject(randPointsIDs, randPointData),
 };

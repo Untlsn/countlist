@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import actions from './actions';
-import { createID } from './helpers';
+import { v4 as uuid } from 'uuid';
 import * as R from 'ramda';
+import * as _ from 'lodash';
 
 const reducer = createReducer(initState, builder => {
   builder
@@ -10,17 +11,20 @@ const reducer = createReducer(initState, builder => {
       state.lists = payload;
     })
     .addCase(actions.initPoints, (state, { payload }) => {
-      state.points = R.merge(state.points, payload);
+      state.points = {
+        ...state.points,
+        ...payload,
+      };
     })
     .addCase(actions.addList, (state, { payload: name }) => {
-      const id = createID();
+      const id = uuid();
 
       state.lists[id] = { composition: [], name };
       state.created.push(id);
     })
     .addCase(actions.addPoint, (state, { payload }) => {
       const { name, listID } = payload;
-      const id = createID();
+      const id = uuid();
 
       state.points[id] = {
         name: name,
@@ -38,17 +42,17 @@ const reducer = createReducer(initState, builder => {
       const point = state.points[id];
       if (!point) return;
 
-      if (R.isNil(count)) {
+      if (_.isNil(count)) {
         point.count = point.count == 0 ? point.max : 0;
       }
       else {
-        point.count = R.clamp(0, point.max, count);
+        point.count = _.clamp(count, 0, point.max);
       }
     })
     .addCase(actions.changeType, (state, { payload }) => {
       const { id, type } = payload;
 
-      if (!state.points[id]) return;
+      if (!state.points[id]) return state;
 
       state.points[id] = {
         name: state.points[id].name,
@@ -70,9 +74,9 @@ const reducer = createReducer(initState, builder => {
     .addCase(actions.remove, (state, { payload: id }) => {
       if (state.points[id]) {
         delete state.points[id];
-        R.forEachObjIndexed(
-          (list) => list.composition = R.reject(R.equals(id), list.composition),
+        _.forOwn(
           state.lists,
+          (list) => list.composition = _.reject(list.composition, id),
         );
       }
       else {
@@ -93,8 +97,8 @@ const reducer = createReducer(initState, builder => {
 
       const point = state.points[id];
       if (point?.type == 'count') {
-        point.max = R.max(1, max);
-        point.count = R.min(point.count, max);
+        point.max = _.max([1, max])!;
+        point.count = _.min([point.count, max])!;
       }
     });
 });

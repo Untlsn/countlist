@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './style';
 import { NumberInputProps } from './types';
-import { removeTrash, handleChange, uid } from './helpers';
+import { removeTrash, handleChange, uuid } from './helpers';
 
 const NumberInput = ({ label, value, onChange }: NumberInputProps) => {
-  const id = `${label}${uid(3)}`;
+  const id = uuid();
 
   return (
     <S.Wrapper>

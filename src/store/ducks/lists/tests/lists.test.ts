@@ -3,8 +3,7 @@ import actions from '../actions';
 import { randListsIDs, randPointsIDs, randState } from './fakeData';
 import * as faker from 'faker';
 import type { ListsState } from '../state.types';
-import * as R from 'ramda';
-import { haveName } from './helpers';
+import { getNames } from './helpers';
 
 describe('List', () => {
   describe('AddList', () => {
@@ -15,18 +14,7 @@ describe('List', () => {
       const newRandName = faker.random.word();
       const state = reduce(newRandName);
 
-      expect(
-        haveName(newRandName)(state.points),
-      );
-    });
-    it('should add many lists with same name', () => {
-      const newRandNames = R.times(() => faker.random.word(), 10);
-      const state = newRandNames.reduce(
-        (state, name) => reduce(name, state),
-        randState,
-      );
-
-      expect(haveName.many(newRandNames)(state.points));
+      expect(getNames(state.lists)).toContain(newRandName);
     });
     it('should add id to created', () => {
       const newRandName = faker.random.word();
@@ -47,16 +35,7 @@ describe('List', () => {
       const newRandName = faker.random.word();
       const state = reduce(newRandName);
 
-      expect(haveName(newRandName)(state.lists));
-    });
-    it('should add more points with same name', () => {
-      const newRandNames = R.times(() => faker.random.word(), 10);
-      const state = newRandNames.reduce(
-        (state, name) => reduce(name, state),
-        randState,
-      );
-
-      expect(haveName.many(newRandNames)(state.lists));
+      expect(getNames(state.points)).toContain(newRandName);
     });
     it('should add id to created', () => {
       const newRandName = faker.random.word();
@@ -254,10 +233,6 @@ describe('List', () => {
       expect(state.points[defPoint]).toBeUndefined();
 
       expect(state.lists[defList]).not.toContain(defPoint);
-    });
-    it('should do nothing when point or list don\'t exist', () => {
-      const state = reduce('fake');
-      expect(state).toEqual(randState);
     });
     it('should add id to deleted', () => {
       let state = reduce(defPoint);

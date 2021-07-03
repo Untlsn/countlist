@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { List, Point } from '@store/ducks/lists/state.types';
-import * as R from 'ramda';
+import * as _ from 'lodash';
 import { useHistory } from 'react-router-dom';
 import { useCleverDispatch } from '@hooks';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ export const useConnect = (onOk: () => void) => {
       .then((lists) => {
         initLists(lists);
         const allPoints: string[] = [];
-        R.forEachObjIndexed(({ composition }) => allPoints.push(...composition), lists);
+        _.forOwn(lists, ({ composition }) => allPoints.push(...composition));
         return allPoints;
       })
       .then((points) => {
