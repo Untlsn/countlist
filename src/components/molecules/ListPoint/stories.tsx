@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Template: Story<Props> = ({ name, selected }) => {
-  useCleverDispatch()(({ lists }) => lists.init)(data);
+  useCleverDispatch()(({ lists }) => lists.initLists)(data);
   const id = useSelector(({ lists }) => Object.keys(lists.lists)[0]);
 
   const cleverDispatch = useCleverDispatch();
