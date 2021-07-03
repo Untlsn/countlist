@@ -1,7 +1,7 @@
-import { MouseEventHandler } from 'react';
+import { FloatingMenuProps } from '@atoms/FloatingMenu';
 
 export interface NavProps {
   name: string
-  onDotClick: MouseEventHandler
   white?: boolean
+  menu: Omit<FloatingMenuProps, 'hideMe'>
 }

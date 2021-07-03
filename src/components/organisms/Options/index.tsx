@@ -1,19 +1,21 @@
 import React from 'react';
 import * as S from './style';
 import { ListPoint, AddBar, Nav } from '@molecules';
-import { useDataDispatch, useDataSelector, useListEffect } from './hooks';
+import { useDataDispatch, useDataSelector, useListEffect, useMenu } from './hooks';
 
 
 const Options = () => {
   const { listsKeys, userName, optionVisible } = useDataSelector();
   const { addList, switchOptions } = useDataDispatch();
   useListEffect(listsKeys);
+  const menu = useMenu();
+
 
   return (
     <div>
       <S.Shadow optionVisible={optionVisible} onClick={switchOptions} />
       <S.Wrapper optionVisible={optionVisible}>
-        <Nav name={userName} onDotClick={() => {}} />
+        <Nav name={userName} menu={menu} />
         <S.ListWrapper>
           <S.List>
             {listsKeys.map(id => <ListPoint key={id} id={id} />)}

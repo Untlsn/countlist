@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
 import useCleverDispatch from '@hooks/useCleverDispatch';
-import * as R from 'ramda';
+import * as _ from 'lodash';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { menu } from './data';
 
 export const useDataSelector = () => {
   const listsKeys = useSelector(({ lists }) => Object.keys(lists.lists));
@@ -27,6 +29,20 @@ export const useListEffect = (listsKeys: string[]) => {
   const useList = useCleverDispatch()(({ mini }) => mini.useList);
 
   useEffect(() => {
-    useList(R.last(listsKeys)!);
+    useList(_.last(listsKeys)!);
   }, [listsKeys.length]);
+};
+
+export const useMenu = () => {
+  const history = useHistory();
+
+  return {
+    ...menu,
+    actions: [
+      () => {
+        localStorage.setItem('user_id', '');
+        history.push('/login');
+      },
+    ],
+  } as typeof menu;
 };

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
+import FloatingMenuBase from '@atoms/FloatingMenu';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -29,4 +30,14 @@ export const Hamburger = styled(FaBars)<{ $white: boolean }>`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const Relative = styled.div`
+  position: relative;
+`;
+
+export const FloatingMenu = styled(FloatingMenuBase)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;

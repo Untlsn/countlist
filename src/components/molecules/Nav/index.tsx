@@ -3,9 +3,11 @@ import * as S from './style';
 import type { NavProps } from './types';
 import DotMenu from '@atoms/DotMenu';
 import useSwitchOptions from '@hooks/useSwitchOptions';
+import { useBoolState } from '@hooks';
 
-const Nav = ({ name, onDotClick, white = false }: NavProps) => {
+const Nav = ({ menu, name, white = false }: NavProps) => {
   const switchOptions = useSwitchOptions();
+  const [showMenu, toggleMenuShow] = useBoolState();
 
   return (
     <S.Wrapper>
@@ -14,8 +16,10 @@ const Nav = ({ name, onDotClick, white = false }: NavProps) => {
       </S.Layer>
       <S.Layer>
         <S.BigText white={white}>{name}</S.BigText>
-        <DotMenu onClick={onDotClick} />
-
+        <S.Relative>
+          <DotMenu onClick={() => toggleMenuShow.force(true)} />
+          {showMenu && <S.FloatingMenu {...menu} hideMe={() => toggleMenuShow.force(false)}  />}
+        </S.Relative>
       </S.Layer>
     </S.Wrapper>
   );
