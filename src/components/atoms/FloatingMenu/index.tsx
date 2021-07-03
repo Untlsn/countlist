@@ -1,12 +1,24 @@
 import React from 'react';
 import * as S from './style';
+import { FloatingMenuProps } from './types';
+import * as _ from 'lodash';
+import { IconType } from 'react-icons';
 
-const FloatingMenu = () => {
+const FloatingMenu = ({ icons, text, actions }: FloatingMenuProps) => {
   return (
-    <S.Wrapper>
-
-    </S.Wrapper>
+    <S.Wrapper>{
+      _.zipWith(
+        icons, text, actions,
+        (Icon: IconType, text: string, actions: () => void) => (
+          <S.Bar key={text} onClick={actions}>
+            <S.Icon><Icon /></S.Icon>
+            <S.Centring>{text}</S.Centring>
+          </S.Bar>
+        ),
+      )
+    }</S.Wrapper>
   );
 };
 
 export default FloatingMenu;
+export type { FloatingMenuProps } from './types.d';

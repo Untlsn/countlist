@@ -12,8 +12,8 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-      <CombineProvider>
-        <Story />
-      </CombineProvider>
+    <CombineProvider>
+      <Story />
+    </CombineProvider>
   )
 ]

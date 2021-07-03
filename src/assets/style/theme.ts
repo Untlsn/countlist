@@ -20,6 +20,7 @@ export const theme = {
       gray: '#0000004C',
       shadow: '#000000CC',
       black: '#0000007F',
+      menu: '#191919E6',
     },
   },
 };

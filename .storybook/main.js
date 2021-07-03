@@ -1,14 +1,9 @@
-const aliases = require('./aliases');
+const aliases = require('./aliases')
 
 module.exports = {
   webpackFinal(config) {
-    return {
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: aliases,
-      },
-    };
+    config.resolve.alias = aliases
+    return config;
   },
   stories: [
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
@@ -18,7 +13,4 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
   ],
-  core: {
-    builder: 'webpack5'
-  }
-};
+}
