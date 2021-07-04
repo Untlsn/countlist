@@ -1,6 +1,5 @@
 import { Handler } from '@netlify/functions';
 import { client } from '../fauna/initFauna';
-import { User } from '../fauna/types';
 import { getUserIDByData } from '../fauna/getters';
 
 const invalidBody = {
@@ -14,9 +13,9 @@ export const handler: Handler = async (ev) => {
     const { username, password } = JSON.parse(ev.body) as Record<string, string>;
     if (!username || !password) return invalidBody;
 
-    const id = await client.query<User>(
+    const id = await client.query<string>(
       getUserIDByData(username, password),
-    ).then(({ ref }) => ref.id);
+    );
 
     return { statusCode: 200, body: `$${id}` }; // $ gives me confidence to id won't be convert to number
   } catch (e) {

@@ -2,7 +2,7 @@ import { Handler } from '@netlify/functions';
 import { client } from '../fauna/initFauna';
 import { Point } from '../fauna/types';
 import { getPoints } from '../fauna/getters';
-import * as R from 'ramda';
+import * as _ from 'lodash';
 
 const notExist = {
   statusCode: 404,
@@ -17,11 +17,11 @@ export const handler: Handler = async (ev) => {
     const points = await client.query<Point[]>(getPoints(ids));
 
     const orderedIDs = points.map(({ ref }) => ref.id);
-    const data = points.map(({ data }) => data);
+    const data = _.map(points, 'data');
 
     return {
       statusCode: 200,
-      body: JSON.stringify(R.zipObj(orderedIDs, data)),
+      body: JSON.stringify(_.zipObject(orderedIDs, data)),
     };
   } catch (e) {
     return notExist;

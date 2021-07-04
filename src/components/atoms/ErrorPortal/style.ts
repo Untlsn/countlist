@@ -46,6 +46,7 @@ export const BigText = styled.div`
 `;
 
 export const SmallText = styled.div`
+  text-transform: capitalize;
   margin: 20px 80px 0 50px;
   color: ${({ theme }) => theme.colors.error};
   font-size: ${({ theme }) => theme.fontSize.m};

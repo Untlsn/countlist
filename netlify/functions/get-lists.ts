@@ -2,7 +2,7 @@ import { Handler } from '@netlify/functions';
 import { client } from '../fauna/initFauna';
 import { getList, getUser } from '../fauna/getters';
 import { List, User } from '../fauna/types';
-import * as R from 'ramda';
+import * as _ from 'lodash';
 
 const notExist = {
   statusCode: 404,
@@ -16,7 +16,7 @@ export const handler: Handler = async (ev) => {
 
     const { name: username, lists: listsIDs } = await client.query<User>(
       getUser(id),
-    ).then(({ data }) => R.pick(['name', 'lists'], data));
+    ).then(({ data }) => _.pick(data, ['name', 'lists']));
 
     const lists = await client.query<List[]>(
       listsIDs.map(getList),
@@ -27,7 +27,7 @@ export const handler: Handler = async (ev) => {
 
     const data = {
       username,
-      lists: JSON.stringify(R.zipObj(orderedListsIDs, listsData)),
+      lists: JSON.stringify(_.zipObject(orderedListsIDs, listsData)),
     };
 
     return {

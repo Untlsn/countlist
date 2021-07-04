@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as S from './style';
 import { Serpentine, ErrorPortal } from '@atoms';
 import { LoginForm, SingUpForm } from '@molecules/Forms';
-import { useLogin, useLogState } from './hooks';
+import { useLogin, useLogState, useSingUp } from './hooks';
 
 
 const LogIn = () => {
@@ -12,17 +12,18 @@ const LogIn = () => {
     beforeClicker,
     text,
     switchType,
-    showError,
-    toggleShowError,
+    error,
+    changeError,
     remember,
     toggleRemember,
   } = useLogState();
 
   useEffect(() => {
-    if (showError) setTimeout(() => toggleShowError.force(false), 6000);
-  }, [showError]);
+    if (error) setTimeout(() => changeError(''), 6000);
+  }, [error]);
 
-  const login = useLogin(remember, () => toggleShowError.force(true));
+  const login = useLogin(remember, changeError);
+  const singUp = useSingUp(remember, changeError);
 
   return (
     <>
@@ -32,7 +33,7 @@ const LogIn = () => {
           <Serpentine>{text}</Serpentine>
           {isLogin
             ? <LoginForm onSubmit={login} />
-            : <SingUpForm onSubmit={() => {}} />
+            : <SingUpForm onSubmit={singUp} />
           }
           <S.RightTextHovered onClick={toggleRemember} >
             <S.SquareButton selected={remember} /> Remember me
@@ -44,7 +45,7 @@ const LogIn = () => {
         </S.Wrapper>
         <S.Logo />
       </S.Centering>
-      {showError && <ErrorPortal />}
+      {error && <ErrorPortal>{error}</ErrorPortal>}
     </>
   );
 };
