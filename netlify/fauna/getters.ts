@@ -1,59 +1,42 @@
 import { q } from './initFauna';
 
-export const getUserIDByData = (name: string, password: string) => q.Select(
-  ['ref', 'id'],
-  q.Get(
-    q.Match(
-      q.Index('user_by_name_and_password'),
-      [name, password],
-    ),
-  ),
+
+
+const loginTemp = (indexName: string) => (term: string, password: string) => q.Login(
+  q.Match(q.Index(indexName), term),
+  { password: password },
+);
+export const login = {
+  email: loginTemp('user_by_email'),
+  name: loginTemp('user_by_name'),
+};
+export const getIDByRef = (id: string) => q.Paginate(
+  q.Match(q.Index('user_id_by_id'), id),
 );
 
-export const getUserWoPassword = (userID: string) => q.Select(
-  [],
-  q.Get(
-    q.Ref(
-      q.Collection('users'),
-      userID,
-    ),
+const idTemp = (indexName: string) => (id: string) => q.Map(
+  q.Paginate(
+    q.Match(q.Index(indexName), id),
   ),
+  q.Lambda(ref => q.Get(ref)),
 );
 
-export const getUser = (userID: string) => q.Get(
-  q.Ref(
-    q.Collection('users'),
-    userID,
-  ),
+export const getLists = idTemp('lists_by_owner');
+export const getPoints = idTemp('points_by_owner');
+
+export const getManyPoints = (ids: string[]) => q.Map(
+  ids,
+  q.Lambda(x => getPoints(x)),
 );
 
-export const getList = (listID: string) => q.Get(
-  q.Ref(
-    q.Collection('lists'),
-    listID,
-  ),
+const idGetter = (index: string) => (ids: string[]) => q.Map(
+  [ids],
+  q.Lambda(id => q.Paginate(
+    q.Match(q.Index(index), id),
+  )),
 );
 
-export const getPoint = (pointID: string) => q.Get(
-  q.Ref(
-    q.Collection('points'),
-    pointID,
-  ),
-);
+export const getListsIDs = idGetter('list_id_by_id');
+export const getPointsIDs = idGetter('point_id_by_id');
 
-export const getPoints = (pointsIDs: string[]) => pointsIDs.map(getPoint);
-
-export const dataIsUsable = (prop: string, value: string) => q.IsEmpty(
-  q.Filter(
-    q.Map(
-      q.Paginate(
-        q.Documents(
-          q.Collection('users'),
-        ),
-      ),
-      q.Lambda(x =>  q.Select(['data', prop], q.Get(x))),
-    ),
-    q.Lambda(x => q.Equals(value, x)),
-  ),
-);
 

@@ -1,5 +1,6 @@
 import FaunaDB from 'faunadb';
 
-export const client = new FaunaDB.Client({ secret: process.env.FAUNDA_KEY! });
+export const createClient = (secret: string) => new FaunaDB.Client({ secret });
+export const client = createClient(process.env.FAUNDA_KEY!);
 
 export { default, query as q } from 'faunadb';

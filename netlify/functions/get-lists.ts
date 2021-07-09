@@ -1,40 +1,37 @@
 import { Handler } from '@netlify/functions';
-import { client } from '../fauna/initFauna';
-import { getList, getUser } from '../fauna/getters';
-import { List, User } from '../fauna/types';
-import * as _ from 'lodash';
+import { createCorrect, createError, mapForData, toList, totalFail } from '../helpers';
+import { createClient } from '../fauna/initFauna';
+import { getLists } from '../fauna/getters';
+import { List, Paginate } from '../fauna/types';
+import _ from 'lodash';
 
-const notExist = {
-  statusCode: 404,
-  body: 'User don\'t exist',
+const errors = {
+  dataCorrupted: createError('Invalid body, data are corrupted'),
+  noList: createError('Owner don\'t have any list', 404),
+  unauthorized: createError('Token is invalid, try login again', 401),
 };
+
+const errorCases = {
+  Unauthorized: errors.unauthorized,
+} as Record<string, { statusCode: number, body: string }>;
 
 export const handler: Handler = async (ev) => {
   try {
-    const id = ev.body;
-    if (!id) return notExist;
+    if (!ev.body) return errors.dataCorrupted;
+    const { userID, token } = JSON.parse(ev.body) as Record<string, string>;
+    if (!userID || !token) return errors.dataCorrupted;
 
-    const { name: username, lists: listsIDs } = await client.query<User>(
-      getUser(id),
-    ).then(({ data }) => _.pick(data, ['name', 'lists']));
+    const client = createClient(token);
+    const { data: paginateData } = await client.query<Paginate<List>>(getLists(userID));
+    if (paginateData.length == 0) return errors.noList;
 
-    const lists = await client.query<List[]>(
-      listsIDs.map(getList),
-    );
+    const listData = mapForData(paginateData);
+    const ids = _.map(listData, it => it.id);
+    const names = _.map(listData, it => it.name);
 
-    const orderedListsIDs = lists.map(({ ref }) => ref.id);
-    const listsData = lists.map(({ data: { name, points } }) => ({ name, composition: points }));
-
-    const data = {
-      username,
-      lists: JSON.stringify(_.zipObject(orderedListsIDs, listsData)),
-    };
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data),
-    };
-  } catch (e) {
-    return notExist;
+    return createCorrect(_.zipWith(ids, names, toList));
+  }
+  catch (e) {
+    return errorCases[e.name] || totalFail(e);
   }
 };

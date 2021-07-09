@@ -1,34 +1,26 @@
 import { Handler } from '@netlify/functions';
-import { client } from '../fauna/initFauna';
-import { dataIsUsable } from '../fauna/getters';
-import { setUser } from '../fauna/setters';
+import { createError, totalFail } from '../helpers';
+import { createUser } from '../fauna/setters';
 
+const errors = {
+  dataCorrupted: createError('Invalid body, data are corrupted'),
+  invalidData: createError('Invalid data, check login data'),
+};
+const errorCases = {
+  SyntaxError: errors.dataCorrupted,
+  NotFound: errors.invalidData,
+} as Record<string, { statusCode: number, body: string }>;
 
 export const handler: Handler = async (ev) => {
   try {
-    if (!ev.body) return { statusCode: 400, body: 'body dont exist' };
-    const { email, username, password } = JSON.parse(ev.body) as Record<string, string>;
+    if (!ev.body) return errors.dataCorrupted;
+    const { email, name, password } = JSON.parse(ev.body) as Record<string, string>;
+    if (!name || !email || !password) return errors.dataCorrupted;
 
-    const [emailTest, usernameTest] = await client.query<boolean[]>([
-      dataIsUsable('email', email),
-      dataIsUsable('name', username),
-    ]);
+    createUser(email, name, password);
 
-    if (!emailTest || !usernameTest ) return {
-      statusCode: 409,
-      body: !emailTest ? 'email already exist' : 'username already exist',
-    };
-
-    const id = await client.query<string>(
-      setUser(username, password, email),
-    );
-
-    return {
-      statusCode: 201,
-      body: `$${id}`,
-    };
-
+    return { statusCode: 201 };
   } catch (e) {
-    return { statusCode: 400 };
+    return errorCases[e.name] || totalFail(e);
   }
 };

@@ -1,30 +1,46 @@
-interface Ref {
+export interface Ref {
   id: string
 }
 
-export interface User {
-  ref: Ref
-  data: {
-    name: string
-    password: string
-    lists: string[]
-  }
+export interface Login {
+  ref: Ref,
+  ts: number,
+  instance: Ref,
+  secret: string
 }
 
+export interface Paginate<Data> {
+  data: Data[]
+}
+
+export interface ListData {
+  id: string
+  owner: string
+  name: string
+}
 export interface List {
   ref: Ref
-  data: {
-    name: string
-    points: string[]
-  }
+  ts: number
+  data: ListData
 }
-
+export interface PointData {
+  id: string
+  owner: string
+  name: string
+  count: number
+  max: number
+  type: string
+}
 export interface Point {
   ref: Ref
-  data: {
-    name: string
-    type: string
-    count: number
-    max: number
-  }
+  ts: number
+  data: PointData
+}
+
+export interface AddDataBody {
+  token: string
+  created_lists: ListData[]
+  created_points: PointData[]
+  deleted_lists: string[]
+  deleted_points: string[]
 }
