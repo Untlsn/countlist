@@ -1,6 +1,7 @@
 import { Handler } from '@netlify/functions';
 import { createError, totalFail } from '../helpers';
 import { createUser } from '../fauna/setters';
+import * as _ from 'lodash';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -14,8 +15,10 @@ const errorCases = {
 export const handler: Handler = async (ev) => {
   try {
     if (!ev.body) return errors.dataCorrupted;
-    const { email, name, password } = JSON.parse(ev.body) as Record<string, string>;
-    if (!name || !email || !password) return errors.dataCorrupted;
+    const { email, name, password } = JSON.parse(ev.body);
+    if (
+      !_.isString(name) || !_.isString(email) || !_.isString(password)
+    ) return errors.dataCorrupted;
 
     createUser(email, name, password);
 

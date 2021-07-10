@@ -16,7 +16,7 @@ export const createLists = (lists: ListData[]) => q.Map(
 
 export const createPoints = (points: PointData[]) => q.Map(
   points,
-  q.Lambda(data => q.Create(q.Collection('lists'), { data })),
+  q.Lambda(data => q.Create(q.Collection('points'), { data })),
 );
 
 export const deleteManyTemp = (collection: string) => (ids: string[]) => q.Map(

@@ -3,6 +3,7 @@ import { client } from '../fauna/initFauna';
 import { getIDByRef, login } from '../fauna/getters';
 import { Login, Paginate } from '../fauna/types';
 import { createCorrect, createError, totalFail } from '../helpers';
+import * as _ from 'lodash';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -16,8 +17,8 @@ const errorCases = {
 export const handler: Handler = async (ev) => {
   try {
     if (!ev.body) return errors.dataCorrupted;
-    const { term, password } = JSON.parse(ev.body) as Record<string, string>;
-    if (!term || !password) return errors.dataCorrupted;
+    const { term, password } = JSON.parse(ev.body);
+    if (!_.isString(term) || !_.isString(password)) return errors.dataCorrupted;
 
     const isEmail = /(.*)@(.*)\.(.*)/.test(term);
 

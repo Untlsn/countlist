@@ -4,11 +4,14 @@ import { createClient } from '../fauna/initFauna';
 import { getManyPoints } from '../fauna/getters';
 import { Paginate, Point } from '../fauna/types';
 import * as _ from 'lodash';
+import { is } from '../helpers';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
   noList: createError('Owner don\'t have any list', 404),
   unauthorized: createError('Token is invalid, try login again', 401),
+  badMethod: createError('Unsupported Request Method', 405),
+  bodyEmpty: createError('Body is empty, nothing was made'),
 };
 
 const errorCases = {
@@ -17,9 +20,14 @@ const errorCases = {
 
 export const handler: Handler = async (ev) => {
   try {
+    if (ev.httpMethod !== 'POST') return errors.badMethod;
     if (!ev.body) return errors.dataCorrupted;
-    const { listsIDs, token } = JSON.parse(ev.body) as { listsIDs: string[], token: string };
-    if (!listsIDs || !token) return errors.dataCorrupted;
+    const listsIDs = JSON.parse(ev.body);
+    if (!is.arrayOf.strings(listsIDs)) return errors.dataCorrupted;
+    if (!listsIDs.length) return errors.bodyEmpty;
+
+    const token = ev.headers.bearer;
+    if (!token) return errors.unauthorized;
 
     const client = createClient(token);
     const pointsPaginates = await client.query<Paginate<Point>[]>(getManyPoints(listsIDs));

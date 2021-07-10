@@ -38,7 +38,6 @@ export interface Point {
 }
 
 export interface AddDataBody {
-  token: string
   created_lists: ListData[]
   created_points: PointData[]
   deleted_lists: string[]

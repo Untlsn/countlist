@@ -9,6 +9,7 @@ const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
   noList: createError('Owner don\'t have any list', 404),
   unauthorized: createError('Token is invalid, try login again', 401),
+  badMethod: createError('Unsupported Request Method', 405),
 };
 
 const errorCases = {
@@ -17,9 +18,13 @@ const errorCases = {
 
 export const handler: Handler = async (ev) => {
   try {
-    if (!ev.body) return errors.dataCorrupted;
-    const { userID, token } = JSON.parse(ev.body) as Record<string, string>;
-    if (!userID || !token) return errors.dataCorrupted;
+    if (ev.httpMethod !== 'POST') return errors.badMethod;
+
+    const userID = ev.body;
+    if (!userID) return errors.dataCorrupted;
+
+    const token = ev.headers.bearer;
+    if (!token) return errors.unauthorized;
 
     const client = createClient(token);
     const { data: paginateData } = await client.query<Paginate<List>>(getLists(userID));
