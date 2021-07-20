@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import { useForm } from 'react-hook-form';
-import * as R from 'ramda';
+import type { AddUserBody } from '~/types/api-types';
 import { FormProps } from '@molecules/Forms/types';
 import { createRule } from '@molecules/Forms/helpers';
 
@@ -14,7 +14,7 @@ interface SingUpTemplate {
 
 const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
 
-const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
+const SingUpForm = ({ onSubmit }: FormProps<AddUserBody>) => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<SingUpTemplate>();
 
   const messages = {
@@ -25,7 +25,13 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
   };
 
   return (
-    <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
+    <S.Wrapper onSubmit={handleSubmit(({ email, username, password }) => {
+      onSubmit({
+        name: username,
+        email,
+        password,
+      });
+    })}>
       <div>
         <S.Input
           placeholder='e-mail'
@@ -59,11 +65,7 @@ const SingUpForm = ({ onSubmit }: FormProps<SingUpTemplate>) => {
           placeholder='Confirm Password'
           type='password'
           {...register('confirmPassword', {
-            validate: R.ifElse(
-              R.equals(watch('password')),
-              R.always(true),
-              R.always('Passwords is not same'),
-            ),
+            validate: (data) => data == watch('password') || 'Passwords is not same',
           })} />
         <S.ErrorPop>{messages.confirmPassword}</S.ErrorPop>
       </div>

@@ -11,6 +11,7 @@ const actions: Actions = {
   remove: createAction('LISTS/REMOVE'),
   changeMax: createAction('LISTS/CHANGE_MAX'),
   changeCount: createAction('LISTS/CHANGE_COUNT'),
+  changeComposition: createAction('LISTS/CHANGE_COMPOSITION'),
 };
 
 export default actions;

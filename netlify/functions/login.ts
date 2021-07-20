@@ -4,6 +4,7 @@ import { getIDByRef, login } from '../fauna/getters';
 import { Login, Paginate } from '../fauna/types';
 import { createCorrect, createError, totalFail } from '../helpers';
 import * as _ from 'lodash';
+import { LoginBody, LoginReturnBody } from '../body-template';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -17,7 +18,7 @@ const errorCases = {
 export const handler: Handler = async (ev) => {
   try {
     if (!ev.body) return errors.dataCorrupted;
-    const { term, password } = JSON.parse(ev.body);
+    const { term, password } = JSON.parse(ev.body) as Partial<LoginBody>;
     if (!_.isString(term) || !_.isString(password)) return errors.dataCorrupted;
 
     const isEmail = /(.*)@(.*)\.(.*)/.test(term);
@@ -29,7 +30,7 @@ export const handler: Handler = async (ev) => {
       getIDByRef(instance.id),
     );
 
-    return createCorrect({ secret, id });
+    return createCorrect<LoginReturnBody>({ id, secret });
   } catch (e) {
     return errorCases[e.name] || totalFail(e);
   }

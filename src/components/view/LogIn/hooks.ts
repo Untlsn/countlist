@@ -1,17 +1,17 @@
-import { useBoolState, useCleverDispatch } from '@hooks';
+import { useBoolState } from '@hooks';
+import type { LoginBody, LoginReturnBody, AddUserBody } from '~/types/api-types';
 import { formChanger } from './data';
-import axios from 'axios';
-import { LoginTemplate } from '@molecules/Forms/LoginForm';
+import axios, { AxiosResponse } from 'axios';
 import { useHistory } from 'react-router-dom';
-import { SingUpTemplate } from './types';
 import { useState } from 'react';
+import saveStorage from '@helpers/saveStorage';
+
 
 export const useLogState = () => {
   const [isLogin, switchType] = useBoolState(true);
   const text = isLogin ? 'Log in' : 'Sing Up';
   const [beforeClicker, clicker] = formChanger[text];
   const [error, changeError] = useState('');
-  const [remember, toggleRemember] = useBoolState();
 
   return {
     isLogin,
@@ -21,31 +21,32 @@ export const useLogState = () => {
     text,
     error,
     changeError,
-    remember,
-    toggleRemember,
   };
 };
 
-const useUserBase = <DataType>(url: string) => (save: boolean, onFail: (errorMess: string) => void) => {
-  const changeUserID = useCleverDispatch()(({ mini }) => mini.changeUserID);
+
+
+export const useLogin = (onFail: (mess: string) => void) => {
   const history = useHistory();
 
-  return (data: DataType) => {
-    axios
-      .post(url, data)
-      .then(({ data }) => {
-        console.log(data);
-        const id = data.replace('$', '');
-        changeUserID(id);
-        if (save) localStorage.setItem('user_id', id);
+  return (body: LoginBody) => {
+    axios.post<LoginReturnBody, AxiosResponse<LoginReturnBody>>('/api/login', body)
+      .then(({ data: { id, secret } }) => {
+        saveStorage.setToken(secret);
+        saveStorage.setID(id);
         history.push('/home');
       })
-      .catch((err) => {
-        console.log(err);
-        onFail(err.response?.data);
-      });
+      .catch(err => onFail(err.response?.data));
   };
 };
 
-export const useLogin = useUserBase<LoginTemplate>('/api/get-user');
-export const useSingUp = useUserBase<SingUpTemplate>('/api/add-user');
+export const useSingUp = (login: (body: LoginBody) => void, onFail: (mess: string) => void) => {
+  return (body: AddUserBody) => {
+    axios.post<AddUserBody, AxiosResponse<AddUserBody>>('/api/add-user', body)
+      .then(() => {
+        const { email, password } = body;
+        login({ term: email, password });
+      })
+      .catch(err => onFail(err.response?.data));
+  };
+};

@@ -14,16 +14,14 @@ const LogIn = () => {
     switchType,
     error,
     changeError,
-    remember,
-    toggleRemember,
   } = useLogState();
 
   useEffect(() => {
     if (error) setTimeout(() => changeError(''), 6000);
   }, [error]);
 
-  const login = useLogin(remember, changeError);
-  const singUp = useSingUp(remember, changeError);
+  const login = useLogin(changeError);
+  const singUp = useSingUp(login, changeError);
 
   return (
     <>
@@ -35,9 +33,6 @@ const LogIn = () => {
             ? <LoginForm onSubmit={login} />
             : <SingUpForm onSubmit={singUp} />
           }
-          <S.RightTextHovered onClick={toggleRemember} >
-            <S.SquareButton selected={remember} /> Remember me
-          </S.RightTextHovered>
           <S.RightText>
             <S.ShadowText>{beforeClicker} </S.ShadowText>
             <S.FakeLink onClick={switchType}>{clicker}</S.FakeLink>

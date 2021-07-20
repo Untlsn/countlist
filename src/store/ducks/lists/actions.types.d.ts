@@ -18,8 +18,12 @@ export interface ChangeName {
   name: string
 }
 export interface ChangeMax {
-  id: string,
+  id: string
   max: number
+}
+export interface ChangeComposition {
+  id: string
+  composition: string[]
 }
 
 interface ListsActions {
@@ -32,6 +36,7 @@ interface ListsActions {
   remove: ActionCreatorWithPayload<string>
   changeMax: ActionCreatorWithPayload<ChangeMax>
   changeCount: ActionCreatorWithPayload<ChangeCount>
+  changeComposition: ActionCreatorWithPayload<ChangeComposition>
 }
 
 export default ListsActions;

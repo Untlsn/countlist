@@ -4,6 +4,7 @@ import { createClient } from '../fauna/initFauna';
 import { getLists } from '../fauna/getters';
 import { List, Paginate } from '../fauna/types';
 import _ from 'lodash';
+import { GetListsBody, GetListsReturnBody } from '../body-template';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -20,7 +21,7 @@ export const handler: Handler = async (ev) => {
   try {
     if (ev.httpMethod !== 'POST') return errors.badMethod;
 
-    const userID = ev.body;
+    const userID = ev.body as GetListsBody | undefined;
     if (!userID) return errors.dataCorrupted;
 
     const token = ev.headers.bearer;
@@ -34,7 +35,7 @@ export const handler: Handler = async (ev) => {
     const ids = _.map(listData, it => it.id);
     const names = _.map(listData, it => it.name);
 
-    return createCorrect(_.zipWith(ids, names, toList));
+    return createCorrect<GetListsReturnBody>(_.zipWith(ids, names, toList));
   }
   catch (e) {
     return errorCases[e.name] || totalFail(e);

@@ -36,10 +36,3 @@ export interface Point {
   ts: number
   data: PointData
 }
-
-export interface AddDataBody {
-  created_lists: ListData[]
-  created_points: PointData[]
-  deleted_lists: string[]
-  deleted_points: string[]
-}

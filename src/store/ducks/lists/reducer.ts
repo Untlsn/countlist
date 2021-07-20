@@ -2,7 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 import initState from './state';
 import actions from './actions';
 import { v4 as uuid } from 'uuid';
-import * as R from 'ramda';
 import * as _ from 'lodash';
 
 const reducer = createReducer(initState, builder => {
@@ -100,6 +99,10 @@ const reducer = createReducer(initState, builder => {
         point.max = _.max([1, max])!;
         point.count = _.min([point.count, max])!;
       }
+    })
+    .addCase(actions.changeComposition, (state, { payload }) => {
+      const { id, composition } = payload;
+      state.lists[id].composition = composition;
     });
 });
 

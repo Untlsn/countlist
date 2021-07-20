@@ -3,17 +3,13 @@ import { useForm } from 'react-hook-form';
 import * as S from './style';
 import { FormProps } from '@molecules/Forms/types';
 import { createRule } from '@molecules/Forms/helpers';
+import { LoginBody } from '~/types/api-types';
 
-export interface LoginTemplate {
-  username: string
-  password: string
-}
-
-const LoginForm = ({ onSubmit }: FormProps<LoginTemplate>) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginTemplate>();
+const LoginForm = ({ onSubmit }: FormProps<LoginBody>) => {
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginBody>();
 
   const messages = {
-    username: errors.username?.message,
+    term: errors.term?.message,
     password: errors.password?.message,
   };
 
@@ -22,12 +18,12 @@ const LoginForm = ({ onSubmit }: FormProps<LoginTemplate>) => {
     <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
       <div>
         <S.Input
-          placeholder='Username'
-          {...register('username', {
-            required: createRule(true, 'Username cannot be empty'),
-            minLength: createRule(5, 'Username is too short'),
+          placeholder='Email/Login'
+          {...register('term', {
+            required: createRule(true, 'Login cannot be empty'),
+            minLength: createRule(5, 'Login is too short'),
           })} />
-        <S.ErrorPop>{messages.username}</S.ErrorPop>
+        <S.ErrorPop>{messages.term}</S.ErrorPop>
       </div>
       <div>
         <S.Input

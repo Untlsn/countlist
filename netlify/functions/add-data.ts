@@ -4,6 +4,7 @@ import { createLists, createPoints, deleteLists, deletePoints } from '../fauna/s
 import { Paginate } from '../fauna/types';
 import { createClient } from '../fauna/initFauna';
 import { getListsIDs, getPointsIDs } from '../fauna/getters';
+import { AddDataBody } from '../body-template';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -18,7 +19,7 @@ const errorCases = {
 export const handler: Handler = async (ev) => {
   try {
     if (!ev.body) return errors.dataCorrupted;
-    const { created_points, deleted_points, created_lists, deleted_lists } = JSON.parse(ev.body);
+    const { created_points, deleted_points, created_lists, deleted_lists } = JSON.parse(ev.body) as Partial<AddDataBody>;
     if (
       !is.arrayOf.strings(deleted_points) || !is.arrayOf.strings(deleted_lists) ||
       !is.arrayOf.listData(created_lists) || !is.arrayOf.pointData(created_points)

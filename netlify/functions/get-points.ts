@@ -5,6 +5,7 @@ import { getManyPoints } from '../fauna/getters';
 import { Paginate, Point } from '../fauna/types';
 import * as _ from 'lodash';
 import { is } from '../helpers';
+import { GetPointsBody, GetPointsReturnBody } from '../body-template';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
@@ -22,7 +23,7 @@ export const handler: Handler = async (ev) => {
   try {
     if (ev.httpMethod !== 'POST') return errors.badMethod;
     if (!ev.body) return errors.dataCorrupted;
-    const listsIDs = JSON.parse(ev.body);
+    const listsIDs = JSON.parse(ev.body) as GetPointsBody|undefined;
     if (!is.arrayOf.strings(listsIDs)) return errors.dataCorrupted;
     if (!listsIDs.length) return errors.bodyEmpty;
 
@@ -37,7 +38,7 @@ export const handler: Handler = async (ev) => {
       ),
     );
 
-    return createCorrect(points);
+    return createCorrect<GetPointsReturnBody>(points);
   }
   catch (e) {
     return errorCases[e.name] || totalFail(e);

@@ -6,7 +6,7 @@ export const createError = (message: string, statusCode = 400) => ({
   body: `Error: ${message}`,
 });
 
-export const createCorrect = (body: any, statusCode = 200) => ({
+export const createCorrect = <T>(body: T, statusCode = 200) => ({
   statusCode,
   body: JSON.stringify(body),
 });
@@ -27,9 +27,9 @@ export const is = {
     );
   },
   arrayOf: {
-    strings: (arr: any[]): arr is string[] => arr?.every(point => typeof point == 'string'),
-    listData: (arr: any[]): arr is ListData[] => arr?.every(is.listData),
-    pointData: (arr: any[]): arr is PointData[] => arr?.every(is.pointData),
+    strings: (arr: any): arr is string[] => arr?.every(_.isString),
+    listData: (arr: any): arr is ListData[] => arr?.every(is.listData),
+    pointData: (arr: any): arr is PointData[] => arr?.every(is.pointData),
   },
 };
 

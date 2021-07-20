@@ -1,45 +1,56 @@
-import axios from 'axios';
-import { List, Point } from '@store/ducks/lists/state.types';
+import axios, { AxiosResponse } from 'axios';
+import { Point } from '@store/ducks/lists/state.types';
 import * as _ from 'lodash';
 import { useHistory } from 'react-router-dom';
 import { useCleverDispatch } from '@hooks';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-
-export const useLocalData = () => {
-  const changeUserID = useCleverDispatch()(({ mini }) => mini.changeUserID);
-  useEffect(() => {
-    const token = localStorage.getItem('user_id');
-    if (token) changeUserID(token);
-  }, []);
-};
+import saveStorage from '@helpers/saveStorage';
+import type { GetListsReturnBody, GetPointsReturnBody } from '~/types/api-types';
 
 export const useConnect = (onOk: () => void) => {
   const cleverDispatch = useCleverDispatch();
   const initLists = cleverDispatch(({ lists }) => lists.initLists);
   const initPoints = cleverDispatch(({ lists }) => lists.initPoints);
-  const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
-  const userID = useSelector(({ mini }) => mini.userID) || localStorage.getItem('user_id');
+  const changeComposition = cleverDispatch(({ lists }) => lists.changeComposition);
   const history = useHistory();
 
   return () => {
+    const config = {
+      headers: {
+        Bearer: saveStorage.getToken(),
+      },
+    };
     axios
-      .post('/api/get-lists', userID)
-      .then(({ data }) => {
-        changeUserName(data.username);
-        return JSON.parse(data.lists) as Record<string, List>;
+      .post<GetListsReturnBody, AxiosResponse<GetListsReturnBody>>('/api/get-lists', saveStorage.getID(), config)
+      .then(({ data  }) => {
+        const ids = data.map(it => it.id);
+        const lists = data.map(({ name }) => ({
+          name,
+          composition: [],
+        }));
+
+        const records = _.zipObject(ids, lists);
+        initLists(records);
+
+        return ids;
       })
-      .then((lists) => {
-        initLists(lists);
-        const allPoints: string[] = [];
-        _.forOwn(lists, ({ composition }) => allPoints.push(...composition));
-        return allPoints;
-      })
-      .then((points) => {
+      .then((listsIDs) => {
+        console.log(listsIDs);
         axios
-          .post('/api/get-points', points)
-          .then(({ data }) => data as Record<string, Point>)
-          .then(initPoints)
+          .post<GetPointsReturnBody, AxiosResponse<GetPointsReturnBody>>('/api/get-points', listsIDs, config)
+          .then(({ data }) => {
+            const ids = data.map(it => it.id);
+            const rest = data.map(({ id, ...rest }) => rest as Point);
+            const compositions: Record<string, string[]> = {};
+
+            data.forEach(({ id, owner }) => {
+              compositions[owner] ||= [];
+              compositions[owner].push(id);
+            });
+            _.forOwn(compositions, (composition, id) => changeComposition({ composition, id }));
+
+            const records = _.zipObject(ids, rest);
+            initPoints(records);
+          })
           .then(onOk)
           .catch(console.log);
       })
