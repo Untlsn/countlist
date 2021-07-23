@@ -1,15 +1,12 @@
 import { Handler } from '@netlify/functions';
-import { createCorrect, createError, mapForData, toList, totalFail } from '../helpers';
+import { createCorrect, createError, totalFail } from '../helpers';
 import { createClient } from '../fauna/initFauna';
-import { getLists } from '../fauna/getters';
-import { List, Paginate } from '../fauna/types';
-import _ from 'lodash';
-import { GetListsBody, GetListsReturnBody } from '../body-template';
-import mapPick from '../../src/helpers/mapPick';
+import { getName } from '../fauna/getters';
+import { Paginate } from '../fauna/types';
+import { GetListsBody } from '../body-template';
 
 const errors = {
   dataCorrupted: createError('Invalid body, data are corrupted'),
-  noList: createError('Owner don\'t have any list', 404),
   unauthorized: createError('Token is invalid, try login again', 401),
   badMethod: createError('Unsupported Request Method', 405),
 };
@@ -29,16 +26,13 @@ export const handler: Handler = async (ev) => {
     if (!token) return errors.unauthorized;
 
     const client = createClient(token);
-    const { data: paginateData } = await client.query<Paginate<List>>(getLists(userID));
-    if (paginateData.length == 0) return errors.noList;
+    const { data: [name] } = await client.query<Paginate<string>>(getName(userID));
+    if (!name) return errors.dataCorrupted;
 
-    const listData = mapForData(paginateData);
-    const ids = mapPick(listData, 'id');
-    const names = mapPick(listData, 'name');
-
-    return createCorrect<GetListsReturnBody>(_.zipWith(ids, names, toList));
+    return createCorrect(name);
   }
   catch (e) {
+    console.log(e);
     return errorCases[e.name] || totalFail(e);
   }
 };

@@ -5,12 +5,17 @@ import { useHistory } from 'react-router-dom';
 import { useCleverDispatch } from '@hooks';
 import saveStorage from '@helpers/saveStorage';
 import type { GetListsReturnBody, GetPointsReturnBody } from '~/types/api-types';
+import mapPick from '@helpers/mapPick';
+
+
+const pickID = mapPick.curry('id');
 
 export const useConnect = (onOk: () => void) => {
   const cleverDispatch = useCleverDispatch();
   const initLists = cleverDispatch(({ lists }) => lists.initLists);
   const initPoints = cleverDispatch(({ lists }) => lists.initPoints);
   const changeComposition = cleverDispatch(({ lists }) => lists.changeComposition);
+  const changeUserName = cleverDispatch(({ mini }) => mini.changeUserName);
   const history = useHistory();
 
   return () => {
@@ -19,10 +24,12 @@ export const useConnect = (onOk: () => void) => {
         Bearer: saveStorage.getToken(),
       },
     };
+    axios.post('/api/get-name', saveStorage.getID(), config)
+      .then(({ data }) => changeUserName(data));
     axios
       .post<GetListsReturnBody, AxiosResponse<GetListsReturnBody>>('/api/get-lists', saveStorage.getID(), config)
       .then(({ data  }) => {
-        const ids = data.map(it => it.id);
+        const ids = pickID(data);
         const lists = data.map(({ name }) => ({
           name,
           composition: [],
@@ -34,11 +41,10 @@ export const useConnect = (onOk: () => void) => {
         return ids;
       })
       .then((listsIDs) => {
-        console.log(listsIDs);
         axios
           .post<GetPointsReturnBody, AxiosResponse<GetPointsReturnBody>>('/api/get-points', listsIDs, config)
           .then(({ data }) => {
-            const ids = data.map(it => it.id);
+            const ids = mapPick(data, 'id');
             const rest = data.map(({ id, ...rest }) => rest as Point);
             const compositions: Record<string, string[]> = {};
 

@@ -1,5 +1,6 @@
 import { ListData, PointData } from './fauna/types';
 import _ from 'lodash';
+import mapPick from '../src/helpers/mapPick';
 
 export const createError = (message: string, statusCode = 400) => ({
   statusCode,
@@ -15,7 +16,7 @@ export const totalFail = (body: any, statusCode = 500) => ({ statusCode, body: J
 
 export const toList = (id: string, name: string) => ({ id, name });
 
-export const mapForData = <T>(obj: { data: T }[]) => obj.map(it => it.data);
+export const mapForData = <T>(obj: { data: T }[]) => mapPick(obj, 'data');
 
 export const is = {
   listData: (obj: any): obj is ListData => [obj.id, obj.owner, obj.name].every(_.isString),

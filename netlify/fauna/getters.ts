@@ -39,4 +39,7 @@ const idGetter = (index: string) => (ids: string[]) => q.Map(
 export const getListsIDs = idGetter('list_id_by_id');
 export const getPointsIDs = idGetter('point_id_by_id');
 
+export const getName = (id: string) => q.Paginate(
+  q.Match(q.Index('username_by_id'), id),
+);
 
