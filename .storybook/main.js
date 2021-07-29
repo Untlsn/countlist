@@ -1,4 +1,5 @@
-const aliases = require('./aliases');
+const path = require("path");
+const reactCompat = path.resolve(__dirname, '../node_modules/preact/compat');
 
 module.exports = {
   webpackFinal(config) {
@@ -6,7 +7,11 @@ module.exports = {
       ...config,
       resolve: {
         ...config.resolve,
-        alias: aliases,
+        alias: {
+          '~': path.resolve(__dirname, '../src'),
+          'react': reactCompat,
+          'react-dom': reactCompat,
+        },
       },
     };
   },
@@ -17,8 +22,5 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-  ],
-  core: {
-    builder: 'webpack5'
-  }
+  ]
 };

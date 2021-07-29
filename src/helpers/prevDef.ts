@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-const prevDef = (callback: () => {}) => <T>(ev: MouseEvent<T>) => {
+const prevDef = (callback: () => void) => <T>(ev: MouseEvent<T>) => {
   ev.preventDefault();
   callback();
 };

@@ -2,30 +2,31 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Point from './index';
 import { useSelector } from 'react-redux';
-import useCleverDispatch from '@hooks/useCleverDispatch';
-import { Point as StorePoint } from '@store/ducks/lists/state.types';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
+import { Point as StorePoint } from '~/store/ducks/lists/state.types';
+import { lists, mini } from '~/store/actions';
 
 export default {
   title: 'Molecules/Point',
 } as Meta;
 
 const useChangeFullPoint = (id: string, { type, max, count, name }: StorePoint) => {
-  const cleverDispatch = useCleverDispatch();
+  const composedDispatch = useComposedDispatch();
 
 
-  cleverDispatch(({ lists }) => lists.changeType)({ id, type });
-  cleverDispatch(({ lists }) => lists.changeName)({ id, name });
-  cleverDispatch(({ lists }) => lists.changeMax)({ id, max });
-  cleverDispatch(({ lists }) => lists.changeCount)({ id, count });
+  composedDispatch(lists.changeType)({ id, type });
+  composedDispatch(lists.changeName)({ id, name });
+  composedDispatch(lists.changeMax)({ id, max });
+  composedDispatch(lists.changeCount)({ id, count });
 };
 
 const Template: Story<StorePoint> = (point) => {
   if (point.type == 'check') point.max = 1;
 
   const id = useSelector(({ lists }) => Object.keys(lists.points)[0]);
-  const cleverDispatch = useCleverDispatch();
+  const composedDispatch = useComposedDispatch();
 
-  cleverDispatch(({ mini }) => mini.usePoint)(id);
+  composedDispatch(mini.usePoint)(id);
   useChangeFullPoint(id, point);
 
   return <Point id={id} />;

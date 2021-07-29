@@ -1,11 +1,12 @@
 import React from 'react';
 import * as S from './style';
 import type { NavProps } from './types';
-import DotMenu from '@atoms/DotMenu';
-import useSwitchOptions from '@hooks/useSwitchOptions';
+import DotMenu from '~/components/atoms/DotMenu';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
+import { mini } from '~/store/actions';
 
 const Nav = ({ name, dotMenu = false }: NavProps) => {
-  const switchOptions = useSwitchOptions();
+  const switchOptions = useComposedDispatch()(mini.switchOptions);
 
   return (
     <S.Wrapper>

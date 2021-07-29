@@ -1,21 +1,19 @@
 import { useSelector } from 'react-redux';
-import useCleverDispatch from '@hooks/useCleverDispatch';
+import { lists, mini } from '~/store/actions';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
 
-export const usePointData = (id: string) => ({
-  type: useSelector(({ lists }) => lists.points[id].type),
-  count: useSelector(({ lists }) => lists.points[id].count),
-  name: useSelector(({ lists }) => lists.points[id].name),
-  max: useSelector(({ lists }) => lists.points[id].max),
-});
+export const usePointData = (id: string) => {
+  const list = useSelector(({ lists }) => lists.pointsRefs[id]);
+  return useSelector(({ lists }) => lists.lists[list].points[id]);
+};
 
 export const useDataDispatch = (id: string) => {
-  const cleverDispatch = useCleverDispatch();
-
-  const changeCount = cleverDispatch(({ lists }) => lists.changeCount);
-  const usePoint = cleverDispatch(({ mini }) => mini.usePoint);
+  const composedDispatch = useComposedDispatch();
+  const changePoint = composedDispatch(lists.changePoint);
+  const usePoint = composedDispatch(mini.usePoint);
 
   return {
-    changeCount: (count?: number) => changeCount({ id, count }),
+    changeCount: (count?: number) => changePoint({ id, count }),
     usePoint,
   };
 };

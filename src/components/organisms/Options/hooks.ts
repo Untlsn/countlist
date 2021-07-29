@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';
-import useCleverDispatch from '@hooks/useCleverDispatch';
-import * as R from 'ramda';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { lists, mini } from '~/store/actions';
+import _ from 'lodash';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
 
 export const useDataSelector = () => {
   const listsKeys = useSelector(({ lists }) => Object.keys(lists.lists));
@@ -12,21 +13,18 @@ export const useDataSelector = () => {
 };
 
 export const useDataDispatch = () => {
-  const cleverDispatch = useCleverDispatch();
-
-  const switchOptions = cleverDispatch.no(({ mini }) => mini.switchOptions);
-  const addList = cleverDispatch(({ lists }) => lists.addList);
+  const dispatch = useComposedDispatch();
 
   return {
-    addList,
-    switchOptions,
+    addList: dispatch(lists.addList),
+    switchOptions: dispatch(mini.switchOptions),
   };
 };
 
 export const useListEffect = (listsKeys: string[]) => {
-  const useList = useCleverDispatch()(({ mini }) => mini.useList);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    useList(R.last(listsKeys)!);
+    dispatch(mini.useList(_.last(listsKeys)!));
   }, [listsKeys.length]);
 };

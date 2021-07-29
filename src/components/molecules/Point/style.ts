@@ -1,1 +1,1 @@
-export * from '@atoms/PointStyles';
+export * from '~/components/atoms/PointStyles';

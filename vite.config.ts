@@ -1,13 +1,18 @@
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { resolve } from 'path';
+import prefresh from '@prefresh/vite';
 
-// https://vitejs.dev/config/
+const reactCompat = resolve(__dirname, 'node_modules/preact/compat');
+
 export default defineConfig({
-  plugins: [
-    reactRefresh(),
-    tsconfigPaths(),
-  ],
+  plugins: [prefresh()],
+  resolve: {
+    alias: {
+      '~': resolve(__dirname, 'src'),
+      'react': reactCompat,
+      'react-dom': reactCompat,
+    },
+  },
 });
 
 

@@ -2,7 +2,8 @@ import React from 'react';
 import type { Meta, Story } from '@storybook/react';
 import ListPoint  from './index';
 import { useSelector } from 'react-redux';
-import useCleverDispatch from '@hooks/useCleverDispatch';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
+import { lists, mini } from '~/store/actions';
 
 export default {
   title: 'Molecules/ListPoint',
@@ -16,9 +17,9 @@ interface Props {
 const Template: Story<Props> = ({ name, selected }) => {
   const id = useSelector(({ lists }) => Object.keys(lists.lists)[0]);
 
-  const cleverDispatch = useCleverDispatch();
-  cleverDispatch(({ lists }) => lists.changeName)({ id, name });
-  cleverDispatch(({ mini }) => mini.useList)(selected ? id : '');
+  const composedDispatch = useComposedDispatch();
+  composedDispatch(lists.changeName)({ id, name });
+  composedDispatch(mini.useList)(selected ? id : '');
 
   return <ListPoint id={id} />;
 };

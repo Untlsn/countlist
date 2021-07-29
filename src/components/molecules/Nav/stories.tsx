@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import Nav, { NavProps }  from './index';
 
 export default {

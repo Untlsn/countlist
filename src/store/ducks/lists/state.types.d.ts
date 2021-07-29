@@ -1,25 +1,15 @@
 export interface Point {
-  name: string
-  type: 'check'|'count'
-  count: number
-  max: number
+  id: string,
+  name: string,
+  max: number,
+  count: number,
 }
-
-export interface CheckPoint extends Point {
-  type: 'check'
-  count: 0|1
-  max: 1
-}
-
-export interface CountPoint extends Point {
-  type: 'count'
-}
-
 export type List = {
-  name: string
-  composition: string[]
+  id: string,
+  name: string,
+  points: Record<string, Point>,
 }
-export type ListsState = {
+export interface ListsState {
   lists: Record<string, List>
-  points: Record<string, Point>
+  pointsRefs: Record<string, string>
 }

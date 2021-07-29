@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { OnlyChildren } from '@types';
-import store from '@store';
+import { OnlyChildren } from '~/types/only';
+import store from '~/store';
 
 const StoreProvider = ({ children }: OnlyChildren) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import PointCircle, { PointCircleProps }  from './index';
-import { useBoolState } from '@hooks';
+import useBoolState from '~/hooks/useBoolState';
 
 export default {
   title: 'Atoms/PointCircle',

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import { MainPage, Options, PointOptions } from '@organisms';
+import { MainPage, Options, PointOptions } from '~/components/organisms';
 import { useSelector } from 'react-redux';
 
 const Home = () => {

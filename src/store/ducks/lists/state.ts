@@ -6,19 +6,20 @@ const testPoint = '0000000001';
 const initState: ListsState = {
   lists: {
     [testList]: {
+      id: testList,
       name: 'test-list',
-      composition: [
-        testPoint,
-      ],
+      points: {
+        [testPoint]: {
+          id: testPoint,
+          name: 'test-point',
+          max: 1,
+          count: 0,
+        },
+      },
     },
   },
-  points: {
-    [testPoint]: {
-      name: 'test-point',
-      type: 'check',
-      max: 1,
-      count: 0,
-    },
+  pointsRefs: {
+    [testPoint]: testList,
   },
 };
 

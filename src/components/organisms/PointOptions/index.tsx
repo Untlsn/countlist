@@ -1,21 +1,17 @@
 import React from 'react';
 import * as S from './style';
-import { CheckBox, NumberInput } from '@atoms';
+import { NumberInput } from '~/components/atoms';
 import { useNameInput, usePointData } from './hooks';
-import ConfirmationPortal from '@molecules/ConfirmationPortal';
-import { useBoolState } from '@hooks';
+import ConfirmationPortal from '~/components/molecules/ConfirmationPortal';
 import { useSelector } from 'react-redux';
+import useBoolState from '~/hooks/useBoolState';
 
 const PointOptions = () => {
   const usedPoint = useSelector(({ mini }) => mini.usedPoint)!;
 
-  const inputProps = useNameInput(usedPoint);
-  const { type, max, count, changeType, changeMax, changeCount, remove, hide } = usePointData(usedPoint);
+  const { max, count, id, change, remove, hide, name } = usePointData(usedPoint);
+  const inputProps = useNameInput(usedPoint, name);
   const [confirmation, changeConfirmation] = useBoolState();
-  
-  const checkBox = (ownType: 'check'|'count') => (
-    <CheckBox checked={type == ownType} changeChecked={changeType[ownType]} value={ownType} />
-  );
   
   return (
     <>
@@ -25,10 +21,8 @@ const PointOptions = () => {
           <S.Input {...inputProps} />
         </S.Frame>
         <S.MFrame>
-          {checkBox('check')}
-          {checkBox('count')}
-          <NumberInput label='Max' value={max} onChange={changeMax} />
-          <NumberInput label='Current' value={count} onChange={changeCount} />
+          <NumberInput label='Max' value={max} onChange={max => change({ id, max })} />
+          <NumberInput label='Current' value={count} onChange={count => change({ id, count })} />
         </S.MFrame>
         <S.RFrame>
           <S.Arrow onClick={hide} />

@@ -4,3 +4,7 @@ export interface OnlyChildren<T = any> {
 export interface OnlyID {
   id: string
 }
+
+export interface onlyOnClick {
+  onClick(): void
+}

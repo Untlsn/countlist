@@ -1,14 +1,13 @@
 import React from 'react';
 import * as S from './style';
-import useCleverDispatch from '@hooks/useCleverDispatch';
+import useComposedDispatch from '~/hooks/useComposedDispatch';
 import { useSelector } from 'react-redux';
-import { OnlyID } from '@types';
+import { OnlyID } from '~/types/only';
+import { mini } from '~/store/actions';
 
 const ListPoint = ({ id }: OnlyID) => {
 
-  const useList = useCleverDispatch()(
-    ({ mini }) => mini.useList,
-  );
+  const useList = useComposedDispatch()(mini.useList);
   const selected = useSelector(
     ({ mini }) => mini.usedList == id,
   );

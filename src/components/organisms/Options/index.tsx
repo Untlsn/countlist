@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import { ListPoint, AddBar, Nav } from '@molecules';
+import { ListPoint, AddBar, Nav } from '~/components/molecules';
 import { useDataDispatch, useDataSelector, useListEffect } from './hooks';
 
 
