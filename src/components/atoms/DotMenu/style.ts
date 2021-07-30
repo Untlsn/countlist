@@ -37,3 +37,33 @@ export const Wrapper = styled.button`
 export const Dots = styled(BsThreeDots)`
   color: white;
 `;
+
+export const ShowMenu = styled.ul`
+  list-style: none;
+  position: absolute;
+  top: 0;
+  padding: 12px;
+  border-radius: 5px;
+  right: 12px;
+
+  background-color: #242424B2;
+  color: white;
+  font-size: 24px;
+`;
+
+export const Icon = styled.span`
+  height: 24px;
+  width: 24px;
+  & svg {
+    font-size: 24px;
+    height: inherit;
+    width: inherit;
+  }
+`;
+
+export const Points = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+`;

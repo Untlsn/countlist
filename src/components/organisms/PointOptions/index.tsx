@@ -28,7 +28,7 @@ const PointOptions = () => {
           <S.Arrow onClick={hide} />
           <S.Trash onClick={changeConfirmation} />
           {confirmation &&
-          <ConfirmationPortal pointName={inputProps.value} onYes={remove} onNo={changeConfirmation} />
+          <ConfirmationPortal name={inputProps.value} onYes={remove} onNo={changeConfirmation} />
           }
         </S.RFrame>
       </S.Wrapper>

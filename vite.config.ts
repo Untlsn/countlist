@@ -1,18 +1,26 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import prefresh from '@prefresh/vite';
+import refresh from '@vitejs/plugin-react-refresh';
 
 const reactCompat = resolve(__dirname, 'node_modules/preact/compat');
 
+const aliases = () => {
+  const def = { '~': resolve(__dirname, 'src') };
+  const production = {
+    'react': reactCompat,
+    'react-dom': reactCompat,
+  };
+
+  return process.env.NODE_ENV === 'production'
+    ? { ...def, ...production }
+    : def;
+};
+
 export default defineConfig({
-  plugins: [prefresh()],
   resolve: {
-    alias: {
-      '~': resolve(__dirname, 'src'),
-      'react': reactCompat,
-      'react-dom': reactCompat,
-    },
+    alias: aliases(),
   },
+  plugins: [refresh()],
 });
 
 

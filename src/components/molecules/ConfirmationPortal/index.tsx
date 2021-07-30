@@ -3,13 +3,13 @@ import * as S from './style';
 import { Portal } from 'react-portal';
 import { ConfirmationPortalProps } from './types';
 
-const ConfirmationPortal = ({ pointName, onYes, onNo }: ConfirmationPortalProps) => {
+const ConfirmationPortal = ({ name, onYes, onNo }: ConfirmationPortalProps) => {
   return (
     <Portal>
       <S.Wrapper>
         <S.TextWrapper>
           Want to delete<br/>
-          {pointName}
+          {name}
         </S.TextWrapper>
         <S.ButtonWrapper>
           <S.Button $color='#5bb85b' onClick={onYes} >Yes</S.Button>

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 const Home = () => {
   const point = useSelector(({ mini }) => mini.usedPoint);
-
   return (
     <S.Wrapper>
       <Options />

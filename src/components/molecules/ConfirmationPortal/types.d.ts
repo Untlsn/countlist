@@ -1,5 +1,5 @@
 export interface ConfirmationPortalProps {
-  pointName: string
+  name: string
   onYes(): void
   onNo(): void
 }

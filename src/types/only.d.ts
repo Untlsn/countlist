@@ -5,6 +5,6 @@ export interface OnlyID {
   id: string
 }
 
-export interface onlyOnClick {
+export interface OnlyOnClick {
   onClick(): void
 }
