@@ -39,6 +39,9 @@ export const Dots = styled(BsThreeDots)`
 `;
 
 export const ShowMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   list-style: none;
   position: absolute;
   top: 0;

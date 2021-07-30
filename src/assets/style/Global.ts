@@ -35,6 +35,9 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+  button {
+    &:hover { cursor: pointer }
+  }
 `;
 
 export default GlobalStyle;
