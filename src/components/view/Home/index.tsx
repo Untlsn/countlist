@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './style';
 import { MainPage, Options, PointOptions } from '~/components/organisms';
-import { useSelector } from 'react-redux';
+import { useSelectedID } from '~/store/selectors';
 
 const Home = () => {
-  const point = useSelector(({ mini }) => mini.usedPoint);
+  const point = useSelectedID('point');
   return (
     <S.Wrapper>
       <Options />

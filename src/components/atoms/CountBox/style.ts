@@ -27,4 +27,7 @@ export const Check = styled(GoCheck)`
   bottom: 0;
   left: 0;
   margin: auto;
+  font-size: 24px;
+  text-align: center;
+  user-select: none;
 `;

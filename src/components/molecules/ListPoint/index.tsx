@@ -1,25 +1,16 @@
 import React from 'react';
 import * as S from './style';
-import useComposedDispatch from '~/hooks/useComposedDispatch';
-import { useSelector } from 'react-redux';
 import { OnlyID } from '~/types/only';
-import { mini } from '~/store/actions';
+import { useListShell } from '~/store/shells';
 
 const ListPoint = ({ id }: OnlyID) => {
-
-  const useList = useComposedDispatch()(mini.useList);
-  const selected = useSelector(
-    ({ mini }) => mini.usedList == id,
-  );
-  const name = useSelector(
-    ({ lists }) => lists.lists[id].name,
-  );
+  const list = useListShell(id);
 
   return (
-    <S.Wrapper selected={selected} onClick={() => useList(id)}>
-      {selected && <S.Line />}
+    <S.Wrapper $selected={list.isSelected} onClick={list.select}>
+      {list.isSelected && <S.Line />}
       <S.Arrow />
-      <S.Capital>{name}</S.Capital>
+      <S.Capital>{list.unshell.name}</S.Capital>
     </S.Wrapper>
   );
 };

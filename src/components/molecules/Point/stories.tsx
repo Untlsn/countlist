@@ -15,7 +15,7 @@ const useChangeFullPoint = (id: string, { type, max, count, name }: StorePoint) 
 
 
   composedDispatch(lists.changeType)({ id, type });
-  composedDispatch(lists.changeName)({ id, name });
+  composedDispatch(lists.rename)({ id, name });
   composedDispatch(lists.changeMax)({ id, max });
   composedDispatch(lists.changeCount)({ id, count });
 };
@@ -26,7 +26,7 @@ const Template: Story<StorePoint> = (point) => {
   const id = useSelector(({ lists }) => Object.keys(lists.points)[0]);
   const composedDispatch = useComposedDispatch();
 
-  composedDispatch(mini.usePoint)(id);
+  composedDispatch(mini.selectPoint)(id);
   useChangeFullPoint(id, point);
 
   return <Point id={id} />;

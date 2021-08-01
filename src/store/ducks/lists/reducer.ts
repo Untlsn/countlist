@@ -18,7 +18,7 @@ const reducer = createReducer(initState, builder => {
       state.lists[list].points[point.id] = point;
       state.pointsRefs[point.id] = list;
     })
-    .addCase(actions.changeName, (state, { payload }) => {
+    .addCase(actions.rename, (state, { payload }) => {
       const { name, id } = payload;
       const maybeList = state.pointsRefs[id];
 
@@ -29,7 +29,11 @@ const reducer = createReducer(initState, builder => {
       const maybeList = state.pointsRefs[payload];
 
       if (maybeList) delete state.lists[maybeList].points[payload];
-      else delete state.lists[payload];
+      else {
+        const points = Object.keys(state.lists[payload].points);
+        points.forEach(pointID => delete state.pointsRefs[pointID]);
+        delete state.lists[payload];
+      }
     })
     .addCase(actions.changePoint, (state, { payload }) => {
       const { id = '', name, max, count } = payload;

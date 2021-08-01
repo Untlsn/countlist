@@ -1,19 +1,20 @@
 import React from 'react';
 import * as S from './style';
 import { AddBar, Nav, Point } from '~/components/molecules';
-import { useRedux } from './hooks';
+import { useListShell } from '~/store/shells';
+import { useSelectedID } from '~/store/selectors';
 
 
 const MainPage = () => {
-  const { name, points, addPoint } = useRedux();
+  const list = useListShell(useSelectedID('list')!);
 
   return (
     <S.Wrapper>
-      <Nav name={name} dotMenu />
+      <Nav name={list.unshell.name} dotMenu />
       <S.PointWrapper>
-        {points.map(id => <Point key={id} id={id} />)}
+        {list.pointsIDs.map(id => <Point key={id} id={id} />)}
       </S.PointWrapper>
-      <AddBar onCommit={addPoint} />
+      <AddBar onCommit={list.addPoint} />
     </S.Wrapper>
   );
 };

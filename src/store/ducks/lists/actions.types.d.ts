@@ -14,7 +14,7 @@ interface ChangeName {
 interface ListsActions {
   addList: ActionCreatorWithPayload<string>
   addPoint: ActionCreatorWithPayload<AddPoint>
-  changeName: ActionCreatorWithPayload<ChangeName>
+  rename: ActionCreatorWithPayload<ChangeName>
   remove: ActionCreatorWithPayload<string>
   changePoint: ActionCreatorWithPayload<Partial<Point>>
 }

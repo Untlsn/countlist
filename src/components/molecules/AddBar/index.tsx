@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import type { AddBarProps } from './types';
+import { handleChange } from '~/helpers';
 
 const AddBar = ({ placeholder, onCommit, clear = false }: AddBarProps) => {
-  const [text, changeText] = useState('');
+  const [value, changeValue] = useState('');
 
   const submit = () => {
-    onCommit(text);
-    changeText('');
+    onCommit(value);
+    changeValue('');
   };
 
   return (
     <S.Wrapper clear={clear}>
       <S.Plus size={20} onClick={submit} $clear={clear} />
-      <S.Input clear={clear}
-        value={text}
-        onChange={({ target }) => changeText(target.value)}
-        placeholder={placeholder}
+      <S.Input
+        {...{ clear, value, placeholder }}
+        onChange={handleChange(changeValue)}
         onKeyDown={({ key }) => key == 'Enter' && submit()} />
     </S.Wrapper>
   );

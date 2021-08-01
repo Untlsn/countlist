@@ -3,14 +3,13 @@ import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/
 export interface MiniActions {
   switchOptions: ActionCreatorWithoutPayload
   changeOptions: ActionCreatorWithPayload<boolean>
-  changeUserName: ActionCreatorWithPayload<string>
-  usePoint: ActionCreatorWithPayload<string|undefined>
-  useList: ActionCreatorWithPayload<string>
+  selectPoint: ActionCreatorWithPayload<string>
+  selectList: ActionCreatorWithPayload<string>
+  clearSelectPoint: ActionCreatorWithoutPayload
 }
 
 export interface MiniState {
-  userName: string
   optionVisible: boolean
-  usedPoint?: string
-  usedList?: string
+  selectedPoint?: string
+  selectedList?: string
 }

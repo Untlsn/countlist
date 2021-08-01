@@ -8,7 +8,7 @@ const RenamePortal = ({ value, onChange, onClose }: RenamePortalProps) => {
   return (
     <Portal>
       <S.Wrapper>
-        <S.Input placeholder='List Name' value={value} onChange={handleChange(onChange)} />
+        <S.Input tabIndex={1} autoFocus={true} placeholder='List Name' value={value} onChange={handleChange(onChange)} />
         <S.CloseButton onClick={onClose} />
       </S.Wrapper>
     </Portal>

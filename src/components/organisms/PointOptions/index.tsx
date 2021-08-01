@@ -1,34 +1,32 @@
 import React from 'react';
 import * as S from './style';
 import { NumberInput } from '~/components/atoms';
-import { useNameInput, usePointData } from './hooks';
 import ConfirmationPortal from '~/components/molecules/ConfirmationPortal';
-import { useSelector } from 'react-redux';
 import useBoolState from '~/hooks/useBoolState';
+import { useSelectedID } from '~/store/selectors';
+import { usePointShell } from '~/store/shells';
+import { handleChange } from '~/helpers';
 
 const PointOptions = () => {
-  const usedPoint = useSelector(({ mini }) => mini.usedPoint)!;
-
-  const { max, count, id, change, remove, hide, name } = usePointData(usedPoint);
-  const inputProps = useNameInput(usedPoint, name);
+  const point = usePointShell(useSelectedID('point')!);
   const [confirmation, changeConfirmation] = useBoolState();
-  
+
   return (
     <>
-      <S.Shadow onClick={hide} />
+      <S.Shadow onClick={point.unselect} />
       <S.Wrapper>
         <S.Frame>
-          <S.Input {...inputProps} />
+          <S.Input value={point.unshell.name} onChange={handleChange(point.rename)}/>
         </S.Frame>
         <S.MFrame>
-          <NumberInput label='Max' value={max} onChange={max => change({ id, max })} />
-          <NumberInput label='Current' value={count} onChange={count => change({ id, count })} />
+          <NumberInput label='Max' value={point.unshell.max} onChange={max => point.change({ max })} />
+          <NumberInput label='Current' value={point.unshell.count} onChange={count => point.change({ count })} />
         </S.MFrame>
         <S.RFrame>
-          <S.Arrow onClick={hide} />
+          <S.Arrow onClick={point.unselect} />
           <S.Trash onClick={changeConfirmation} />
           {confirmation &&
-          <ConfirmationPortal name={inputProps.value} onYes={remove} onNo={changeConfirmation} />
+          <ConfirmationPortal name={point.unshell.name} onYes={point.remove} onNo={changeConfirmation} />
           }
         </S.RFrame>
       </S.Wrapper>

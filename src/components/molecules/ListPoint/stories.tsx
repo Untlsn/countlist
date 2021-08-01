@@ -18,8 +18,8 @@ const Template: Story<Props> = ({ name, selected }) => {
   const id = useSelector(({ lists }) => Object.keys(lists.lists)[0]);
 
   const composedDispatch = useComposedDispatch();
-  composedDispatch(lists.changeName)({ id, name });
-  composedDispatch(mini.useList)(selected ? id : '');
+  composedDispatch(lists.rename)({ id, name });
+  composedDispatch(mini.selectList)(selected ? id : '');
 
   return <ListPoint id={id} />;
 };

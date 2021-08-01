@@ -1,3 +1,4 @@
 export interface CountBoxProps {
-  fill: number
+  count: number
+  max: number
 }

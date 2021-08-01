@@ -12,10 +12,10 @@ const hidden = keyframes`
 export const Wrapper = styled.div<{ optionVisible: boolean }>`
   width: 270px;
   height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: ${({ theme }) => theme.colors.secondBackground};
-  padding: 15px;
   
   @media (max-width: 640px) {
     position: absolute;
