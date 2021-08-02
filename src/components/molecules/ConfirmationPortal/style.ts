@@ -12,7 +12,6 @@ export const Wrapper = styled(PortalWrapper)`
 `;
 
 export const TextWrap = styled.div`
-  margin-top: 7px;
   overflow-wrap: break-word;
   overflow: hidden;
   width: 300px;

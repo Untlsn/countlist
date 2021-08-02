@@ -30,10 +30,7 @@ const Point = ({ id }: OnlyID) => {
           ? <PointCircle checked={!!count}/>
           : <CountBox count={count} max={max}/>
         }
-        <S.BigText>{name.length >= 50
-          ? <>{name.slice(0, 50)}&hellip;</>
-          : name
-        }</S.BigText>
+        <S.BigText>{name}</S.BigText>
       </S.Flex>
       <S.EventWrapper
         onClick={point.isSelected ? point.unselect : point.select}>

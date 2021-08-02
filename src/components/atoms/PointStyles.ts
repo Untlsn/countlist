@@ -16,14 +16,18 @@ export const Wrapper = styled.div`
 
 export const Flex = styled.div`
   display: flex;
+  align-items: center;
   gap: 15px;
+  width: 75%;
 `;
 
 export const BigText = styled.div`
   font-size: ${({ theme }) => theme.fontSize.huge};
   color: ${({ theme }) => theme.colors.background};
   user-select: none;
-  width: 50%;
+  width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Ellipsis = styled(FaEllipsisV)`

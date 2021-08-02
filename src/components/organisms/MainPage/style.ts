@@ -29,7 +29,7 @@ export const PointWrapper = styled.div`
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  @media (orientation: landscape) {
+  @media (pointer: fine  ) {
     &::-webkit-scrollbar {
       width: 10px;
     }
