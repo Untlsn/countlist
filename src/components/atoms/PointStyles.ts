@@ -23,6 +23,7 @@ export const BigText = styled.div`
   font-size: ${({ theme }) => theme.fontSize.huge};
   color: ${({ theme }) => theme.colors.background};
   user-select: none;
+  width: 50%;
 `;
 
 export const Ellipsis = styled(FaEllipsisV)`

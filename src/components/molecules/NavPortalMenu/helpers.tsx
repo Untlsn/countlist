@@ -11,12 +11,10 @@ const texts = [
   'rename',
 ];
 
-type BoolFn = (bool: boolean) => void
-
-export const createPoints = (showConfirmationForce: BoolFn, showRenameForce: BoolFn) => {
+export const createPoints = (showConfirmation: () => void, showRename: () => void) => {
   const events = [
-    () => showConfirmationForce(true),
-    () => showRenameForce(true),
+    showConfirmation,
+    showRename,
   ];
 
   return texts.map(

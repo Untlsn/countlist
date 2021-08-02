@@ -32,6 +32,11 @@ export const Wrapper = styled.button`
       opacity: .3;
     }
   }
+
+  &:focus-within ul {
+    transform: translate(0) scale(1);
+    opacity: 1;
+  }
 `;
 
 export const Dots = styled(BsThreeDots)`
@@ -52,6 +57,10 @@ export const ShowMenu = styled.ul`
   background-color: #242424B2;
   color: white;
   font-size: 24px;
+
+  transform: translate(50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform .5s, opacity .5s;
 `;
 
 export const Icon = styled.span`

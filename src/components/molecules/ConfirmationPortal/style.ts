@@ -1,42 +1,41 @@
 import styled from 'styled-components';
+import PortalWrapper from '~/components/atoms/PortalWrapper';
 
-export const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  
-  height: 200px;
-  width: 300px;
-  border-radius: 10px;
-  background-color: #FCFCFC;
-  border: solid #0000004C 2px;
-  padding: 20px;
+export const Wrapper = styled(PortalWrapper)`
+  padding: 20px 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSize.huge};
 `;
 
-export const TextWrapper = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.huge};
-  text-align: center;
+export const TextWrap = styled.div`
+  margin-top: 7px;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  width: 300px;
+  max-height: 2.5em;
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
+  width: 300px;
 `;
 
-export const Button = styled.button<{ $color: string }>`
-  margin-top: 40px;
+export const Button = styled.button`
   outline: none;
-  border: none;
-  border-radius: 10px;
+  border: solid #00000025 2px;
+  color: white;
   font-size: ${({ theme }) => theme.fontSize.huge};
   width: 75px;
   height: 35px;
-  background-color: ${({ $color }) => $color};
   opacity: .9;
-  
+  background-color: #000000C4;
+  border-radius: 5px;
+
   &:hover {
     cursor: pointer;
     opacity: 1;

@@ -15,7 +15,11 @@ const Point = ({ id }: OnlyID) => {
     onClick: max == 1
       ? () => point.change({ count: count == 0 ? 1 : 0 })
       : () =>  point.change({ count: count + 1 }),
-    onContextMenu: max == 1 ? undefined : prevDef(() => point.change({ count: count - 1 })),
+    onContextMenu: prevDef(
+      max == 1
+        ? () => point.change({ count: count == 0 ? 1 : 0 })
+        : () => point.change({ count: count - 1 }),
+    ),
   };
 
 
@@ -26,7 +30,10 @@ const Point = ({ id }: OnlyID) => {
           ? <PointCircle checked={!!count}/>
           : <CountBox count={count} max={max}/>
         }
-        <S.BigText>{name}</S.BigText>
+        <S.BigText>{name.length >= 50
+          ? <>{name.slice(0, 50)}&hellip;</>
+          : name
+        }</S.BigText>
       </S.Flex>
       <S.EventWrapper
         onClick={point.isSelected ? point.unselect : point.select}>

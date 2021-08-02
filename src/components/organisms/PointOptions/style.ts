@@ -14,6 +14,8 @@ const move = keyframes`
 
 export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.secondBackground};
+  position: relative;
+  top: 0;
   display: grid;
   width: 270px;  
   grid-template-rows: 75px 1fr 50px;

@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   grid-template-rows: 75px auto 75px;
   padding: 15px;
   height: 100vh;
+  width: 100%;
   ${({ theme }) => {
     const [b1, b2] = theme.colors.gradient.background;
     return css`
@@ -26,4 +27,25 @@ export const PointWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @media (orientation: landscape) {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #9E9E9E4D;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #9e9e9e;
+      border-radius: 15px;
+
+      &:hover {
+        background: #cdcdcd;
+        border-left: 5px solid #cdcdcd;
+      }
+    }
+  }
 `;

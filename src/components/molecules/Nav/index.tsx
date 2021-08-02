@@ -10,18 +10,15 @@ const Nav = ({ name, dotMenu = false }: NavProps) => {
   const listExist = !!useSelectedID('list');
 
   return (
-    <>
-      <S.Wrapper>
-        <S.Layer>
-          <S.Hamburger size={25} onClick={options.switch} $dotMenu={dotMenu} />
-        </S.Layer>
-        <S.Layer>
-          <S.BigText dotMenu={dotMenu}>{name}</S.BigText>
-          {dotMenu && listExist && <NavPortalMenu />}
-        </S.Layer>
-      </S.Wrapper>
-
-    </>
+    <S.Wrapper>
+      <S.Layer>
+        <S.Hamburger size={25} onClick={options.switch} $dotMenu={dotMenu} />
+      </S.Layer>
+      <S.Layer>
+        <S.BigText dotMenu={dotMenu}>{name}</S.BigText>
+        {dotMenu && listExist && <NavPortalMenu />}
+      </S.Layer>
+    </S.Wrapper>
   );
 };
 

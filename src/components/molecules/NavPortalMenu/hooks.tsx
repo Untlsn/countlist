@@ -1,20 +1,15 @@
-import React from 'react';
-import useBoolState from '~/hooks/useBoolState';
+import React, { useState } from 'react';
 import { createPoints } from './helpers';
 
 export const useNavData = () => {
-  const [showConfirmation, changeShowConfirmation] = useBoolState();
-  const [showRename, changeShowRename] = useBoolState();
+  const [visibleMenu, setVisibleMenu] = useState<''|'confirm'|'rename'>('');
 
   return {
     createdPoints: createPoints(
-      changeShowConfirmation.force,
-      changeShowRename.force,
+      () => setVisibleMenu('confirm'),
+      () => setVisibleMenu('rename'),
     ),
-    portals: { showConfirmation, showRename },
-    closePortal: {
-      confirmation: () => changeShowConfirmation.force(false),
-      rename: () => changeShowRename.force(false),
-    },
+    visibleMenu,
+    clearVisibleMenu: () => setVisibleMenu(''),
   };
 };

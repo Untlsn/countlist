@@ -19,6 +19,8 @@ export const BigText = styled.div<{ dotMenu: boolean }>`
   text-transform: capitalize;
   color: ${({ dotMenu, theme }) => dotMenu ? '#fff' : theme.colors.text };
   letter-spacing: 1px;
+  height: 1.4em;
+  overflow: hidden;
 `;
 
 export const Hamburger = styled(FaBars)<{ $dotMenu: boolean }>`
